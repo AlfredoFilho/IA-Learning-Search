@@ -40,54 +40,46 @@ cat = (5, 5)
 gato = cat
 bloqueados = []
 saida = (10, 10)
-lista_aberta = []
 lista_fechada = []
 listaStructAbertas = []
 
 def andarEmVolta():
-    em_volta = []
+    lista_aberta = []
     #lista com as celulas inicias em volta do gato
     
     if((gato[0], gato[1] + 1) not in bloqueados and (gato[0], gato[1] + 1) in tabuleiro):
-        em_volta.append((gato[0], gato[1] + 1))
+        lista_aberta.append((gato[0], gato[1] + 1))
     
     if((gato[0], gato[1] + 1) not in bloqueados and (gato[0], gato[1] + 1) in tabuleiro):
-        em_volta.append((gato[0], gato[1] + 1))
+        lista_aberta.append((gato[0], gato[1] + 1))
         
     if((gato[0] + 1, gato[1] + 1) not in bloqueados and (gato[0] + 1, gato[1] + 1) in tabuleiro):
-        em_volta.append((gato[0], gato[1] + 1))
+        lista_aberta.append((gato[0], gato[1] + 1))
     
     if((gato[0] + 1, gato[1]) not in bloqueados and (gato[0] + 1, gato[1]) in tabuleiro):
-        em_volta.append((gato[0] + 1, gato[1]))
+        lista_aberta.append((gato[0] + 1, gato[1]))
         
     if((gato[0], gato[1] - 1) not in bloqueados and (gato[0], gato[1] - 1) in tabuleiro):
-        em_volta.append((gato[0], gato[1] - 1))
+        lista_aberta.append((gato[0], gato[1] - 1))
         
     if((gato[0] - 1, gato[1]) not in bloqueados and (gato[0] - 1, gato[1]) in tabuleiro):
-        em_volta.append((gato[0] - 1, gato[1]))
+        lista_aberta.append((gato[0] - 1, gato[1]))
          
     if((gato[0] - 1, gato[1] + 1) not in bloqueados and (gato[0] - 1, gato[1] + 1) in tabuleiro):
-        em_volta.append((gato[0] - 1, gato[1] + 1))
+        lista_aberta.append((gato[0] - 1, gato[1] + 1))
         
-    return em_volta
+    return lista_aberta
 
-#Verificar se as celulas iniciais em volta não são bloqueados e não estão fora do limite do tabuleiro para poder iniciar a lista aberta
-def verificaCelulasEmVolta(em_volta):
-    
-    for el in em_volta:
-        if el not in bloqueados and el in tabuleiro:
-            lista_aberta.append(el)
-
-def preencherStruct():
+def preencherStruct(lista_aberta):
     #preencher struct com posicao, distancia e o pai (que ainda é a posição do gato)
+    
     for coordenada in lista_aberta:
         distanciaComeco = FuncMenor.distance(gato, coordenada)
         distanciaAteFinal = FuncMenor.distance(coordenada, saida)
         total = distanciaComeco + distanciaAteFinal
         
         listaStructAbertas.append(celula(coordenada, total, distanciaComeco, distanciaAteFinal, coordenada))
-    
-    
+
 def ordenarCelulasPorDistancia():
     for i in range (0, len(listaStructAbertas)-1):
         for j in range (i, len(listaStructAbertas)-1):
@@ -96,36 +88,14 @@ def ordenarCelulasPorDistancia():
                 listaStructAbertas[j] = listaStructAbertas[j+1]
                 listaStructAbertas[j+1] = temp
 
-#def Astar():
-#    em_volta = andarEmVolta()
-#    verificaCelulasEmVolta(em_volta)
-#    preencherStruct()
-#    ordenarCelulasPorDistancia()
-#    
-#    if(listaStructAbertas[0].coordenada == saida):
-#        andar = listaStructAbertas[0].coordenada    
-#        return andar
-#    
-#    else:
-#        while (gato != saida):
-#            gato = listaStructAbertas[0].coordenada
-#            em_volta = andarEmVolta()
-#            verificaCelulasEmVolta(em_volta)
-#            preencherStruct()
-#            ordenarCelulasPorDistancia()
-#            
-#
-#    return andar
-#
-#andar = Astar()
-#
-#print(andar)
+def Astar():
+    
+    lista_aberta = andarEmVolta()
+    preencherStruct(lista_aberta)
+    ordenarCelulasPorDistancia()
         
-em_volta = andarEmVolta()
-verificaCelulasEmVolta(em_volta)
-preencherStruct()
-ordenarCelulasPorDistancia()
-        
+Astar()
+
 for el in listaStructAbertas:
     print("----------------")
     
