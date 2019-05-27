@@ -4,6 +4,7 @@
 Alfredo Albelis Batista Filho - https://github.com/AlfredoFilho
 Brenda Alexsandra Januario - https://github.com/brendajanuario
 Cleofas Peres Santos -  https://github.com/CleoPeres
+Leonardo Ferrari - https://github.com/LeonardoFerrari
 Pedro Bernini - https://github.com/PedroBernini
 Vinicius Abrantes - https://github.com/viniciusAbrantes
 
@@ -44,12 +45,28 @@ listaStructAbertas = []
 def andarEmVolta():
     em_volta = []
     #lista com as celulas inicias em volta do gato
-    em_volta = [((gato[0], gato[1] + 1)),
-               ((gato[0] + 1, gato[1] + 1)),
-               ((gato[0] + 1, gato[1])),
-               ((gato[0], gato[1] - 1)),
-               ((gato[0] - 1, gato[1])),
-               ((gato[0] - 1, gato[1] + 1))]
+    
+    if((gato[0], gato[1] + 1) not in bloqueados and (gato[0], gato[1] + 1) in tabuleiro):
+        em_volta.append((gato[0], gato[1] + 1))
+    
+    if((gato[0], gato[1] + 1) not in bloqueados and (gato[0], gato[1] + 1) in tabuleiro):
+        em_volta.append((gato[0], gato[1] + 1))
+        
+    if((gato[0] + 1, gato[1] + 1) not in bloqueados and (gato[0] + 1, gato[1] + 1) in tabuleiro):
+        em_volta.append((gato[0], gato[1] + 1))
+    
+    if((gato[0] + 1, gato[1]) not in bloqueados and (gato[0] + 1, gato[1]) in tabuleiro):
+        em_volta.append((gato[0] + 1, gato[1]))
+        
+    if((gato[0], gato[1] - 1) not in bloqueados and (gato[0], gato[1] - 1) in tabuleiro):
+        em_volta.append((gato[0], gato[1] - 1))
+        
+    if((gato[0] - 1, gato[1]) not in bloqueados and (gato[0] - 1, gato[1]) in tabuleiro):
+        em_volta.append((gato[0] - 1, gato[1]))
+         
+    if((gato[0] - 1, gato[1] + 1) not in bloqueados and (gato[0] - 1, gato[1] + 1) in tabuleiro):
+        em_volta.append((gato[0] - 1, gato[1] + 1))
+        
     return em_volta
 
 #Verificar se as celulas iniciais em volta não são bloqueados e não estão fora do limite do tabuleiro para poder iniciar a lista aberta
@@ -80,7 +97,7 @@ def Astar():
     preencherStruct()
     ordenarCelulasPorDistancia()
     
-    if(listaStructAbertas[0].coordenada == saida)
+    if(listaStructAbertas[0].coordenada == saida):
         andar = listaStructAbertas[0].coordenada    
         return andar
     
@@ -98,7 +115,12 @@ def Astar():
 andar = Astar()
 
 print(andar)
-      
+        
+em_volta = andarEmVolta()
+verificaCelulasEmVolta(em_volta)
+preencherStruct()
+ordenarCelulasPorDistancia()
+        
 for el in listaStructAbertas:
     print("----------------")
     
