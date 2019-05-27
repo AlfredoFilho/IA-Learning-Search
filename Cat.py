@@ -29,80 +29,132 @@ tabuleiro = [(0, 0),(0, 1),(0, 2),(0, 3),(0, 4),(0, 5),(0, 6),(0, 7),(0, 8),(0, 
     
 @dataclass
 class celula:
-    def __init__(self, coordenada, total, distanciaComeco, distanciaAteFinal, caminho = []):
+    def __init__(self, coordenada, total, distanciaComeco, distanciaAteFinal, caminho):
         self.coordenada = coordenada
         self.total = total
         self.distanciaComeco = distanciaComeco
         self.distanciaAteFinal = distanciaAteFinal
-        self.caminho = caminho
+        self.caminho = []
+        self.caminho.append(caminho)
 
-cat = (5, 5)
-gato = cat
+pai = (5, 5)
 bloqueados = []
-saida = (10, 10)
-lista_fechada = []
-listaStructAbertas = []
+saida = (7, 7)
+listaFechada = []
+listaAberta = []
 
-def andarEmVolta():
-    lista_aberta = []
-    #lista com as celulas inicias em volta do gato
+def andarEmVolta(pai):
+    expansao = []
+    listinha = []
+    #lista com as celulas inicias em volta do pai  
+    expansao = [(pai[0], pai[1] + 1),
+                (pai[0] + 1, pai[1] + 1),
+                (pai[0] + 1, pai[1]),
+                (pai[0], pai[1] - 1),
+                (pai[0] - 1, pai[1]),
+                (pai[0] - 1, pai[1] + 1)]
     
-    if((gato[0], gato[1] + 1) not in bloqueados and (gato[0], gato[1] + 1) in tabuleiro):
-        lista_aberta.append((gato[0], gato[1] + 1))
+    for coordenada in expansao:
+        if(coordenada not in bloqueados and coordenada in tabuleiro):
+            valido = True
+            for struct in listaFechada:
+                if (coordenada == struct.coordenada):
+                    valido = False
+                if (valido):
+                    for struct in listaAberta:
+                        if (coordenada == struct.coordenada):
+                            valido = False
+        if (valido):
+            listinha.append(coordenada)
+   
+    print(listinha)
+    return listinha
     
-    if((gato[0], gato[1] + 1) not in bloqueados and (gato[0], gato[1] + 1) in tabuleiro):
-        lista_aberta.append((gato[0], gato[1] + 1))
-        
-    if((gato[0] + 1, gato[1] + 1) not in bloqueados and (gato[0] + 1, gato[1] + 1) in tabuleiro):
-        lista_aberta.append((gato[0], gato[1] + 1))
+def preencherStruct(expansao, pai):
+    #preencher struct com posicao, distancia e o pai (que ainda é a posição do pai)
     
-    if((gato[0] + 1, gato[1]) not in bloqueados and (gato[0] + 1, gato[1]) in tabuleiro):
-        lista_aberta.append((gato[0] + 1, gato[1]))
-        
-    if((gato[0], gato[1] - 1) not in bloqueados and (gato[0], gato[1] - 1) in tabuleiro):
-        lista_aberta.append((gato[0], gato[1] - 1))
-        
-    if((gato[0] - 1, gato[1]) not in bloqueados and (gato[0] - 1, gato[1]) in tabuleiro):
-        lista_aberta.append((gato[0] - 1, gato[1]))
-         
-    if((gato[0] - 1, gato[1] + 1) not in bloqueados and (gato[0] - 1, gato[1] + 1) in tabuleiro):
-        lista_aberta.append((gato[0] - 1, gato[1] + 1))
-        
-    return lista_aberta
-
-def preencherStruct(lista_aberta):
-    #preencher struct com posicao, distancia e o pai (que ainda é a posição do gato)
-    
-    for coordenada in lista_aberta:
-        distanciaComeco = FuncMenor.distance(gato, coordenada)
+    for coordenada in expansao:
+        distanciaComeco = FuncMenor.distance(pai, coordenada)
         distanciaAteFinal = FuncMenor.distance(coordenada, saida)
         total = distanciaComeco + distanciaAteFinal
         
-        listaStructAbertas.append(celula(coordenada, total, distanciaComeco, distanciaAteFinal, coordenada))
+        listaAberta.append(celula(coordenada, total, distanciaComeco, distanciaAteFinal, pai))
 
 def ordenarCelulasPorDistancia():
-    for i in range (0, len(listaStructAbertas)-1):
-        for j in range (i, len(listaStructAbertas)-1):
-            if listaStructAbertas[j].distanciaAteFinal > listaStructAbertas[j+1].distanciaAteFinal:
-                temp =  listaStructAbertas[j]
-                listaStructAbertas[j] = listaStructAbertas[j+1]
-                listaStructAbertas[j+1] = temp
+    for i in range (0, len(listaAberta)-1):
+        for j in range (i, len(listaAberta)-1):
+            if listaAberta[j].total > listaAberta[j+1].total:
+                temp =  listaAberta[j]
+                listaAberta[j] = listaAberta[j+1]
+                listaAberta[j+1] = temp
 
-def Astar():
+def Astar(pai, saida):
     
-    lista_aberta = andarEmVolta()
-    preencherStruct(lista_aberta)
-    ordenarCelulasPorDistancia()
+    a = 0
+    
+    distanciaComeco = FuncMenor.distance(pai, saida)
+    distanciaAteFinal = FuncMenor.distance(pai, saida)
+    total = distanciaComeco + distanciaAteFinal
+    listaAberta.append(celula(pai, total, distanciaComeco, distanciaAteFinal, None))
+          
+    while(pai != saida):
+#        print("TAMO AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIII") 
+#        
+        a = a + 1
+#        
+#        if(a == 10):
+#            break
         
-Astar()
+        listinha = andarEmVolta(pai)
+        preencherStruct(listinha, pai)
+        ordenarCelulasPorDistancia()
+        
+        cont = 0
+        
+        for struct in listaAberta:
+            if (struct.coordenada == pai):
+                listaFechada.append(struct)
+                listaAberta.pop(cont)  
+                break
+            cont = cont + 1 
 
-for el in listaStructAbertas:
-    print("----------------")
-    
-    print("Coordenada:                ", el.coordenada)
-    print("Total (f):                 ", el.total)
-    print("Distancia do comeco (g):   ", el.distanciaComeco)
-    print("Distancia ate o final (h): ", el.distanciaAteFinal)
-    print("Caminho:                   ", el.caminho)
-    print("----------------")
-    print("\n")
+        pai = listaAberta[0].coordenada   
+        print("Pai: ",pai)
+        print("\n")
+        
+        for struct in listaAberta:
+            print("Abertos: ", struct.coordenada)
+            print("Coordenada:                 ", struct.coordenada)
+            print("Total                 (f):   ", struct.total)
+            print("Distancia do comeco   (g):   ", struct.distanciaComeco)
+            print("Distancia ate o final (h):   ", struct.distanciaAteFinal)
+            print("Caminho:                    ", struct.caminho)
+            print("\n")
+
+        for struct in listaFechada:
+            print("Fechados: ", struct.coordenada)
+            print("\n")
+
+    for struct in listaAberta:
+        if(pai == struct.coordenada):
+            print("Caminho: ", struct.caminho)
+            print("\n")
+
+    print("Quantidade:", a)
+        
+Astar(pai, saida)
+
+#expansao = andarEmVolta()
+#preencherStruct(expansao)
+#ordenarCelulasPorDistancia()
+#
+#for el in listaAberta:
+#    print("----------------")
+#    
+#    print("Coordenada:                 ", el.coordenada)
+#    print("Total                 (f):   ", el.total)
+#    print("Distancia do comeco   (g):   ", el.distanciaComeco)
+#    print("Distancia ate o final (h):   ", el.distanciaAteFinal)
+#    print("Caminho:                    ", el.caminho)
+#    print("----------------")
+#    print("\n")
