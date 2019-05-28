@@ -1,4 +1,4 @@
-def distance(pai, saida) :
+def funcaoH(pai, saida) :
     diference = saida[1] - pai [1] # Diferenca de colunas
     if(pai[0] == saida[0]) :
         return abs(diference)
@@ -134,3 +134,16 @@ def distance(pai, saida) :
                 return 10
             else :
                 return abs(diference) + 5
+
+def funcaoG(inicio, atual, listaFechada) :
+    G = 0
+    aux = True
+    lista = []
+    while aux:
+        for struct in listaFechada:
+            if struct.coordenada == atual:
+                atual = struct.caminho
+                G = G + 1
+                if volta == inicio:
+                    aux = False
+    return G
