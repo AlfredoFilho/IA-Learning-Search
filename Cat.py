@@ -2,8 +2,8 @@
 *******************Developed by********************************
     
 Alfredo Albélis Batista Filho - https://github.com/AlfredoFilho
-Brenda Alexsandra Januario - https://github.com/brendajanuario
-Cleofas Peres Santos -  https://github.com/CleoPeres
+Brenda Alexsandra Januário - https://github.com/brendajanuario
+Cléofas Peres Santos -  https://github.com/CleoPeres
 Leonardo Ferrari - https://github.com/LeonardoFerrari
 Pedro Bernini - https://github.com/PedroBernini
 Vinicius Abrantes - https://github.com/viniciusAbrantes
@@ -15,6 +15,96 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 from dataclasses import dataclass
 import FuncMenor
 from PIL import Image, ImageDraw
+
+def compute_image_exp(expandidos, cat, blocks, exits) :
+    im = Image.open("gameboard.png").convert("RGBA")
+    draw = ImageDraw.Draw(im)                
+    
+    for el in expandidos :
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.ellipse([init_x, init_y, end_x, end_y],
+                     fill = "orange"
+        )
+    
+    for el in exits :
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.ellipse([init_x, init_y, end_x, end_y],
+                     fill = "blue"
+        )
+
+    for el in blocks :
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.line([init_x+10, init_y+10, end_x-10, end_y-10],
+                  fill = "red", width=6)
+        draw.line([init_x+10,end_y-10, end_x-10, init_y+10],
+                  fill = "red", width=6)
+
+    for el in [cat] :
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.ellipse([init_x, init_y, end_x, end_y],
+                     fill = "black"
+        )
+        
+        
+        
+    del draw
+    return im
+
+def compute_image(cat, blocks, exits) :
+    im = Image.open("gameboard.png").convert("RGBA")
+    draw = ImageDraw.Draw(im)                
+        
+    for el in exits :
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.ellipse([init_x, init_y, end_x, end_y],
+                     fill = "blue"
+        )
+
+    for el in blocks :
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.line([init_x+10, init_y+10, end_x-10, end_y-10],
+                  fill = "red", width=6)
+        draw.line([init_x+10,end_y-10, end_x-10, init_y+10],
+                  fill = "red", width=6)
+
+    for el in [cat] :
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.ellipse([init_x, init_y, end_x, end_y],
+                     fill = "black"
+        )
+        
+        
+        
+    del draw
+    return im
 
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
              (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
@@ -46,9 +136,9 @@ class celula:
 #
 #saida = exits[0]
 
-cat = (0, 10)
+cat = (5, 5)
 atual = cat
-bloqueados = [(9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9), (9, 10)]
+bloqueados = [(9, 9)]
 saida = (10, 10)
 
 exits = [saida]
@@ -123,6 +213,7 @@ def ordenarCelulasPorDistancia(listaAberta):
     return listaAberta
 
 def astar(atual, cat, saida):
+    images = []
     listaFechada = []
     listaAberta = []
 
@@ -204,58 +295,20 @@ def astar(atual, cat, saida):
     print("Bloqueios", bloqueados)
     print("\n")
     print("Quantidade:", a)
+    print(b)
+    lista = []
     
-    return b
+    for c in listaFechada:
+        lista.append(c.coordenada)
+        images.append(compute_image_exp(lista, cat, bloqueados, exits))
     
-
-
-d = astar(atual, cat, saida)
-print(d)
-
-def compute_image(cat, blocks, exits) :
-    im = Image.open("gameboard.png").convert("RGBA")
-    draw = ImageDraw.Draw(im)                
-
-    for el in exits :
-        shift = el[0] % 2 * 25
-        init_x = shift + el[1]*50 + el[1]*5
-        end_x  = shift + (el[1]+1)*50 + el[1]*5
-        init_y = el[0]*49
-        end_y  = (el[0]+1)*49
-        draw.ellipse([init_x, init_y, end_x, end_y],
-                     fill = "blue"
-        )
-
-    for el in blocks :
-        shift = el[0] % 2 * 25
-        init_x = shift + el[1]*50 + el[1]*5
-        end_x  = shift + (el[1]+1)*50 + el[1]*5
-        init_y = el[0]*49
-        end_y  = (el[0]+1)*49
-        draw.line([init_x+10, init_y+10, end_x-10, end_y-10],
-                  fill = "red", width=6)
-        draw.line([init_x+10,end_y-10, end_x-10, init_y+10],
-                  fill = "red", width=6)
-
-    for el in [cat] :
-        shift = el[0] % 2 * 25
-        init_x = shift + el[1]*50 + el[1]*5
-        end_x  = shift + (el[1]+1)*50 + el[1]*5
-        init_y = el[0]*49
-        end_y  = (el[0]+1)*49
-        draw.ellipse([init_x, init_y, end_x, end_y],
-                     fill = "black"
-        )
-    del draw
-    return im
-
-images = []
-
-for el in d:
-    images.append(compute_image(el, bloqueados, exits))
-
-images[0].save('game.gif',
-                   save_all=True,
-                   append_images=images[1:],
-                   duration=400,
-                   loop=0)
+    #for el in lista:
+     #   images.append(compute_image(el, bloqueados, exits))
+    
+    images[0].save('game.gif',
+                       save_all=True,
+                       append_images=images[1:],
+                       duration=400,
+                       loop=0)
+    
+astar(atual, cat, saida)
