@@ -1,4 +1,4 @@
-def funcaoH(gato, saida) :
+def H(gato, saida) :
     diference = saida[1] - gato [1] # Diferenca de colunas
     if(gato[0] == saida[0]) :
         return abs(diference)
@@ -135,7 +135,7 @@ def funcaoH(gato, saida) :
             else :
                 return abs(diference) + 5
 
-def funcaoG(inicio, atual, listaFechada, listaAberta) :
+def G(inicio, atual, listaFechada, listaAberta) :
     G = 0
     aux = True
     if atual == inicio:
