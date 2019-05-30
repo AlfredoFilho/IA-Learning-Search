@@ -11,10 +11,21 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 **************************************************************** 
 '''
 
-# import sys
 from dataclasses import dataclass
 import Calcular
 import GifMaker
+import os
+
+#import sys
+#cat         = tuple(eval(sys.argv[1]))
+#bloqueados  = eval(sys.argv[2])
+#saida       = eval(sys.argv[3])
+
+cat = (5, 5)
+bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
+saida = (10, 10)
+
+catTemporario = cat #----------> Gato que irá "andar" até encontrar a saida
 
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
              (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
@@ -28,7 +39,7 @@ tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0,
              (9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9), (9, 10),
              (10, 0), (10, 1), (10, 2), (10, 3), (10, 4), (10, 5), (10, 6), (10, 7), (10, 8), (10, 9), (10, 10)]
 
-
+#Struct
 @dataclass
 class celula:
     def __init__(self, coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
@@ -38,43 +49,30 @@ class celula:
         self.distanciaAteFinal_H = distanciaAteFinal_H
         self.pai = pai
 
-#import sys
-#cat         = tuple(eval(sys.argv[1]))
-#bloqueados  = eval(sys.argv[2])
-#exits       = eval(sys.argv[3])
-#atual = cat
-#
-#saida = exits[0]
-
-cat = (5, 5)
-atual = cat
-bloqueados = [(9, 9)]
-saida = (10, 10)
-
-exits = [saida]
-
-
-def expandirEmVolta(atual, listaAberta, listaFechada):
+def expandirEmVolta(catTemporario, listaAberta, listaFechada):
+    # lista com as celulas inicias em volta do pai
     listaExpansaoSuja = []
+    
+    #Lista expansao limpa (sem bloqueados e dentro do tabuleiro)
     listaExpansao = []
     
-    # lista com as celulas inicias em volta do pai
-    if atual[0] % 2 != 0:
-
-        listaExpansaoSuja = [(atual[0], atual[1] + 1),
-                             (atual[0] + 1, atual[1] + 1),
-                             (atual[0] + 1, atual[1]),
-                             (atual[0], atual[1] - 1),
-                             (atual[0] - 1, atual[1]),
-                             (atual[0] - 1, atual[1] + 1)]
+    if catTemporario[0] % 2 != 0: #Se a linha do gato for par
+        listaExpansaoSuja = [(catTemporario[0], catTemporario[1] + 1),      #
+                             (catTemporario[0] + 1, catTemporario[1] + 1),  #
+                             (catTemporario[0] + 1, catTemporario[1]),      #
+                             (catTemporario[0], catTemporario[1] - 1),      #
+                             (catTemporario[0] - 1, catTemporario[1]),      #
+                             (catTemporario[0] - 1, catTemporario[1] + 1)]  #
     else:
-        listaExpansaoSuja = [(atual[0], atual[1] + 1),
-                             (atual[0] + 1, atual[1]),
-                             (atual[0] + 1, atual[1] - 1),
-                             (atual[0], atual[1] - 1),
-                             (atual[0] - 1, atual[1] - 1),
-                             (atual[0] - 1, atual[1])]
-
+        listaExpansaoSuja = [(catTemporario[0], catTemporario[1] + 1),      #
+                             (catTemporario[0] + 1, catTemporario[1]),      #
+                             (catTemporario[0] + 1, catTemporario[1] - 1),  #
+                             (catTemporario[0], catTemporario[1] - 1),      #
+                             (catTemporario[0] - 1, catTemporario[1] - 1),  #
+                             (catTemporario[0] - 1, catTemporario[1])]      #
+    
+    
+    #Retirar da lista suja bloqueados e fora do tabuleiro
     for coord in listaExpansaoSuja:
         valido = True
         if coord not in bloqueados and coord in tabuleiro:
@@ -82,24 +80,23 @@ def expandirEmVolta(atual, listaAberta, listaFechada):
                 if coord == struc.coordenada:
                     valido = False
             if valido == True:
-                for classe in listaAberta:
-                    if coord == classe.coordenada:
+                for struct in listaAberta:
+                    if coord == struct.coordenada:
                         valido = False
             if valido == True:
                 listaExpansao.append(coord)
-
+    
     return listaExpansao
 
 
-def preencherclasse(listaExpansao, cat, atual, listaAberta, listaFechada):
-    # preencher classe com posicao, distancia e o pai (que ainda é a posição do pai)
+def preencherStruct(listaExpansao, cat, catTemporario, listaAberta, listaFechada):
 
     for coordenada in listaExpansao:
-        distanciaComeco_G = Calcular.G(cat, atual, listaFechada, listaAberta) + 1
+        distanciaComeco_G = Calcular.G(cat, catTemporario, listaFechada, listaAberta) + 1
         distanciaAteFinal_H = Calcular.H(coordenada, saida)
         total_F = distanciaComeco_G + distanciaAteFinal_H
 
-        listaAberta.append(celula(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, atual))
+        listaAberta.append(celula(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, catTemporario))
     
     return listaAberta
 
@@ -116,77 +113,98 @@ def ordenarCelulasPorDistancia(listaAberta):
                 ordenado = False
     return listaAberta
 
-def astar(atual, cat, saida):
+def aStar(catTemporario, cat, saida):
     images = []
-    listaFechada = []
-    listaAberta = []
+    
+    #Fazer imagem inicial do gif - cat, bloqueios e saida
+    images.append(GifMaker.compute_image_inicio(cat, bloqueados, saida, images))
+    
+    listaFechada = [] #lista visitados
+    listaAberta = []  #lista não visitados
+    
+    contadorEscolhasPai = 0
 
-    a = 0
-
+    #estrutura para a coordenada inicial
     distanciaComeco_G = 0
-    distanciaAteFinal_H = Calcular.H(atual, saida)
+    distanciaAteFinal_H = Calcular.H(catTemporario, saida)
     total_F = distanciaComeco_G + distanciaAteFinal_H
-    listaAberta.append(celula(atual, total_F, distanciaComeco_G, distanciaAteFinal_H, None))
+    listaAberta.append(celula(catTemporario, total_F, distanciaComeco_G, distanciaAteFinal_H, None))
 
-    while atual != saida:
+#-----------------------------------------------------------------------
+    while catTemporario != saida:
 
-        a = a + 1
+        contadorEscolhasPai = contadorEscolhasPai + 1
 
-        listaExpansao = expandirEmVolta(atual, listaAberta, listaFechada)
-        listaAberta = preencherclasse(listaExpansao, cat, atual, listaAberta, listaFechada)
+        listaExpansao = expandirEmVolta(catTemporario, listaAberta, listaFechada)
+        listaAberta = preencherStruct(listaExpansao, cat, catTemporario, listaAberta, listaFechada)
         listaAberta = ordenarCelulasPorDistancia(listaAberta)
-
+        
+        #encontrar na lista aberta coordenada expandida e colocar na lista fechada
         cont = 0
-
-        for classe in listaAberta:
-            if classe.coordenada == atual:
-                listaFechada.append(classe)
+        for struct in listaAberta:
+            if struct.coordenada == catTemporario:
+                listaFechada.append(struct)
                 listaAberta.pop(cont)
                 break
             cont = cont + 1
 
-        atual = listaAberta[0].coordenada
-
-    aux = True
+        #fazer gif expansao
+        images.append(GifMaker.compute_image(cat, catTemporario, listaExpansao, bloqueados, saida, images))
+        
+        catTemporario = listaAberta[0].coordenada
+ #-----------------------------------------------------------------------       
 
     listaComMelhorCaminho = []
-
-    listaComMelhorCaminho.append(atual)
-
-    for classe in listaAberta:
-        if atual == classe.coordenada:
-            atual = classe.pai
-            listaComMelhorCaminho.append(atual)
-
+    listaComMelhorCaminho.append(catTemporario)
+    
+    #Encontra coordenada que gerou a expansao para a saida
+    for struct in listaAberta:
+        if catTemporario == struct.coordenada:
+            catTemporario = struct.pai
+            listaComMelhorCaminho.append(catTemporario)
+    
+    #Fazer caminho inverso pela lista fechada até a coordenada inicial(cat)
+    aux = True
     while aux:
-        for classe in listaFechada:
-            if classe.coordenada == atual:
-                atual = classe.pai
-                listaComMelhorCaminho.append(atual)
-                if atual == cat:
+        for struct in listaFechada:
+            if struct.coordenada == catTemporario:
+                catTemporario = struct.pai
+                listaComMelhorCaminho.append(catTemporario)
+                if catTemporario == cat:
                     aux = False
-
+    
+    #Fazer parte do gif que volta da saida até o inicio
+    for coordenada in listaComMelhorCaminho:
+        if coordenada == cat or coordenada == saida:
+            continue
+        else:
+            images.append(GifMaker.compute_image_rollback(coordenada, images))
+    
+    #inverter a lista
     listaComMelhorCaminho.reverse()
 
+    #Fazer parte do gif que anda até o fim
+    for coordenada in listaComMelhorCaminho:
+        if coordenada == cat:
+            continue
+        else:
+            images.append(GifMaker.compute_image_walk(coordenada, images))
+    
+    #salvar gif
+    images[0].save('game.gif',
+                       save_all=True,
+                       append_images=images[1:],
+                       duration=1000,
+                       loop=0)
+    print("Gif Gerado")
+    print("\n")
     print("Inicio", cat)
     print("\n")
     print("Bloqueios", bloqueados)
     print("\n")
-    print("Quantidade de escolhas:", a)
-    print(listaComMelhorCaminho)
-    lista = []
+    print("Quantidade de escolhas:", contadorEscolhasPai)
+    print("\n")
+    print("Lista melhor caminho: ", listaComMelhorCaminho)
     
-    for c in listaFechada:
-        lista.append(c.coordenada)
-        images.append(GifMaker.compute_image_exp(lista, cat, bloqueados, exits))
-    
-    for el in listaComMelhorCaminho:
-        images.append(GifMaker.compute_image(el, bloqueados, exits))
-    
-    images[0].save('game.gif',
-                       save_all=True,
-                       append_images=images[1:],
-                       duration=400,
-                       loop=0)
-    
-astar(atual, cat, saida)
+    os.remove("ImagemTemp.png") 
+aStar(catTemporario, cat, saida)
