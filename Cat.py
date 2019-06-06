@@ -21,9 +21,17 @@ import os
 #bloqueados  = eval(sys.argv[2])
 #saida       = eval(sys.argv[3])
 
+#cat = input("Posição inicial: ")
+#cat = tuple(int(x.strip()) for x in cat.split(','))
+
 cat = (5, 5)
-bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 saida = (10, 10)
+
+bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
+
+
+#saida = input("Saida: ")
+#saida = tuple(int(x.strip()) for x in saida.split(','))
 
 catTemporario = cat #----------> Gato que irá "andar" até encontrar a saida
 
@@ -49,7 +57,10 @@ class celula:
         self.distanciaAteFinal_H = distanciaAteFinal_H
         self.pai = pai
 
-def expandirEmVolta(catTemporario, listaAberta, listaFechada):
+dark_green = "#4a8e52"
+light_green = "#61b76b"
+
+def expandirEmVolta(cat, catTemporario, listaAberta, listaFechada, images, bloqueados, saida):
     # lista com as celulas inicias em volta do pai
     listaExpansaoSuja = []
     
@@ -84,6 +95,8 @@ def expandirEmVolta(catTemporario, listaAberta, listaFechada):
                     if coord == struct.coordenada:
                         valido = False
             if valido == True:
+                if(coord != saida):
+                    images.append(GifMaker.fill_dot(coord, "gray", images))
                 listaExpansao.append(coord)
     
     return listaExpansao
@@ -97,7 +110,7 @@ def preencherStruct(listaExpansao, cat, catTemporario, listaAberta, listaFechada
         total_F = distanciaComeco_G + distanciaAteFinal_H
 
         listaAberta.append(celula(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, catTemporario))
-    
+        
     return listaAberta
 
 
@@ -117,7 +130,7 @@ def aStar(catTemporario, cat, saida):
     images = []
     
     #Fazer imagem inicial do gif - cat, bloqueios e saida
-    images.append(GifMaker.compute_image_inicio(cat, bloqueados, saida, images))
+    images.append(GifMaker.compute_initial_image(cat, bloqueados, saida, images))
     
     listaFechada = [] #lista visitados
     listaAberta = []  #lista não visitados
@@ -135,7 +148,7 @@ def aStar(catTemporario, cat, saida):
 
         contadorEscolhasPai = contadorEscolhasPai + 1
 
-        listaExpansao = expandirEmVolta(catTemporario, listaAberta, listaFechada)
+        listaExpansao = expandirEmVolta(cat, catTemporario, listaAberta, listaFechada, images, bloqueados, saida)
         listaAberta = preencherStruct(listaExpansao, cat, catTemporario, listaAberta, listaFechada)
         listaAberta = ordenarCelulasPorDistancia(listaAberta)
         
@@ -148,12 +161,13 @@ def aStar(catTemporario, cat, saida):
                 break
             cont = cont + 1
 
-        #fazer gif expansao
-        images.append(GifMaker.compute_image(cat, catTemporario, listaExpansao, bloqueados, saida, images))
-        
         catTemporario = listaAberta[0].coordenada
- #-----------------------------------------------------------------------       
-
+        
+        if(catTemporario != saida):
+            images.append(GifMaker.fill_dot(catTemporario, "black" , images))
+        else:
+            images.append(GifMaker.fill_dot(catTemporario, light_green, images))
+ #-----------------------------------------------------------------------
     listaComMelhorCaminho = []
     listaComMelhorCaminho.append(catTemporario)
     
@@ -178,7 +192,7 @@ def aStar(catTemporario, cat, saida):
         if coordenada == cat or coordenada == saida:
             continue
         else:
-            images.append(GifMaker.compute_image_rollback(coordenada, images))
+            images.append(GifMaker.fill_dot(coordenada, light_green, images))
     
     #inverter a lista
     listaComMelhorCaminho.reverse()
@@ -188,13 +202,13 @@ def aStar(catTemporario, cat, saida):
         if coordenada == cat:
             continue
         else:
-            images.append(GifMaker.compute_image_walk(coordenada, images))
+            images.append(GifMaker.fill_dot(coordenada, dark_green, images))
     
     #salvar gif
     images[0].save('game.gif',
                        save_all=True,
                        append_images=images[1:],
-                       duration=1000,
+                       duration=200,
                        loop=0)
     print("Gif Gerado")
     print("\n")
