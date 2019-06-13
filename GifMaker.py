@@ -43,7 +43,7 @@ def compute_initial_image(cat, bloqueados, saida, images) :
         init_y = el[0]*49
         end_y  = (el[0]+1)*49
         draw.ellipse([init_x, init_y, end_x, end_y],
-                     fill = "#456fb2"
+                     fill = "#61b76b"
         )
         
     for el in bloqueados :
@@ -64,7 +64,7 @@ def compute_initial_image(cat, bloqueados, saida, images) :
         init_y = el[0]*49
         end_y  = (el[0]+1)*49
         draw.ellipse([init_x, init_y, end_x, end_y],
-                     fill = "#4a8e52"
+                     fill = "#61b76b"
         )
     
     im.save("ImagemTemp.png")
