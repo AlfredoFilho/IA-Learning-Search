@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 *******************Developed by********************************
     
@@ -18,6 +19,7 @@ import os
 
 estadoInicial = (5, 5)
 estadoFinal = (10, 10)
+estadoEscolhido = estadoInicial
 
 bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
