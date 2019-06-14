@@ -34,8 +34,8 @@ light_green = "#61b76b"
 
 @dataclass
 class no:
-    def __init__(self, coordenadaenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
-        self.coordenadaenada = coordenadaenada
+    def __init__(self, coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
+        self.coordenada = coordenada
         self.total_F = total_F
         self.distanciaComeco_G = distanciaComeco_G
         self.distanciaAteFinal_H = distanciaAteFinal_H
@@ -75,11 +75,11 @@ def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, i
         valido = True
         if coordenada not in bloqueados and coordenada in tabuleiro:
             for struc in listaFechada:
-                if coordenada == struc.coordenadaenada:
+                if coordenada == struc.coordenada:
                     valido = False
             if valido == True:
                 for struct in listaAberta:
-                    if coordenada == struct.coordenadaenada:
+                    if coordenada == struct.coordenada:
                         valido = False
             if valido == True:
                 if(coordenada != estadoFinal):
@@ -91,12 +91,12 @@ def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, i
 
 def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada):
 
-    for coordenadaenada in listaExpansao:
+    for coordenada in listaExpansao:
         distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
-        distanciaAteFinal_H = Calcular.H(coordenadaenada, estadoFinal)
+        distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
         total_F = distanciaComeco_G + distanciaAteFinal_H
 
-        listaAberta.append(no(coordenadaenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
+        listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
         
     return listaAberta
 
@@ -125,7 +125,7 @@ def aStar(estadoInicial, estadoFinal):
     
     contadorEscolhasPai = 0
 
-    #estrutura para a coordenadaenada inicial
+    #estrutura para a coordenada inicial
     distanciaComeco_G = 0
     distanciaAteFinal_H = Calcular.H(estadoEscolhido, estadoFinal)
     total_F = distanciaComeco_G + distanciaAteFinal_H
@@ -140,16 +140,16 @@ def aStar(estadoInicial, estadoFinal):
         listaAberta = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada)
         listaAberta = ordenarNoPorHeuristica(listaAberta)
         
-        #encontrar na lista aberta coordenadaenada expandida e colocar na lista fechada
+        #encontrar na lista aberta coordenada expandida e colocar na lista fechada
         cont = 0
         for struct in listaAberta:
-            if struct.coordenadaenada == estadoEscolhido:
+            if struct.coordenada == estadoEscolhido:
                 listaFechada.append(struct)
                 listaAberta.pop(cont)
                 break
             cont = cont + 1
 
-        estadoEscolhido = listaAberta[0].coordenadaenada
+        estadoEscolhido = listaAberta[0].coordenada
         
         images.append(GifMaker.fill_dot(estadoEscolhido, "black" , images))
 #-----------------------------------------------------------------------
@@ -157,7 +157,7 @@ def aStar(estadoInicial, estadoFinal):
     #Adicionar estadoFinal na lista fechada
     cont = 0
     for struct in listaAberta:
-        if struct.coordenadaenada == estadoFinal:
+        if struct.coordenada == estadoFinal:
             listaFechada.append(struct)
             listaAberta.pop(cont)
             break
@@ -166,26 +166,26 @@ def aStar(estadoInicial, estadoFinal):
     listaComMelhorCaminho = []
     listaComMelhorCaminho.append(estadoFinal)
     
-    #Fazer caminho inverso pela lista fechada até a coordenadaenada inicial(cat)
+    #Fazer caminho inverso pela lista fechada até a coordenada inicial(cat)
     aux = True
     while aux:
         for struct in listaFechada:
-            if struct.coordenadaenada == estadoEscolhido:
+            if struct.coordenada == estadoEscolhido:
                 estadoEscolhido = struct.pai
                 listaComMelhorCaminho.append(estadoEscolhido)
                 if estadoEscolhido == estadoInicial:
                     aux = False
     
     #Fazer parte do gif que volta da estadoFinal até o inicio
-    for coordenadaenada in listaComMelhorCaminho:
-        images.append(GifMaker.fill_dot(coordenadaenada, dark_green, images))
+    for coordenada in listaComMelhorCaminho:
+        images.append(GifMaker.fill_dot(coordenada, dark_green, images))
     
     #inverter a lista
     listaComMelhorCaminho.reverse()
 
     #Fazer parte do gif que anda até o fim
-    for coordenadaenada in listaComMelhorCaminho:
-        images.append(GifMaker.fill_dot(coordenadaenada, light_green, images))
+    for coordenada in listaComMelhorCaminho:
+        images.append(GifMaker.fill_dot(coordenada, light_green, images))
     
     #salvar gif
     images[0].save('aStar.gif',

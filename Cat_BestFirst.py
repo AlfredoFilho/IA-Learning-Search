@@ -42,7 +42,7 @@ estadoInicial = (5, 5)
 
 estadoFinal = (10, 10)
 
-bloqueados = [(9, 7), (9, 8), (9, 9), (10, 8)]
+bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
 
 def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images):
