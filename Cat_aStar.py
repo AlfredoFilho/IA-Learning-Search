@@ -17,12 +17,6 @@ import Calcular
 import GifMaker
 import os
 
-estadoInicial = (5, 5)
-estadoFinal = (10, 10)
-estadoEscolhido = estadoInicial
-
-bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
-
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
              (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
              (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
@@ -35,21 +29,26 @@ tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0,
              (9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9), (9, 10),
              (10,0), (10,1), (10,2), (10,3), (10,4), (10,5), (10,6), (10,7), (10,8), (10,9), (10,10)]
 
-#Struct
+dark_green = "#4a8e52"
+light_green = "#61b76b"
+
 @dataclass
-class celula:
-    def __init__(self, coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
-        self.coordenada = coordenada
+class no:
+    def __init__(self, coordenadaenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
+        self.coordenadaenada = coordenadaenada
         self.total_F = total_F
         self.distanciaComeco_G = distanciaComeco_G
         self.distanciaAteFinal_H = distanciaAteFinal_H
         self.pai = pai
 
-dark_green = "#4a8e52"
-light_green = "#61b76b"
+estadoInicial = (5, 5)
+
+estadoFinal = (10, 10)
+
+bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
 def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
-    # lista com as celulas inicias em volta do pai
+    # lista com as nos inicias em volta do pai
     listaExpansaoSuja = []
     
     #Lista expansao limpa (sem bloqueados e dentro do tabuleiro)
@@ -72,37 +71,37 @@ def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, i
     
     
     #Retirar da lista suja bloqueados e fora do tabuleiro
-    for coord in listaExpansaoSuja:
+    for coordenada in listaExpansaoSuja:
         valido = True
-        if coord not in bloqueados and coord in tabuleiro:
+        if coordenada not in bloqueados and coordenada in tabuleiro:
             for struc in listaFechada:
-                if coord == struc.coordenada:
+                if coordenada == struc.coordenadaenada:
                     valido = False
             if valido == True:
                 for struct in listaAberta:
-                    if coord == struct.coordenada:
+                    if coordenada == struct.coordenadaenada:
                         valido = False
             if valido == True:
-                if(coord != estadoFinal):
-                    images.append(GifMaker.fill_dot(coord, "gray", images))
-                listaExpansao.append(coord)
+                if(coordenada != estadoFinal):
+                    images.append(GifMaker.fill_dot(coordenada, "gray", images))
+                listaExpansao.append(coordenada)
     
     return listaExpansao
 
 
-def preencherStruct(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada):
+def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada):
 
-    for coordenada in listaExpansao:
+    for coordenadaenada in listaExpansao:
         distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
-        distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
+        distanciaAteFinal_H = Calcular.H(coordenadaenada, estadoFinal)
         total_F = distanciaComeco_G + distanciaAteFinal_H
 
-        listaAberta.append(celula(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
+        listaAberta.append(no(coordenadaenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
         
     return listaAberta
 
 
-def ordenarCelulasPorDistancia(listaAberta):
+def ordenarNoPorHeuristica(listaAberta):
 
     elementos = len(listaAberta) - 1
     ordenado = False
@@ -114,7 +113,8 @@ def ordenarCelulasPorDistancia(listaAberta):
                 ordenado = False
     return listaAberta
 
-def aStar(estadoEscolhido, estadoInicial, estadoFinal):
+def aStar(estadoInicial, estadoFinal):
+    estadoEscolhido = estadoInicial
     images = []
     
     #Fazer imagem inicial do gif - cat, bloqueios e estadoFinal
@@ -125,11 +125,11 @@ def aStar(estadoEscolhido, estadoInicial, estadoFinal):
     
     contadorEscolhasPai = 0
 
-    #estrutura para a coordenada inicial
+    #estrutura para a coordenadaenada inicial
     distanciaComeco_G = 0
     distanciaAteFinal_H = Calcular.H(estadoEscolhido, estadoFinal)
     total_F = distanciaComeco_G + distanciaAteFinal_H
-    listaAberta.append(celula(estadoEscolhido, total_F, distanciaComeco_G, distanciaAteFinal_H, None))
+    listaAberta.append(no(estadoEscolhido, total_F, distanciaComeco_G, distanciaAteFinal_H, None))
 
 #-----------------------------------------------------------------------
     while estadoEscolhido != estadoFinal:
@@ -137,19 +137,19 @@ def aStar(estadoEscolhido, estadoInicial, estadoFinal):
         contadorEscolhasPai = contadorEscolhasPai + 1
 
         listaExpansao = expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
-        listaAberta = preencherStruct(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada)
-        listaAberta = ordenarCelulasPorDistancia(listaAberta)
+        listaAberta = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada)
+        listaAberta = ordenarNoPorHeuristica(listaAberta)
         
-        #encontrar na lista aberta coordenada expandida e colocar na lista fechada
+        #encontrar na lista aberta coordenadaenada expandida e colocar na lista fechada
         cont = 0
         for struct in listaAberta:
-            if struct.coordenada == estadoEscolhido:
+            if struct.coordenadaenada == estadoEscolhido:
                 listaFechada.append(struct)
                 listaAberta.pop(cont)
                 break
             cont = cont + 1
 
-        estadoEscolhido = listaAberta[0].coordenada
+        estadoEscolhido = listaAberta[0].coordenadaenada
         
         images.append(GifMaker.fill_dot(estadoEscolhido, "black" , images))
 #-----------------------------------------------------------------------
@@ -157,7 +157,7 @@ def aStar(estadoEscolhido, estadoInicial, estadoFinal):
     #Adicionar estadoFinal na lista fechada
     cont = 0
     for struct in listaAberta:
-        if struct.coordenada == estadoFinal:
+        if struct.coordenadaenada == estadoFinal:
             listaFechada.append(struct)
             listaAberta.pop(cont)
             break
@@ -166,42 +166,44 @@ def aStar(estadoEscolhido, estadoInicial, estadoFinal):
     listaComMelhorCaminho = []
     listaComMelhorCaminho.append(estadoFinal)
     
-    #Fazer caminho inverso pela lista fechada até a coordenada inicial(cat)
+    #Fazer caminho inverso pela lista fechada até a coordenadaenada inicial(cat)
     aux = True
     while aux:
         for struct in listaFechada:
-            if struct.coordenada == estadoEscolhido:
+            if struct.coordenadaenada == estadoEscolhido:
                 estadoEscolhido = struct.pai
                 listaComMelhorCaminho.append(estadoEscolhido)
                 if estadoEscolhido == estadoInicial:
                     aux = False
     
     #Fazer parte do gif que volta da estadoFinal até o inicio
-    for coordenada in listaComMelhorCaminho:
-        images.append(GifMaker.fill_dot(coordenada, dark_green, images))
+    for coordenadaenada in listaComMelhorCaminho:
+        images.append(GifMaker.fill_dot(coordenadaenada, dark_green, images))
     
     #inverter a lista
     listaComMelhorCaminho.reverse()
 
     #Fazer parte do gif que anda até o fim
-    for coordenada in listaComMelhorCaminho:
-        images.append(GifMaker.fill_dot(coordenada, light_green, images))
+    for coordenadaenada in listaComMelhorCaminho:
+        images.append(GifMaker.fill_dot(coordenadaenada, light_green, images))
     
     #salvar gif
-    images[0].save('game.gif',
+    images[0].save('aStar.gif',
                        save_all=True,
                        append_images=images[1:],
                        duration=200,
                        loop=0)
+    
     print("\nGif Gerado")
     print("\n")
     print("Inicio", estadoInicial)
     print("\n")
     print("Bloqueios", bloqueados)
     print("\n")
-    print("Quantidade de escolhas:", contadorEscolhasPai)
+    print("Quantidade de nós visitados:", contadorEscolhasPai)
     print("\n")
     print("Lista melhor caminho: ", listaComMelhorCaminho)
     
-    os.remove("ImagemTemp.png") 
-aStar(estadoEscolhido, estadoInicial, estadoFinal)
+    os.remove("ImagemTemp.png")
+    
+aStar(estadoInicial, estadoFinal)
