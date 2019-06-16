@@ -117,6 +117,11 @@ def bestFirst(estadoInicial, estadoFinal):
             estadoEscolhido = adjacentes[0].coordenada
         else:
             print("Sem saída")
+            images[0].save('bestFirst.gif',
+                       save_all=True,
+                       append_images=images[1:],
+                       duration=200,
+                       loop=0)
             os.remove("ImagemTemp.png")
             return 0
         visitados.append(estadoEscolhido)
@@ -126,7 +131,7 @@ def bestFirst(estadoInicial, estadoFinal):
         
         print("Atual: ", estadoEscolhido)
     
-        images[0].save('bestFirst.gif',
+    images[0].save('bestFirst.gif',
                        save_all=True,
                        append_images=images[1:],
                        duration=200,
