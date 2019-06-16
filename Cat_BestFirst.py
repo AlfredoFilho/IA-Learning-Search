@@ -40,12 +40,16 @@ class no:
 
 estadoInicial = (5, 5)
 
-estadoFinal = (10, 10)
+estadoFinal = (0, 10)
 
-bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
+bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
+           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
+           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
+           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
 
+images = []
 
-def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images):
+def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados):
 
     if estadoEscolhido[0] % 2 != 0: #Se a linha do gato for par
         listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
@@ -99,18 +103,22 @@ def bestFirst(estadoInicial, estadoFinal):
     
     estadoEscolhido = estadoInicial
     
-    images = []
     images.append(GifMaker.compute_initial_image(estadoInicial, bloqueados, estadoFinal, images))
     
     visitados = [estadoInicial]
     
     while estadoEscolhido != estadoFinal :  
         
-        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images)
+        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
         adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido)
         adjacentes = ordenarNoPorHeuristica(adjacentes)
         
-        estadoEscolhido = adjacentes[0].coordenada
+        if len(adjacentes) != 0:
+            estadoEscolhido = adjacentes[0].coordenada
+        else:
+            print("Sem saída")
+            os.remove("ImagemTemp.png")
+            return 0
         visitados.append(estadoEscolhido)
         
         if estadoEscolhido != estadoInicial :
@@ -118,7 +126,7 @@ def bestFirst(estadoInicial, estadoFinal):
         
         print("Atual: ", estadoEscolhido)
     
-    images[0].save('bestFirst.gif',
+        images[0].save('bestFirst.gif',
                        save_all=True,
                        append_images=images[1:],
                        duration=200,

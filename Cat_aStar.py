@@ -43,10 +43,12 @@ class no:
 
 estadoInicial = (5, 5)
 
-estadoFinal = (10, 10)
+estadoFinal = (0, 10)
 
-bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
-
+bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
+           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
+           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
+           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
 def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
     # lista com as nos inicias em volta do pai
     listaExpansaoSuja = []
