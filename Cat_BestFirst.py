@@ -100,6 +100,23 @@ def ordenarNoPorHeuristica(adjacentes):
                 ordenado = False
     return adjacentes
 
+def backtrack(visitados):
+    count = len(visitados) - 1
+    
+    while(count != 0):
+        count -= 1
+        listaExpansao = expandir(estadoInicial, visitados[count], bloqueados, estadoFinal, visitados)
+        if len(listaExpansao) != 0:
+            return listaExpansao
+        
+    print("Sem saída")
+    images[0].save('bestFirst.gif',
+               save_all=True,
+               append_images=images[1:],
+               duration=200,
+               loop=0)
+    os.remove("ImagemTemp.png")
+    return None
 
 def bestFirst(estadoInicial, estadoFinal):
     
@@ -112,20 +129,17 @@ def bestFirst(estadoInicial, estadoFinal):
     while estadoEscolhido != estadoFinal :  
         
         listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
+        
+        if len(listaExpansao) == 0:
+            listaExpansao = backtrack(visitados)
+            if listaExpansao == None:
+                return 0
+            
         adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido)
         adjacentes = ordenarNoPorHeuristica(adjacentes)
         
-        if len(adjacentes) != 0:
-            estadoEscolhido = adjacentes[0].coordenada
-        else:
-            print("Sem saída")
-            images[0].save('bestFirst.gif',
-                       save_all=True,
-                       append_images=images[1:],
-                       duration=200,
-                       loop=0)
-            os.remove("ImagemTemp.png")
-            return 0
+        estadoEscolhido = adjacentes[0].coordenada
+
         visitados.append(estadoEscolhido)
         
         if estadoEscolhido != estadoInicial :
