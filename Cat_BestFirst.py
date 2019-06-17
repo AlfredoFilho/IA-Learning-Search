@@ -71,7 +71,9 @@ def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
     for coordenada in listaExpansaoSuja:
         if coordenada not in bloqueados and coordenada in tabuleiro and coordenada not in visitados:
             if(coordenada != estadoFinal):
-                images.append(GifMaker.fill_dot(coordenada, "gray", images))
+                aux = GifMaker.fill_dot(coordenada, "gray", images)
+                if aux != images[-1]:
+                    images.append(aux)
             listaExpansao.append(coordenada)
     
     return listaExpansao
