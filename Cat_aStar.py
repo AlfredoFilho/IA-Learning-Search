@@ -43,12 +43,10 @@ class no:
 
 estadoInicial = (5, 5)
 
-estadoFinal = (0, 10)
+estadoFinal = (10, 10)
 
-bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
-           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
-           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
-           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
+bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
+
 def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
     # lista com as nos inicias em volta do pai
     listaExpansaoSuja = []
@@ -92,14 +90,25 @@ def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, i
 
 
 def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada):
-
+    
+    print("\nEstado escolhido:", estadoEscolhido)
+    print("Nós expandidos:")
     for coordenada in listaExpansao:
         distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
         distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
         total_F = distanciaComeco_G + distanciaAteFinal_H
-
-        listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
         
+        print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
+        
+        listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
+    print("\nLista aberta:")
+    for classe in listaAberta:
+        print("    ", classe.coordenada)
+    print("\nLista fechada:")
+    for classe in listaFechada:
+        print("    ", classe.coordenada)
+    print("----------------------")
+    os.system("pause")
     return listaAberta
 
 
@@ -143,13 +152,18 @@ def aStar(estadoInicial, estadoFinal):
         listaAberta = ordenarNoPorHeuristica(listaAberta)
         
         #encontrar na lista aberta coordenada expandida e colocar na lista fechada
-        cont = 0
-        for struct in listaAberta:
-            if struct.coordenada == estadoEscolhido:
-                listaFechada.append(struct)
-                listaAberta.pop(cont)
-                break
-            cont = cont + 1
+        
+        listaFechada.append(listaAberta[0])
+        listaAberta.pop(0)
+        
+#        cont = 0
+#        for struct in listaAberta:
+#            if struct.coordenada == estadoEscolhido:
+#                listaFechada.append(struct)
+#                listaAberta.pop(cont)
+#                print(cont)
+#                break
+#            cont = cont + 1
 
         estadoEscolhido = listaAberta[0].coordenada
         
