@@ -41,7 +41,7 @@ estadoInicial = (5, 5)
 
 estadoFinal = (10, 10)
 
-bloqueados = [(3, 4), (3, 6), (3 ,8)]
+bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
 images = []
 
@@ -74,12 +74,19 @@ def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
     
     return listaExpansao
 
-def preencherNo(listaExpansao, estadoInicial, estadoEscolhido):
+def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados):
 
+    print("\n---------")
+    print("Estado escolhido:",estadoEscolhido)
+    print("Expandidos:")
+    
     adjacentes = []
     for coordenada in listaExpansao :
         adjacentes.append(no(coordenada, estadoEscolhido))
-        
+       
+        print("    Coordenada:", coordenada)
+    print("\nLista visitados:", visitados)
+#    os.system("pause") 
     return adjacentes
 
 def backtrack(visitados):
@@ -117,7 +124,7 @@ def depthFirst(estadoInicial, estadoFinal):
             if listaExpansao == None:
                 return 0
             
-        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido)
+        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados)
         estadoEscolhido = adjacentes[0].coordenada
 
         visitados.append(estadoEscolhido)
@@ -125,12 +132,12 @@ def depthFirst(estadoInicial, estadoFinal):
         if estadoEscolhido != estadoInicial :
             images.append(GifMaker.fill_dot(estadoEscolhido, light_green, images))
         
-        print("Atual: ", estadoEscolhido)
+#        print("Atual: ", estadoEscolhido)
     
     images[0].save('depthFirst.gif',
                        save_all=True,
                        append_images=images[1:],
-                       duration=40,
+                       duration=200,
                        loop=0)
         
     os.remove("ImagemTemp.png")

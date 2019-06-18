@@ -40,12 +40,9 @@ class no:
 
 estadoInicial = (5, 5)
 
-estadoFinal = (0, 10)
+estadoFinal = (10, 10)
 
-bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
-           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
-           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
-           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
+bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
 images = []
 
@@ -67,6 +64,7 @@ def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
                              (estadoEscolhido[0] - 1, estadoEscolhido[1])]      #Nordeste
     
     #Retirar da lista suja bloqueados e fora do tabuleiro
+
     listaExpansao = []
     for coordenada in listaExpansaoSuja:
         if coordenada not in bloqueados and coordenada in tabuleiro and coordenada not in visitados:
@@ -74,18 +72,26 @@ def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
                 aux = GifMaker.fill_dot(coordenada, "gray", images)
                 if aux != images[-1]:
                     images.append(aux)
+            
             listaExpansao.append(coordenada)
+    
     
     return listaExpansao
 
-def preencherNo(listaExpansao, estadoInicial, estadoEscolhido):
-
+def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados):
+    
+    print("\n---------")
+    print("\nEstado escolhido:",estadoEscolhido)
+    print("Expandidos:")
+    
     adjacentes = []
     for coordenada in listaExpansao :
         distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
-
         adjacentes.append(no(coordenada, distanciaAteFinal_H, estadoEscolhido))
         
+        print("    Coordenada:", coordenada, "H =",distanciaAteFinal_H)
+    print("\nLista visitados:", visitados)
+#    os.system("pause")    
     return adjacentes
 
 def ordenarNoPorHeuristica(adjacentes):
@@ -135,7 +141,7 @@ def bestFirst(estadoInicial, estadoFinal):
             if listaExpansao == None:
                 return 0
             
-        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido)
+        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados)
         adjacentes = ordenarNoPorHeuristica(adjacentes)
         
         estadoEscolhido = adjacentes[0].coordenada
@@ -145,7 +151,7 @@ def bestFirst(estadoInicial, estadoFinal):
         if estadoEscolhido != estadoInicial :
             images.append(GifMaker.fill_dot(estadoEscolhido, light_green, images))
         
-        print("Atual: ", estadoEscolhido)
+#        print("Atual: ", estadoEscolhido)
     
     images[0].save('bestFirst.gif',
                        save_all=True,

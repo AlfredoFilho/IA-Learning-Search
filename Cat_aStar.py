@@ -47,7 +47,7 @@ estadoFinal = (10, 10)
 
 bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
-def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
+def expandirEmVolta(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
     # lista com as nos inicias em volta do pai
     listaExpansaoSuja = []
     
@@ -74,12 +74,12 @@ def expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, i
     for coordenada in listaExpansaoSuja:
         valido = True
         if coordenada not in bloqueados and coordenada in tabuleiro:
-            for struc in listaFechada:
-                if coordenada == struc.coordenada:
+            for no in listaFechada:
+                if coordenada == no.coordenada:
                     valido = False
             if valido == True:
-                for struct in listaAberta:
-                    if coordenada == struct.coordenada:
+                for no in listaAberta:
+                    if coordenada == no.coordenada:
                         valido = False
             if valido == True:
                 if(coordenada != estadoFinal):
@@ -93,6 +93,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, list
     
     print("\nEstado escolhido:", estadoEscolhido)
     print("Nós expandidos:")
+    
     for coordenada in listaExpansao:
         distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
         distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
@@ -102,13 +103,15 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, list
         
         listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
     print("\nLista aberta:")
+    
     for classe in listaAberta:
         print("    ", classe.coordenada)
     print("\nLista fechada:")
+    
     for classe in listaFechada:
         print("    ", classe.coordenada)
     print("----------------------")
-    os.system("pause")
+#    os.system("pause")
     return listaAberta
 
 
@@ -133,8 +136,6 @@ def aStar(estadoInicial, estadoFinal):
     
     listaFechada = [] #lista visitados
     listaAberta = []  #lista não visitados
-    
-    contadorEscolhasPai = 0
 
     #estrutura para a coordenada inicial
     distanciaComeco_G = 0
@@ -145,26 +146,16 @@ def aStar(estadoInicial, estadoFinal):
 #-----------------------------------------------------------------------
     while estadoEscolhido != estadoFinal:
 
-        contadorEscolhasPai = contadorEscolhasPai + 1
-
-        listaExpansao = expandirEmVolta(estadoInicial, estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
+        listaExpansao = expandirEmVolta(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
         listaAberta = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada)
-        listaAberta = ordenarNoPorHeuristica(listaAberta)
-        
-        #encontrar na lista aberta coordenada expandida e colocar na lista fechada
         
         listaFechada.append(listaAberta[0])
         listaAberta.pop(0)
         
-#        cont = 0
-#        for struct in listaAberta:
-#            if struct.coordenada == estadoEscolhido:
-#                listaFechada.append(struct)
-#                listaAberta.pop(cont)
-#                print(cont)
-#                break
-#            cont = cont + 1
-
+        listaAberta = ordenarNoPorHeuristica(listaAberta)
+        
+        #Escolher
+        
         estadoEscolhido = listaAberta[0].coordenada
         
         images.append(GifMaker.fill_dot(estadoEscolhido, "black" , images))
@@ -191,6 +182,7 @@ def aStar(estadoInicial, estadoFinal):
                 listaComMelhorCaminho.append(estadoEscolhido)
                 if estadoEscolhido == estadoInicial:
                     aux = False
+                break
     
     #Fazer parte do gif que volta da estadoFinal até o inicio
     for coordenada in listaComMelhorCaminho:
@@ -216,7 +208,8 @@ def aStar(estadoInicial, estadoFinal):
     print("\n")
     print("Bloqueios", bloqueados)
     print("\n")
-    print("Quantidade de nós visitados:", contadorEscolhasPai)
+    print("Quantidade de nós visitados:", len(listaFechada)-1
+          )
     print("\n")
     print("Lista melhor caminho: ", listaComMelhorCaminho)
     
