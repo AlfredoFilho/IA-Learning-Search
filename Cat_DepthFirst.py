@@ -13,7 +13,6 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 '''
 
 from dataclasses import dataclass
-import Calcular
 import GifMaker
 import os
 
@@ -105,6 +104,7 @@ def backtrack(visitados):
                duration=40,
                loop=0)
     os.remove("ImagemTemp.png")
+    os.remove("ImagemTemp2.png")
     return None
 
 def depthFirst(estadoInicial, estadoFinal):
@@ -130,7 +130,7 @@ def depthFirst(estadoInicial, estadoFinal):
         visitados.append(estadoEscolhido)
         
         if estadoEscolhido != estadoInicial :
-            images.append(GifMaker.fill_dot(estadoEscolhido, light_green, images))
+            images.append(GifMaker.fill(estadoEscolhido, light_green, images))
         
 #        print("Atual: ", estadoEscolhido)
     
@@ -141,5 +141,6 @@ def depthFirst(estadoInicial, estadoFinal):
                        loop=0)
         
     os.remove("ImagemTemp.png")
+    os.remove("ImagemTemp2.png")
         
 depthFirst(estadoInicial, estadoFinal)

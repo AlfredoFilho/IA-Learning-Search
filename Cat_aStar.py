@@ -214,5 +214,6 @@ def aStar(estadoInicial, estadoFinal):
     print("Lista melhor caminho: ", listaComMelhorCaminho)
     
     os.remove("ImagemTemp.png")
+    os.remove("ImagemTemp2.png")
     
 aStar(estadoInicial, estadoFinal)

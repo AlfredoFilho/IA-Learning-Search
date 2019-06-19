@@ -15,3 +15,8 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/AlfredoFilho/aStar/master/breadthFirstSearch.gif" width="380" height="350">
 </p>
+
+**Busca em profundidade**
+<p align="center">
+<img src="https://raw.githubusercontent.com/AlfredoFilho/aStar/master/depthFirst.gif" width="380" height="350">
+</p>

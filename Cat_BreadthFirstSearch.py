@@ -75,6 +75,7 @@ def BreadthFirstSearch (cat, chosen_exit, blocks):
            duration=200,
            loop=0)
         os.remove("ImagemTemp.png")
+        os.remove("ImagemTemp2.png")
     return 0
     
 predecessorCoordinates={}
