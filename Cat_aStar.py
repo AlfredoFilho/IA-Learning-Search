@@ -47,7 +47,12 @@ estadoFinal = (10, 10)
 
 bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
-def expandirEmVolta(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
+#bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
+#           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
+#           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
+#           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
+
+def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
     # lista com as nos inicias em volta do pai
     listaExpansaoSuja = []
     
@@ -102,6 +107,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, list
         print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
         
         listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
+    
     print("\nLista aberta:")
     
     for classe in listaAberta:
@@ -146,7 +152,7 @@ def aStar(estadoInicial, estadoFinal):
 #-----------------------------------------------------------------------
     while estadoEscolhido != estadoFinal:
 
-        listaExpansao = expandirEmVolta(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
+        listaExpansao = expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
         listaAberta = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada)
         
         listaFechada.append(listaAberta[0])
@@ -155,7 +161,6 @@ def aStar(estadoInicial, estadoFinal):
         listaAberta = ordenarNoPorHeuristica(listaAberta)
         
         #Escolher
-        
         estadoEscolhido = listaAberta[0].coordenada
         
         images.append(GifMaker.fill_dot(estadoEscolhido, "black" , images))
@@ -196,22 +201,17 @@ def aStar(estadoInicial, estadoFinal):
         images.append(GifMaker.fill_dot(coordenada, light_green, images))
     
     #salvar gif
-    images[0].save('aStar.gif',
+    images[0].save('GIF_aStar.gif',
                        save_all=True,
                        append_images=images[1:],
                        duration=200,
                        loop=0)
     
     print("\nGif Gerado")
-    print("\n")
-    print("Inicio", estadoInicial)
-    print("\n")
-    print("Bloqueios", bloqueados)
-    print("\n")
-    print("Quantidade de nós visitados:", len(listaFechada)-1
-          )
-    print("\n")
-    print("Lista melhor caminho: ", listaComMelhorCaminho)
+    print("\nInicio", estadoInicial)
+    print("\nBloqueios", bloqueados)
+    print("\nQuantidade de nós visitados:", len(listaFechada)-1)
+    print("\nCaminho encontrado: ", listaComMelhorCaminho)
     
     os.remove("ImagemTemp.png")
     os.remove("ImagemTemp2.png")

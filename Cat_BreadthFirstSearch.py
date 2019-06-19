@@ -11,11 +11,15 @@ Cleofas Peres Santos - https://github.com/CleoPeres
 import GifMaker
 import os
 cat    =  (5, 5)
-exits = [(0, 10)]
-blocks  = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
-           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
-           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
-           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
+
+exits = [(10, 10)]
+
+blocks = (9, 7), (9, 8), (9, 9), (9, 10)
+
+#blocks  = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
+#           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
+#           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
+#           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
 
 images = []
 
@@ -48,28 +52,39 @@ def BreadthFirstSearch (cat, chosen_exit, blocks):
     
     while len(positionsVisited) != 0:
         atual = positionsVisited.pop(0) #remove first of list
+        
         if atual != cat:
             images.append(GifMaker.fill_dot(atual, "black", images))
+            
+            print("\n-----------------")
+            print("Escolhido:", atual)
+        
         if(atual not in blocks and atual in chosen_exit):
             solutionFound = True
             break
         successorStates = findSuccessorPositions(atual, expandedStates, positionsVisited) #call function to walk with the cat and find the next positions
+        
+        print("Expandidos:")
+        
         for el in successorStates:
+            print("    Coordenda:",el)
             images.append(GifMaker.fill_dot(el, "gray", images))
         expandedStates.append(atual)
+
+#        os.system("pause")
 
         for i in range (0, len(successorStates)): #check the new positions to see if they have already been included
             successor = successorStates[i]
             if successor not in expandedStates and successor not in positionsVisited:        
                 positionsVisited.append(successorStates[i])
-                    
+                
     if solutionFound == True:
         movimento = Solution(atual)    
         expandedStates.clear()
         positionsVisited.clear()
         successorStates.clear()
 #        print(movimento[-1])
-        images[0].save('breadthFirstSearch.gif',
+        images[0].save('GIF_BreadthFirstSearch.gif',
            save_all=True,
            append_images=images[1:],
            duration=200,
@@ -111,7 +126,9 @@ def Solution(cat):
     listPositions.reverse()
     for el in listPositions:
         images.append(GifMaker.fill_dot(el, light_green, images))
-    print("Caminho", listPositions)
+    print("\nCaminho", listPositions)
     return listCoordinates
 
+print("\n-----------------")
+print("Escolhido:",cat)
 BreadthFirstSearch(positionCatInTuple, chosen_exit, blocks)

@@ -42,6 +42,11 @@ estadoFinal = (10, 10)
 
 bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
+#bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
+#           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
+#           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
+#           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
+
 images = []
 
 def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados):
@@ -84,6 +89,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados):
         adjacentes.append(no(coordenada, estadoEscolhido))
        
         print("    Coordenada:", coordenada)
+    
     print("\nLista visitados:", visitados)
 #    os.system("pause") 
     return adjacentes
@@ -94,11 +100,12 @@ def backtrack(visitados):
     while(count != 0):
         count -= 1
         listaExpansao = expandir(estadoInicial, visitados[count], bloqueados, estadoFinal, visitados)
+        images.append(GifMaker.fill(visitados[count], "purple", images))
         if len(listaExpansao) != 0:
             return listaExpansao
         
     print("Sem saída")
-    images[0].save('depthFirst.gif',
+    images[0].save('GIF_DepthFirst.gif',
                save_all=True,
                append_images=images[1:],
                duration=40,
@@ -134,7 +141,14 @@ def depthFirst(estadoInicial, estadoFinal):
         
 #        print("Atual: ", estadoEscolhido)
     
-    images[0].save('depthFirst.gif',
+    print("--------------------------------------")
+    print("\nGif Gerado")
+    print("\nInicio", estadoInicial)
+    print("\nBloqueios", bloqueados)
+    print("\nQuantidade de nós visitados:", len(visitados)-1)
+    print("\nVisitados:", visitados)
+    
+    images[0].save('GIF_DepthFirst.gif',
                        save_all=True,
                        append_images=images[1:],
                        duration=200,

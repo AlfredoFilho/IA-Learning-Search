@@ -44,6 +44,11 @@ estadoFinal = (10, 10)
 
 bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
+#bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
+#           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
+#           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
+#           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
+
 images = []
 
 def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados):
@@ -90,6 +95,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados):
         adjacentes.append(no(coordenada, distanciaAteFinal_H, estadoEscolhido))
         
         print("    Coordenada:", coordenada, "H =",distanciaAteFinal_H)
+    
     print("\nLista visitados:", visitados)
 #    os.system("pause")    
     return adjacentes
@@ -106,17 +112,18 @@ def ordenarNoPorHeuristica(adjacentes):
                 ordenado = False
     return adjacentes
 
-def backtrack(visitados):
+def backtrack(visitados, estadoEscolhido):   
     count = len(visitados) - 1
     
     while(count != 0):
         count -= 1
         listaExpansao = expandir(estadoInicial, visitados[count], bloqueados, estadoFinal, visitados)
+        images.append(GifMaker.fill(visitados[count], "purple", images))
         if len(listaExpansao) != 0:
             return listaExpansao
         
     print("Sem saída")
-    images[0].save('bestFirst.gif',
+    images[0].save('GIF_BestFirst.gif',
                save_all=True,
                append_images=images[1:],
                duration=200,
@@ -138,7 +145,7 @@ def bestFirst(estadoInicial, estadoFinal):
         listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
         
         if len(listaExpansao) == 0:
-            listaExpansao = backtrack(visitados)
+            listaExpansao = backtrack(visitados, estadoEscolhido)
             if listaExpansao == None:
                 return 0
             
@@ -154,7 +161,14 @@ def bestFirst(estadoInicial, estadoFinal):
         
 #        print("Atual: ", estadoEscolhido)
     
-    images[0].save('bestFirst.gif',
+    print("--------------------------------------")
+    print("\nGif Gerado")
+    print("\nInicio", estadoInicial)
+    print("\nBloqueios", bloqueados)
+    print("\nQuantidade de nós visitados:", len(visitados)-1)
+    print("\nVisitados:", visitados)
+    
+    images[0].save('GIF_BestFirst.gif',
                        save_all=True,
                        append_images=images[1:],
                        duration=200,
