@@ -19,10 +19,6 @@
 [Gif Breadth_2](https://dl.dropboxusercontent.com/s/qk1aetx9uy3e95a/breadthFirstSearch2.gif)
 
 **Busca em profundidade**
-<p align="center">
-<img src="" width="380" height="350">
-<img src="" width="380" height="350">
-</p>
 
 [Gif Depth](https://dl.dropboxusercontent.com/s/w0257v1vfzynpin/depthFirst1.gif)
 <br/>
