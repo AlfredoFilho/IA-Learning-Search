@@ -2,13 +2,9 @@ from PIL import Image, ImageDraw
 
 def fill_dot(a_list, color, images):
     a_list = [a_list]
-    if len(images) == 0:
-        im = Image.open("ImagemTabuleiro.png").convert("RGBA")
-        draw = ImageDraw.Draw(im)
-    
-    else:                
-        im = Image.open("ImagemTemp.png").convert("RGBA")
-        draw = ImageDraw.Draw(im)
+              
+    im = Image.open("ImagemTemp.png").convert("RGBA")
+    draw = ImageDraw.Draw(im)
 
     for el in a_list:
         shift = el[0] % 2 * 25
@@ -25,17 +21,33 @@ def fill_dot(a_list, color, images):
     del draw
     return im
 
+def fill(a_list, color, images):
+    a_list = [a_list]
+              
+    im = Image.open("ImagemTemp2.png").convert("RGBA")
+    draw = ImageDraw.Draw(im)
+
+    for el in a_list:
+        shift = el[0] % 2 * 25
+        init_x = shift + el[1]*50 + el[1]*5
+        end_x  = shift + (el[1]+1)*50 + el[1]*5
+        init_y = el[0]*49
+        end_y  = (el[0]+1)*49
+        draw.ellipse([init_x, init_y, end_x, end_y],
+                     fill = color
+        )      
+            
+    im.save("ImagemTemp.png")
+    im.save("ImagemTemp2.png")
+    
+    del draw
+    return im
 
 def compute_initial_image(cat, bloqueados, saida, images) :
     
-    if len(images) == 0:
-        im = Image.open("ImagemTabuleiro.png").convert("RGBA")
-        draw = ImageDraw.Draw(im)
-    
-    else:                
-        im = Image.open("ImagemTemp.png").convert("RGBA")
-        draw = ImageDraw.Draw(im)
-    
+    im = Image.open("ImagemTabuleiro.png").convert("RGBA")
+    draw = ImageDraw.Draw(im)
+        
     for el in [saida] :
         shift = el[0] % 2 * 25
         init_x = shift + el[1]*50 + el[1]*5
@@ -68,6 +80,7 @@ def compute_initial_image(cat, bloqueados, saida, images) :
         )
     
     im.save("ImagemTemp.png")
+    im.save("ImagemTemp2.png")
     
     del draw
     return im

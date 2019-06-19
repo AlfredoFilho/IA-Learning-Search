@@ -122,6 +122,7 @@ def backtrack(visitados):
                duration=200,
                loop=0)
     os.remove("ImagemTemp.png")
+    os.remove("ImagemTemp2.png")
     return None
 
 def bestFirst(estadoInicial, estadoFinal):
@@ -149,7 +150,7 @@ def bestFirst(estadoInicial, estadoFinal):
         visitados.append(estadoEscolhido)
         
         if estadoEscolhido != estadoInicial :
-            images.append(GifMaker.fill_dot(estadoEscolhido, light_green, images))
+            images.append(GifMaker.fill(estadoEscolhido, light_green, images))
         
 #        print("Atual: ", estadoEscolhido)
     
@@ -160,5 +161,6 @@ def bestFirst(estadoInicial, estadoFinal):
                        loop=0)
         
     os.remove("ImagemTemp.png")
+    os.remove("ImagemTemp2.png")
         
 bestFirst(estadoInicial, estadoFinal)
