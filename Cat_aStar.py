@@ -160,8 +160,20 @@ def aStar(estadoInicial, estadoFinal):
         
         listaAberta = ordenarNoPorHeuristica(listaAberta)
         
-        #Escolher
-        estadoEscolhido = listaAberta[0].coordenada
+        #Escolher próximo nó
+        if len(listaAberta) == 0:
+            
+            print("Sem saida")
+            images[0].save('GIF_aStar.gif',
+                   save_all=True,
+                   append_images=images[1:],
+                   duration=200,
+                   loop=0)
+            os.remove("ImagemTemp.png")
+            os.remove("ImagemTemp2.png")
+            return 0
+        else:
+            estadoEscolhido = listaAberta[0].coordenada
         
         images.append(GifMaker.fill_dot(estadoEscolhido, "black" , images))
 #-----------------------------------------------------------------------
