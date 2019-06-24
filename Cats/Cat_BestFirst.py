@@ -38,17 +38,6 @@ class no:
         self.distanciaAteFinal_H = distanciaAteFinal_H
         self.pai = pai
 
-estadoInicial = (5, 5)
-
-estadoFinal = (10, 10)
-
-bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
-
-#bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
-#           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
-#           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
-#           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
-
 images = []
 
 def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados):
@@ -83,7 +72,7 @@ def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
     
     return listaExpansao
 
-def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados):
+def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estadoFinal):
     
     print("\n---------")
     print("\nEstado escolhido:",estadoEscolhido)
@@ -112,7 +101,7 @@ def ordenarNoPorHeuristica(adjacentes):
                 ordenado = False
     return adjacentes
 
-def backtrack(visitados, estadoEscolhido):   
+def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):   
     count = len(visitados) - 1
     
     while(count != 0):
@@ -132,7 +121,7 @@ def backtrack(visitados, estadoEscolhido):
     os.remove("ImagemTemp2.png")
     return None
 
-def bestFirst(estadoInicial, estadoFinal):
+def bestFirst(estadoInicial, estadoFinal, bloqueados):
     
     estadoEscolhido = estadoInicial
     
@@ -145,11 +134,11 @@ def bestFirst(estadoInicial, estadoFinal):
         listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
         
         if len(listaExpansao) == 0:
-            listaExpansao = backtrack(visitados, estadoEscolhido)
+            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados)
             if listaExpansao == None:
                 return 0
             
-        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados)
+        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estadoFinal)
         adjacentes = ordenarNoPorHeuristica(adjacentes)
         
         estadoEscolhido = adjacentes[0].coordenada
@@ -176,5 +165,3 @@ def bestFirst(estadoInicial, estadoFinal):
         
     os.remove("ImagemTemp.png")
     os.remove("ImagemTemp2.png")
-        
-bestFirst(estadoInicial, estadoFinal)

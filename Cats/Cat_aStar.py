@@ -41,17 +41,6 @@ class no:
         self.distanciaAteFinal_H = distanciaAteFinal_H
         self.pai = pai
 
-estadoInicial = (5, 5)
-
-estadoFinal = (10, 10)
-
-bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
-
-#bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
-#           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
-#           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
-#           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
-
 def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
     # lista com as nos inicias em volta do pai
     listaExpansaoSuja = []
@@ -94,7 +83,7 @@ def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, est
     return listaExpansao
 
 
-def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada):
+def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada):
     
     print("\nEstado escolhido:", estadoEscolhido)
     print("Nós expandidos:")
@@ -133,7 +122,7 @@ def ordenarNoPorHeuristica(listaAberta):
                 ordenado = False
     return listaAberta
 
-def aStar(estadoInicial, estadoFinal):
+def aStar(estadoInicial, estadoFinal, bloqueados):
     estadoEscolhido = estadoInicial
     images = []
     
@@ -153,7 +142,7 @@ def aStar(estadoInicial, estadoFinal):
     while estadoEscolhido != estadoFinal:
 
         listaExpansao = expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
-        listaAberta = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, listaAberta, listaFechada)
+        listaAberta = preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada)
         
         listaFechada.append(listaAberta[0])
         listaAberta.pop(0)
@@ -227,5 +216,3 @@ def aStar(estadoInicial, estadoFinal):
     
     os.remove("ImagemTemp.png")
     os.remove("ImagemTemp2.png")
-    
-aStar(estadoInicial, estadoFinal)
