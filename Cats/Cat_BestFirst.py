@@ -13,7 +13,7 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 '''
 
 from dataclasses import dataclass
-import Calcular
+import Cats.Calcular as Calcular
 import GifMaker
 import os
 

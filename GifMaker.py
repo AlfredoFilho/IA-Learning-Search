@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 def fill_dot(a_list, color, images):
               
-    im = Image.open("ImagemTemp.png").convert("RGBA")
+    im = Image.open("Gifs/ImagemTemp.png").convert("RGBA")
     draw = ImageDraw.Draw(im)
         
     shift = a_list[0] % 2 * 25
@@ -14,14 +14,14 @@ def fill_dot(a_list, color, images):
                  fill = color
     )    
     
-    im.save("ImagemTemp.png")
+    im.save("Gifs/ImagemTemp.png", 'PNG')
     
     del draw
     return im
 
 def fill(a_list, color, images):
 
-    im = Image.open("ImagemTemp2.png").convert("RGBA")
+    im = Image.open("Gifs/ImagemTemp2.png").convert("RGBA")
     draw = ImageDraw.Draw(im)
  
     if color == "purple":
@@ -43,15 +43,15 @@ def fill(a_list, color, images):
                      fill = color
         )
       
-    im.save("ImagemTemp.png")
-    im.save("ImagemTemp2.png")
+    im.save("Gifs/ImagemTemp.png", 'PNG')
+    im.save("Gifs/ImagemTemp2.png", 'PNG')
     
     del draw
     return im
 
 def compute_initial_image(cat, bloqueados, saida, images) :
     
-    im = Image.open("ImagemTabuleiro.png").convert("RGBA")
+    im = Image.open("Gifs/ImagemTabuleiro.png").convert("RGBA")
     draw = ImageDraw.Draw(im)
         
     shift = saida[0] % 2 * 25
@@ -81,8 +81,8 @@ def compute_initial_image(cat, bloqueados, saida, images) :
     draw.ellipse([init_x, init_y, end_x, end_y],
                  fill = "orange")
     
-    im.save("ImagemTemp.png")
-    im.save("ImagemTemp2.png")
+    im.save("Gifs/ImagemTemp.png", 'PNG')
+    im.save("Gifs/ImagemTemp2.png", 'PNG')
     
     del draw
     return im

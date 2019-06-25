@@ -13,7 +13,7 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 '''
 
 from dataclasses import dataclass
-import Calcular
+import Cats.Calcular as Calcular
 import GifMaker
 import os
 
@@ -153,13 +153,13 @@ def aStar(estadoInicial, estadoFinal, bloqueados):
         if len(listaAberta) == 0:
             
             print("Sem saida")
-            images[0].save('GIF_aStar.gif',
+            images[0].save('Gifs/GIF_aStar.gif',
                    save_all=True,
                    append_images=images[1:],
                    duration=200,
                    loop=0)
-            os.remove("ImagemTemp.png")
-            os.remove("ImagemTemp2.png")
+            os.remove("Gifs/ImagemTemp.png")
+            os.remove("Gifs/ImagemTemp2.png")
             return 0
         else:
             estadoEscolhido = listaAberta[0].coordenada
@@ -214,5 +214,5 @@ def aStar(estadoInicial, estadoFinal, bloqueados):
     print("\nQuantidade de nós visitados:", len(listaFechada)-1)
     print("\nCaminho encontrado: ", listaComMelhorCaminho)
     
-    os.remove("ImagemTemp.png")
-    os.remove("ImagemTemp2.png")
+    os.remove("Gifs/ImagemTemp.png")
+    os.remove("Gifs/ImagemTemp2.png")

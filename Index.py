@@ -6,6 +6,6 @@ estadoInicial = (5, 5)
 estadoFinal = (10, 10)
 bloqueados = [(9, 7), (9, 8), (9, 9), (9, 10)]
 
-depthFirst(estadoInicial, estadoFinal, bloqueados)
-bestFirst(estadoInicial, estadoFinal, bloqueados)
+#depthFirst(estadoInicial, estadoFinal, bloqueados)
+#bestFirst(estadoInicial, estadoFinal, bloqueados)
 aStar(estadoInicial, estadoFinal, bloqueados)
