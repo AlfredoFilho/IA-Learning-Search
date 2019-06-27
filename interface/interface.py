@@ -19,7 +19,6 @@ class CustomButton(tk.Canvas) :
         tk.Canvas.__init__(self, parent, borderwidth = 0, 
             relief="raised", highlightthickness = 0)
         self.command = command
-        
         self.padding = padding
         self.create_oval((padding,padding,
             width+padding, height+padding), outline="black", fill=color)
@@ -531,6 +530,47 @@ def btn109_click() :
 
 def btn1010_click() :
     selectCasa((10, 10), btn1010)
+    
+    
+# FUNCOES BOTÕES ALGORITMOS
+def existeVazio() :
+    if gato == [] and saida != [] :
+        gatoVazio()
+        return True
+    elif gato != [] and saida == [] :
+        saidaVazio()
+        return True
+    elif gato == [] and saida == [] :
+        ambosVazio()
+        return True
+    else :
+        return False
+        
+def gatoVazio() :
+    messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para o gato.")
+
+def saidaVazio() :
+    messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para a saída.")
+    
+def ambosVazio() :
+    messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para o gato e para saída.")
+
+def btnAstar_click() :
+    if existeVazio() is not True:
+        print("Busca A*")
+    
+def btnBestFirst_click() :
+    if existeVazio() is not True:
+        print("Busca Best-First")
+    
+def btnAmplitude_click() :
+    if existeVazio() is not True:
+        print("Busca em Amplitude")
+    
+def btnProfundidade_click() :
+    if existeVazio() is not True:
+        print("Busca em Profundidade")
+    
     
 # LISTAS DE INFORMAÇÕES
 FirstFrame = Frame(root, width=1280, height=30)
@@ -1063,14 +1103,29 @@ btn1010 = CustomButton(Tabuleiro, width=35, height=35, color="white", command=bt
 btn1010["cursor"] = "hand2"
 btn1010.place(x=460,y=440)
 
+
+# BOTÕES DOS ALGORITMOS
+btnAstar = Button(root, width=20, height=3, font=('calibri', 17,'bold'), text="Busca A*", command=btnAstar_click)
+btnAstar["cursor"] = "hand2"
+btnAstar.place(x=600,y=200)
+
+btnBestFirst = Button(root, width=20, height=3, font=('calibri', 17,'bold'), text="Busca Best-First", command=btnBestFirst_click)
+btnBestFirst["cursor"] = "hand2"
+btnBestFirst.place(x=900,y=200)
+
+btnAmplitude = Button(root, width=20, height=3, font=('calibri', 17,'bold'), text="Busca em Amplitude", command=btnAmplitude_click)
+btnAmplitude["cursor"] = "hand2"
+btnAmplitude.place(x=600,y=400)
+
+btnProfundidade = Button(root, width=20, height=3, font=('calibri', 17,'bold'), text="Busca em Profundidade", command=btnProfundidade_click)
+btnProfundidade["cursor"] = "hand2"
+btnProfundidade.place(x=900,y=400)
+
 root.mainloop()
 
 print("Posição do gato:", gato[0])
 print("Posição da saída:", saida[0])
 print("Bloqueios:", bloqueados)
-
-
-
 
 
 
