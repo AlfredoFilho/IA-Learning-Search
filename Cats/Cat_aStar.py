@@ -14,7 +14,7 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 
 from dataclasses import dataclass
 import Cats.Calcular as Calcular
-import GifMaker
+import GifMaker.GifMaker as GifMaker
 import os
 
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
@@ -31,6 +31,8 @@ tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0,
 
 dark_green = "#4a8e52"
 light_green = "#61b76b"
+
+dir = 'Gifs/Gif_aStar.gif'
 
 @dataclass
 class no:
@@ -153,13 +155,13 @@ def aStar(estadoInicial, estadoFinal, bloqueados):
         if len(listaAberta) == 0:
             
             print("Sem saida")
-            images[0].save('Gifs/GIF_aStar.gif',
+            images[0].save(dir,
                    save_all=True,
                    append_images=images[1:],
                    duration=200,
                    loop=0)
-            os.remove("Gifs/ImagemTemp.png")
-            os.remove("Gifs/ImagemTemp2.png")
+            os.remove("GifMaker/ImagemTemp.png")
+            os.remove("GifMaker/ImagemTemp2.png")
             return 0
         else:
             estadoEscolhido = listaAberta[0].coordenada
@@ -202,7 +204,7 @@ def aStar(estadoInicial, estadoFinal, bloqueados):
         images.append(GifMaker.fill_dot(coordenada, light_green, images))
     
     #salvar gif
-    images[0].save('GIF_aStar.gif',
+    images[0].save(dir,
                        save_all=True,
                        append_images=images[1:],
                        duration=200,
@@ -214,5 +216,5 @@ def aStar(estadoInicial, estadoFinal, bloqueados):
     print("\nQuantidade de nós visitados:", len(listaFechada)-1)
     print("\nCaminho encontrado: ", listaComMelhorCaminho)
     
-    os.remove("Gifs/ImagemTemp.png")
-    os.remove("Gifs/ImagemTemp2.png")
+    os.remove("GifMaker/ImagemTemp.png")
+    os.remove("GifMaker/ImagemTemp2.png")

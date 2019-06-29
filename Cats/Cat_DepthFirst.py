@@ -13,7 +13,8 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 '''
 
 from dataclasses import dataclass
-import GifMaker
+import Cats.Calcular as Calcular
+import GifMaker.GifMaker as GifMaker
 import os
 
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
@@ -29,6 +30,8 @@ tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0,
              (10,0), (10,1), (10,2), (10,3), (10,4), (10,5), (10,6), (10,7), (10,8), (10,9), (10,10)]
 
 light_green = "#61b76b"
+
+dir = 'Gifs/Gif_DepthFirst.gif'
 
 @dataclass
 class no:
@@ -94,13 +97,13 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):
             return listaExpansao
         
     print("Sem saída")
-    images[0].save('GIF_DepthFirst.gif',
+    images[0].save(dir,
                save_all=True,
                append_images=images[1:],
                duration=40,
                loop=0)
-    os.remove("ImagemTemp.png")
-    os.remove("ImagemTemp2.png")
+    os.remove("GifMaker/ImagemTemp.png")
+    os.remove("GifMaker/ImagemTemp2.png")
     return None
 
 def depthFirst(estadoInicial, estadoFinal, bloqueados):
@@ -143,11 +146,11 @@ def depthFirst(estadoInicial, estadoFinal, bloqueados):
     print("\nQuantidade de nós visitados:", len(visitados)-1)
     print("\nVisitados:", visitados)
     
-    images[0].save('GIF_DepthFirst.gif',
+    images[0].save(dir,
                        save_all=True,
                        append_images=images[1:],
                        duration=200,
                        loop=0)
-        
-    os.remove("ImagemTemp.png")
-    os.remove("ImagemTemp2.png")
+
+    os.remove("GifMaker/ImagemTemp.png")
+    os.remove("GifMaker/ImagemTemp2.png")

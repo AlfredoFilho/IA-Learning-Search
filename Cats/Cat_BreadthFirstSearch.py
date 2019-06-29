@@ -8,8 +8,11 @@ Cleofas Peres Santos - https://github.com/CleoPeres
 **************************************************************** 
 '''
 
-import GifMaker
+from dataclasses import dataclass
+import Cats.Calcular as Calcular
+import GifMaker.GifMaker as GifMaker
 import os
+
 cat    =  (5, 5)
 
 exits = [(10, 10)]
@@ -20,6 +23,8 @@ blocks = (9, 7), (9, 8), (9, 9), (9, 10)
 #           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
 #           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
 #           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
+
+dir = 'Gifs/Gif_BreadthFirstSearch.gif'
 
 images = []
 
@@ -84,13 +89,13 @@ def breadthFirstSearch (cat, chosen_exit, blocks):
         positionsVisited.clear()
         successorStates.clear()
 #        print(movimento[-1])
-        images[0].save('GIF_BreadthFirstSearch.gif',
+        images[0].save(dir,
            save_all=True,
            append_images=images[1:],
            duration=200,
            loop=0)
-        os.remove("ImagemTemp.png")
-        os.remove("ImagemTemp2.png")
+        os.remove("GifMaker/ImagemTemp.png")
+        os.remove("GifMaker/ImagemTemp2.png")
     return 0
     
 predecessorCoordinates={}
