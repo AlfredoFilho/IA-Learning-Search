@@ -12,7 +12,9 @@ bloqueados = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
               (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
               (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
 
-aStar(estadoInicial, estadoFinal, bloqueados)
-bestFirst(estadoInicial, estadoFinal, bloqueados)
-depthFirst(estadoInicial, estadoFinal, bloqueados)
-breadthFirstSearch(estadoInicial, [estadoFinal], bloqueados)
+delayGif = None
+
+aStar(estadoInicial, estadoFinal, bloqueados, delayGif)
+bestFirst(estadoInicial, estadoFinal, bloqueados, delayGif)
+depthFirst(estadoInicial, estadoFinal, bloqueados, delayGif)
+breadthFirstSearch(estadoInicial, [estadoFinal], bloqueados, delayGif)

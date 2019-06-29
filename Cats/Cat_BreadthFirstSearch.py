@@ -24,6 +24,7 @@ blocks = (9, 7), (9, 8), (9, 9), (9, 10)
 #           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
 #           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
 
+delayGif = None
 dir = 'Gifs/Gif_BreadthFirstSearch.gif'
 
 images = []
@@ -48,7 +49,7 @@ def next_move(direction, cat) :
     }
     return candidatos[direction][cat[0]%2]
 
-def breadthFirstSearch (cat, chosen_exit, blocks):
+def breadthFirstSearch (cat, chosen_exit, blocks, delayGif):
     
     images.append(GifMaker.compute_initial_image(cat, blocks, chosen_exit[0], images))
     
@@ -136,4 +137,4 @@ def Solution(cat):
 
 print("\n-----------------")
 print("Escolhido:",cat)
-breadthFirstSearch(positionCatInTuple, chosen_exit, blocks)
+breadthFirstSearch(positionCatInTuple, chosen_exit, blocks, delayGif)
