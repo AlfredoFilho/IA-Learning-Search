@@ -9,7 +9,7 @@ gato = []
 saida = []
 bloqueados = []
 SELECTED = "GATO"
-delayGif = 100
+delayGif = 200
 
 # CONFIGURAÇÕES DA JANELA
 root = Tk()
