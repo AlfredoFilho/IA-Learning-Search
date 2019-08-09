@@ -32,6 +32,9 @@ blockSelectColor = 'red'
 exitSelectColor = '#456fb2'
 btnAlgorithmColor = '#43b581'
 txtBtnColor = 'white'
+catPositionColor = '#61b76b'
+nodeOpenedColor = 'gray'
+nodeClosedColor = 'black'
 #ffe36c amarelo
 #a1a1a3 cinza
 #43b581 verde
@@ -40,10 +43,10 @@ txtBtnColor = 'white'
 
 
 # CONFIGURAÇÕES DA JANELA
-root = Tk()
+root = tk.Tk()
 root.geometry("1335x640+0+0")
 root.resizable(0,0)
-#root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='PATH.ext'))
+root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='Images/favicon.png'))
 root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini.")
 root.configure(background=backgroundColor)
              
@@ -72,8 +75,6 @@ class CustomButton(tk.Canvas) :
     
         
     def _on_press(self, event) :
-        global SELECTED             
-        
         if SELECTED == "GATO" :
             self.paint(catSelectColor)
         elif SELECTED == "SAIDA" :
@@ -85,7 +86,7 @@ class CustomButton(tk.Canvas) :
         self.configure(relief="raised")
         if self.command is not None :
             self.command()
-               
+
 # FUNÇÕES DE SELEÇÃO
 def selectGato(casa, botao) :
     if casa in bloqueados :
@@ -638,33 +639,33 @@ def btnMtRapido_Click():
     
     
 # FRAME DE SELEÇÃO
-frameSelection = LabelFrame(root, text="Seleção de Parâmetros", borderwidth=2, foreground=foregroundColor,relief=RAISED, bg=backgroundColor, width=500, height=75, padx=20, pady=15)
+frameSelection = tk.LabelFrame(root, text="Seleção de Parâmetros", borderwidth=2, foreground=foregroundColor,relief=tk.RAISED, bg=backgroundColor, width=500, height=75, padx=20, pady=15)
 frameSelection.place(x=40, y=20)
 
 #BOTÕES DE SELEÇÃO
-btnSelectGato = Button(frameSelection, width=16, text="Selecionar Gato", foreground=txtBtnColor, command=btnSelectGato_click)
+btnSelectGato = tk.Button(frameSelection, width=16, text="Selecionar Gato", foreground=txtBtnColor, command=btnSelectGato_click)
 btnSelectGato["cursor"] = "hand2"
 btnSelectGato["bg"] = selectedColor
 btnSelectGato.place(x=0,y=0)
 
-btnSelectSaida = Button(frameSelection, width=16,text="Selecionar Saída", foreground=txtBtnColor, command=btnSelectSaida_click)
+btnSelectSaida = tk.Button(frameSelection, width=16,text="Selecionar Saída", foreground=txtBtnColor, command=btnSelectSaida_click)
 btnSelectSaida["cursor"] = "hand2"
 btnSelectSaida["bg"] = unselectedColor
 btnSelectSaida.place(x=170,y=0)
 
-btnSelectBloqueios = Button(frameSelection, width=16,text="Selecionar Bloqueios", foreground=txtBtnColor, command=btnSelectBloqueios_click)
+btnSelectBloqueios = tk.Button(frameSelection, width=16,text="Selecionar Bloqueios", foreground=txtBtnColor, command=btnSelectBloqueios_click)
 btnSelectBloqueios["cursor"] = "hand2"
 btnSelectBloqueios["bg"] = unselectedColor
 btnSelectBloqueios.place(x=340,y=0)
 
 
 # FRAME DE TABULEIRO
-frameTabuleiro = LabelFrame(root, text="Tabuleiro", borderwidth=2, foreground=foregroundColor, relief=RAISED, bg=backgroundColor, width=540, height=512)
+frameTabuleiro = tk.LabelFrame(root, text="Tabuleiro", borderwidth=2, foreground=foregroundColor, relief=tk.RAISED, bg=backgroundColor, width=540, height=512)
 frameTabuleiro.place(x=20, y=100)
 
 # TABULEIRO
-Tabuleiro = Frame(frameTabuleiro, bg=backgroundTabuleiroColor, width=537, height=493)
-Tabuleiro.place(x=0, y=0)
+Tabuleiro = tk.Frame(frameTabuleiro, bg=backgroundTabuleiroColor, width=537, height=493)
+Tabuleiro.place(x=-1, y=0)
 
 #BOTÕES TABULEIRO - LINHA 0
 btn00 = CustomButton(Tabuleiro, width=35, height=35, color="white", command=btn00_click, padding=4)
@@ -1284,60 +1285,118 @@ btn1010.place(x=460,y=440)
 
 
 # FRAME DOS ALGORITMOS
-frameAlgorithm = LabelFrame(root, text="Realizar Busca", borderwidth=2, foreground=foregroundColor,relief=RAISED, bg=backgroundColor, width=572, height=170, padx=20, pady=15)
-frameAlgorithm.place(x=650, y=150)
+frameAlgorithm = tk.LabelFrame(root, text="Realizar Busca", borderwidth=2, foreground=foregroundColor,relief=RAISED, bg=backgroundColor, width=572, height=170, padx=20, pady=15)
+frameAlgorithm.place(x=650, y=350)
 
 # BOTÕES DOS ALGORITMOS
-btnAstar = Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="A*", foreground=txtBtnColor, command=btnAstar_click)
+btnAstar = tk.Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="A*", foreground=txtBtnColor, command=btnAstar_click)
 btnAstar["cursor"] = "hand2"
 btnAstar["bg"] = btnAlgorithmColor
 btnAstar.place(x=0,y=0)
 
-btnBestFirst = Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Best-First", foreground=txtBtnColor, command=btnBestFirst_click)
+btnBestFirst = tk.Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Best-First", foreground=txtBtnColor, command=btnBestFirst_click)
 btnBestFirst["cursor"] = "hand2"
 btnBestFirst["bg"] = btnAlgorithmColor
 btnBestFirst.place(x=300,y=0)
 
-btnAmplitude = Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Amplitude", foreground=txtBtnColor, command=btnAmplitude_click)
+btnAmplitude = tk.Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Amplitude", foreground=txtBtnColor, command=btnAmplitude_click)
 btnAmplitude["cursor"] = "hand2"
 btnAmplitude["bg"] = btnAlgorithmColor
 btnAmplitude.place(x=0,y=70)
 
-btnProfundidade = Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Profundidade", foreground=txtBtnColor, command=btnProfundidade_click)
+btnProfundidade = tk.Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Profundidade", foreground=txtBtnColor, command=btnProfundidade_click)
 btnProfundidade["cursor"] = "hand2"
 btnProfundidade["bg"] = btnAlgorithmColor
 btnProfundidade.place(x=300,y=70)
 
 
 # FRAME DO DELAY
-frameDelay = LabelFrame(root, text="Velocidade da Animação", borderwidth=2, foreground=foregroundColor, relief=RAISED, bg=backgroundColor, width=716, height=75, padx=20, pady=15)
-frameDelay.place(x=590, y=350)
+frameDelay = tk.LabelFrame(root, text="Velocidade da Animação", borderwidth=2, foreground=foregroundColor, relief=tk.RAISED, bg=backgroundColor, width=716, height=75, padx=20, pady=15)
+frameDelay.place(x=590, y=536)
   
 # BOTÕES DE DELAY
-btnMtLento = Button(frameDelay, width=15, text="Muito Lenta", foreground=txtBtnColor, command=btnMtLento_Click)
+btnMtLento = tk.Button(frameDelay, width=15, text="Muito Lenta", foreground=txtBtnColor, command=btnMtLento_Click)
 btnMtLento["cursor"] = "hand2"
 btnMtLento["bg"] = unselectedColor
 btnMtLento.place(x=0,y=0)
 
-btnLento = Button(frameDelay, width=15, text="Lenta", foreground=txtBtnColor, command=btnLento_Click)
+btnLento = tk.Button(frameDelay, width=15, text="Lenta", foreground=txtBtnColor, command=btnLento_Click)
 btnLento["cursor"] = "hand2"
 btnLento["bg"] = unselectedColor
 btnLento.place(x=140,y=0)
 
-btnNormal = Button(frameDelay, width=15, text="Normal", foreground=txtBtnColor, command=btnNormal_Click)
+btnNormal = tk.Button(frameDelay, width=15, text="Normal", foreground=txtBtnColor, command=btnNormal_Click)
 btnNormal["cursor"] = "hand2"
 btnNormal["bg"] = selectedColor
 btnNormal.place(x=280,y=0)
 
-btnRapido = Button(frameDelay, width=15, text="Rápida", foreground=txtBtnColor, command=btnRapido_Click)
+btnRapido = tk.Button(frameDelay, width=15, text="Rápida", foreground=txtBtnColor, command=btnRapido_Click)
 btnRapido["cursor"] = "hand2"
 btnRapido["bg"] = unselectedColor
 btnRapido.place(x=420,y=0)
 
-btnMtRapido = Button(frameDelay, width=15, text="Muito Rápida", foreground=txtBtnColor, command=btnMtRapido_Click)
+btnMtRapido = tk.Button(frameDelay, width=15, text="Muito Rápida", foreground=txtBtnColor, command=btnMtRapido_Click)
 btnMtRapido["cursor"] = "hand2"
 btnMtRapido["bg"] = unselectedColor
 btnMtRapido.place(x=560,y=0)
+
+
+# FRAME DE LEGENDAS
+frameLegenda = tk.LabelFrame(root, text="Legendas:", borderwidth=0, foreground=foregroundColor, relief=tk.RIDGE, bg=backgroundColor, width=400, height=325, padx=20, pady=15)
+frameLegenda.place(x=650, y=20)
+
+# LEGENDAS
+frameInicio = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
+frameInicio.place(x=0, y=0)
+corInicio = tk.Frame(frameInicio, width=25, height=25, bg=catSelectColor)
+corInicio.place(x=5,y=5)
+legendaInicio = tk.Label(frameInicio, foreground="white", bg=backgroundColor, text="Posição inicial do Gato")
+legendaInicio.place(x=34, y=7)
+
+frameNoAberto = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
+frameNoAberto.place(x=0, y=40)
+corNoAberto = tk.Frame(frameNoAberto, width=25, height=25, bg=nodeOpenedColor)
+corNoAberto.place(x=5,y=5)
+legendaNoAberto = tk.Label(frameNoAberto, foreground="white", bg=backgroundColor, text="Nós Abertos")
+legendaNoAberto.place(x=34, y=7)
+
+frameNoFechado = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
+frameNoFechado.place(x=0, y=80)
+corNoFechado = tk.Frame(frameNoFechado, width=25, height=25, bg=nodeClosedColor)
+corNoFechado.place(x=5,y=5)
+legendaNoFechado = tk.Label(frameNoFechado, foreground="white", bg=backgroundColor, text="Nós Fechados")
+legendaNoFechado.place(x=34, y=7)
+
+framePosicaoGato = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
+framePosicaoGato.place(x=0, y=120)
+corPosicaoGato = tk.Frame(framePosicaoGato, width=25, height=25, bg=catPositionColor)
+corPosicaoGato.place(x=5,y=5)
+legendaPosicaoGato = tk.Label(framePosicaoGato, foreground="white", bg=backgroundColor, text="Posição Atual do Gato")
+legendaPosicaoGato.place(x=34, y=7)
+
+frameBacktracking = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
+frameBacktracking.place(x=0, y=160)
+corBacktracking = tk.Frame(frameBacktracking, width=25, height=25, bg=catPositionColor)
+corBacktracking.place(x=5,y=5)
+letra = tk.Label(corBacktracking, foreground="black", bg=catPositionColor, text="B")
+letra.place(x=6,y=3)
+legendaBacktracking = tk.Label(frameBacktracking, foreground="white", bg=backgroundColor, text="Caminho de Backtracking")
+legendaBacktracking.place(x=34, y=7)
+
+frameBloqueio = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
+frameBloqueio.place(x=0, y=200)
+corBloqueio = tk.Frame(frameBloqueio, width=25, height=25, bg=blockSelectColor)
+corBloqueio.place(x=5,y=5)
+legendaBloqueio = tk.Label(frameBloqueio, foreground="white", bg=backgroundColor, text="Bloqueio")
+legendaBloqueio.place(x=34, y=7)
+
+frameSaida = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
+frameSaida.place(x=0, y=240)
+corSaida = tk.Frame(frameSaida, width=25, height=25, bg=exitSelectColor)
+corSaida.place(x=5,y=5)
+legendaSaida = tk.Label(frameSaida, foreground="white", bg=backgroundColor, text="Saída")
+legendaSaida.place(x=34, y=7)
+
 
 root.mainloop()
 
