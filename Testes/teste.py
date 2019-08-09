@@ -1,36 +1,44 @@
-from tkinter import *
 import tkinter as tk
 
-def changeButton() :
-    global button
-    button["cursor"] = "hand2"
-    button["bg"] = "green"
+class Gif (tk.Label):
 
-class CustomButton(tk.Canvas):
-    def __init__(self, parent, width, height, color, command=None, cur=None):
-        tk.Canvas.__init__(self, parent, borderwidth=1, 
-            relief="raised", highlightthickness=0)
-        self.command = command
+	def __init__(self, root, gif):
+		tk.Label.__init__(self, root)
+		self._img  = tk.PhotoImage(file=gif)
+		self.image = self._img
+		self.configure(image=self._img)
 
-        padding = 4
-        id = self.create_oval((padding,padding,
-            width+padding, height+padding), outline=color, fill=color)
-        (x0,y0,x1,y1)  = self.bbox("all")
-        width = (x1-x0) + padding
-        height = (y1-y0) + padding
-        self.configure(width=width, height=height)
-        self.bind("<ButtonPress-1>", self._on_press)
-        self.bind("<ButtonRelease-1>", self._on_release)
-        
-    def _on_press(self, event):
-        self.configure(relief="sunken")
+	def run(self, interval=150, n_repeats=-1):
+		self.n_repeats = n_repeats
+		self._play_gif(interval)
+		
+	def _play_gif(self, interval):
+		self.configure(image=self._img) 
+		self.frame = 0
+		self.repeats = 0
+		self._next_frame(interval)
+            
+	def _next_frame(self, interval):
+		try:
+			opt = "GIF -index {}".format(self.frame)
+			self._img.configure(format=opt)
+		except tk.TclError:
+			self.frame = 0
+			self.repeats += 1
+			if (self.repeats >= self.n_repeats and self.n_repeats > 0):
+				opt = "GIF -index {}".format(0)
+				self._img.configure(format=opt)
+				return
+			else:
+				self._next_frame(interval)
+				return
+		self.frame += 1
+		self.after(interval, self._next_frame, interval)
 
-    def _on_release(self, event):
-        self.configure(relief="raised")
-        if self.command is not None:
-            self.command()
 
-app = tk.Tk()
-button = CustomButton(app, 25, 25, 'red', command=changeButton, cur="hand2")
-button.pack()
-app.mainloop()
+root = tk.Tk()
+gif = Gif(root, gif="Gif_aStar.gif")
+gif.pack()
+gif.run(interval=1000, n_repeats=-1)
+
+root.mainloop()
