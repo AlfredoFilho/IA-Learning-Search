@@ -43,6 +43,7 @@ txtBtnColor = 'white'
 root = Tk()
 root.geometry("1335x640+0+0")
 root.resizable(0,0)
+#root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='PATH.ext'))
 root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini.")
 root.configure(background=backgroundColor)
              
