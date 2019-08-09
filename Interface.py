@@ -618,23 +618,23 @@ def setDelayGif(delay):
     delayGif = delay
     
 def btnMtLento_Click():
-    setDelayGif(500)
+    setDelayGif(400)
     paintBtnDelay("Muito Lento")
     
 def btnLento_Click():
-    setDelayGif(300)
+    setDelayGif(240)
     paintBtnDelay("Lento")
 
 def btnNormal_Click():
-    setDelayGif(200)
+    setDelayGif(160)
     paintBtnDelay("Normal")
 
 def btnRapido_Click():
-    setDelayGif(100)
+    setDelayGif(80)
     paintBtnDelay("Rapido")
 
 def btnMtRapido_Click():
-    setDelayGif(50)
+    setDelayGif(40)
     paintBtnDelay("Muito Rapido")
     
     
@@ -1294,7 +1294,7 @@ btnAstar["cursor"] = "hand2"
 btnAstar["bg"] = btnAlgorithmColor
 btnAstar.place(x=0,y=0)
 
-btnBestFirst = tk.Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Best-First", foreground=txtBtnColor, command=btnBestFirst_click)
+btnBestFirst = tk.Button(frameAlgorithm, width=20, height=1, font=('calibri', 16), text="Melhor-Primeiro", foreground=txtBtnColor, command=btnBestFirst_click)
 btnBestFirst["cursor"] = "hand2"
 btnBestFirst["bg"] = btnAlgorithmColor
 btnBestFirst.place(x=300,y=0)
