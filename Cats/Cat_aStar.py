@@ -124,7 +124,7 @@ def ordenarNoPorHeuristica(listaAberta):
                 ordenado = False
     return listaAberta
 
-def aStar(estadoInicial, estadoFinal, bloqueados, delayGif):
+def aStar(estadoInicial, estadoFinal, bloqueados):
     estadoEscolhido = estadoInicial
     images = []
     
