@@ -123,7 +123,7 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):
     os.remove("GifMaker/ImagemTemp2.png")
     return None
 
-def bestFirst(estadoInicial, estadoFinal, bloqueados, delayGif):
+def bestFirst(estadoInicial, estadoFinal, bloqueados):
     
     estadoEscolhido = estadoInicial
     
