@@ -14,6 +14,7 @@ from tkinter import messagebox
 from Cats.Cat_aStar import aStar
 from Cats.Cat_BestFirst import bestFirst
 from Cats.Cat_DepthFirst import depthFirst
+from GifMaker.GifShow import Gif
 
 gato = []
 saida = []
@@ -571,22 +572,44 @@ def ambosVazio() :
 
 def btnAstar_click() :
     if existeVazio() is not True:
-        aStar(gato[0], saida[0], bloqueados, delayGif)
-        print("Busca A*")
+        aStar(gato[0], saida[0], bloqueados)
+        gifWindow = tk.Toplevel()
+        gifWindow.resizable(0,0)
+        gifWindow.title("Animação - Busca Heurística: A*")
+        
+        gif = Gif(gifWindow, gif="Gifs/Gif_aStar.gif")
+        gif.pack()
+        gif.run(interval=delayGif, n_repeats=-1)
+        gifWindow.mainloop()
     
 def btnBestFirst_click() :
     if existeVazio() is not True:
-        bestFirst(gato[0], saida[0], bloqueados, delayGif)
-        print("Busca Best-First")
+        bestFirst(gato[0], saida[0], bloqueados)
+        gifWindow = tk.Toplevel()
+        gifWindow.resizable(0,0)
+        gifWindow.title("Animação - Busca Heurística: Melhor-Primeiro")
+        
+        gif = Gif(gifWindow, gif="Gifs/Gif_BestFirst.gif")
+        gif.pack()
+        gif.run(interval=delayGif, n_repeats=-1)
+        gifWindow.mainloop()
+        
     
 def btnAmplitude_click() :
     if existeVazio() is not True:
-        print("Busca em Amplitude")
+        pass
     
 def btnProfundidade_click() :
     if existeVazio() is not True:
-        depthFirst(gato[0], saida[0], bloqueados, delayGif)
-        print("Busca em Profundidade")
+        depthFirst(gato[0], saida[0], bloqueados)
+        gifWindow = tk.Toplevel()
+        gifWindow.resizable(0,0)
+        gifWindow.title("Animação - Busca Cega: Profundidade")
+        
+        gif = Gif(gifWindow, gif="Gifs/Gif_DepthFirst.gif")
+        gif.pack()
+        gif.run(interval=delayGif, n_repeats=-1)
+        gifWindow.mainloop()
         
 # FUNÇÕES DE DELAY
 def paintBtnDelay(botao):
@@ -618,24 +641,25 @@ def setDelayGif(delay):
     delayGif = delay
     
 def btnMtLento_Click():
-    setDelayGif(400)
+    setDelayGif(700)
     paintBtnDelay("Muito Lento")
     
 def btnLento_Click():
-    setDelayGif(240)
+    setDelayGif(400)
     paintBtnDelay("Lento")
 
 def btnNormal_Click():
-    setDelayGif(160)
+    setDelayGif(200)
     paintBtnDelay("Normal")
 
 def btnRapido_Click():
-    setDelayGif(80)
+    setDelayGif(100)
     paintBtnDelay("Rapido")
 
 def btnMtRapido_Click():
-    setDelayGif(40)
+    setDelayGif(50)
     paintBtnDelay("Muito Rapido")
+    
     
     
 # FRAME DE SELEÇÃO
@@ -1285,7 +1309,7 @@ btn1010.place(x=460,y=440)
 
 
 # FRAME DOS ALGORITMOS
-frameAlgorithm = tk.LabelFrame(root, text="Realizar Busca", borderwidth=2, foreground=foregroundColor,relief=RAISED, bg=backgroundColor, width=572, height=170, padx=20, pady=15)
+frameAlgorithm = tk.LabelFrame(root, text="Realizar Busca", borderwidth=2, foreground=foregroundColor,relief=tk.RAISED, bg=backgroundColor, width=572, height=170, padx=20, pady=15)
 frameAlgorithm.place(x=650, y=350)
 
 # BOTÕES DOS ALGORITMOS
@@ -1357,21 +1381,21 @@ frameNoAberto = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
 frameNoAberto.place(x=0, y=40)
 corNoAberto = tk.Frame(frameNoAberto, width=25, height=25, bg=nodeOpenedColor)
 corNoAberto.place(x=5,y=5)
-legendaNoAberto = tk.Label(frameNoAberto, foreground="white", bg=backgroundColor, text="Nós Abertos")
+legendaNoAberto = tk.Label(frameNoAberto, foreground="white", bg=backgroundColor, text="Nó Aberto")
 legendaNoAberto.place(x=34, y=7)
 
 frameNoFechado = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
 frameNoFechado.place(x=0, y=80)
 corNoFechado = tk.Frame(frameNoFechado, width=25, height=25, bg=nodeClosedColor)
 corNoFechado.place(x=5,y=5)
-legendaNoFechado = tk.Label(frameNoFechado, foreground="white", bg=backgroundColor, text="Nós Fechados")
+legendaNoFechado = tk.Label(frameNoFechado, foreground="white", bg=backgroundColor, text="Nó Fechado")
 legendaNoFechado.place(x=34, y=7)
 
 framePosicaoGato = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
 framePosicaoGato.place(x=0, y=120)
 corPosicaoGato = tk.Frame(framePosicaoGato, width=25, height=25, bg=catPositionColor)
 corPosicaoGato.place(x=5,y=5)
-legendaPosicaoGato = tk.Label(framePosicaoGato, foreground="white", bg=backgroundColor, text="Posição Atual do Gato")
+legendaPosicaoGato = tk.Label(framePosicaoGato, foreground="white", bg=backgroundColor, text="Caminho percorrido pelo Gato")
 legendaPosicaoGato.place(x=34, y=7)
 
 frameBacktracking = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
@@ -1399,6 +1423,9 @@ legendaSaida.place(x=34, y=7)
 
 
 root.mainloop()
+
+
+
 
 
 
