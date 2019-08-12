@@ -106,7 +106,7 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):
     os.remove("GifMaker/ImagemTemp2.png")
     return None
 
-def depthFirst(estadoInicial, estadoFinal, bloqueados, delayGif):
+def depthFirst(estadoInicial, estadoFinal, bloqueados):
     
     estadoInicial = estadoInicial
     
