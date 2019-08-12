@@ -49,7 +49,7 @@ def next_move(direction, cat) :
     }
     return candidatos[direction][cat[0]%2]
 
-def breadthFirstSearch (cat, chosen_exit, blocks, delayGif):
+def breadthFirstSearch (cat, chosen_exit, blocks):
     
     images.append(GifMaker.compute_initial_image(cat, blocks, chosen_exit[0], images))
     
