@@ -39,9 +39,7 @@ class no:
         self.coordenada = coordenada
         self.pai = pai
 
-images = []
-
-def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados):
+def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images):
 
     if estadoEscolhido[0] % 2 != 0: #Se a linha do gato for par
         listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
@@ -91,7 +89,7 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):
     
     while(count != 0):
         count -= 1
-        listaExpansao = expandir(estadoInicial, visitados[count], bloqueados, estadoFinal, visitados)
+        listaExpansao = expandir(estadoInicial, visitados[count], bloqueados, estadoFinal, visitados, images)
         images.append(GifMaker.fill(visitados[count], "purple", images))
         if len(listaExpansao) != 0:
             return listaExpansao
@@ -108,6 +106,8 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):
 
 def depthFirst(estadoInicial, estadoFinal, bloqueados):
     
+    images = []
+    
     estadoInicial = estadoInicial
     
     estadoFinal = estadoFinal
@@ -122,7 +122,7 @@ def depthFirst(estadoInicial, estadoFinal, bloqueados):
     
     while estadoEscolhido != estadoFinal :  
         
-        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados)
+        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images)
         
         if len(listaExpansao) == 0:
             listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados)
