@@ -15,6 +15,7 @@ from Cats.Cat_aStar import aStar
 from Cats.Cat_BestFirst import bestFirst
 from Cats.Cat_DepthFirst import depthFirst
 from GifMaker.GifShow import Gif
+from tqdm import tqdm
 
 gato = []
 saida = []
@@ -24,7 +25,7 @@ delayGif = 200
 
 # Colors
 backgroundColor = '#2C2F33'
-backgroundTabuleiroColor = '#99a6ad'
+backgroundTabuleiroColor = '#597e8d'
 foregroundColor = 'white'
 selectedColor = '#7289da'
 unselectedColor = '#a1a1a3'
@@ -50,6 +51,13 @@ root.resizable(0,0)
 root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='Images/favicon.png'))
 root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini.")
 root.configure(background=backgroundColor)
+w = 1335
+h = 640
+ws = root.winfo_screenwidth()
+hs = root.winfo_screenheight()
+x = (ws/2) - (w/2)
+y = (hs/2) - (h/2)
+root.geometry('+%d+%d' % (x, y))
              
 # CLASSE BOTÃO
 class CustomButton(tk.Canvas) :
@@ -577,6 +585,14 @@ def btnAstar_click() :
         gifWindow.resizable(0,0)
         gifWindow.title("Animação - Busca Heurística: A*")
         
+        w = 633
+        h = 545
+        ws = gifWindow.winfo_screenwidth()
+        hs = gifWindow.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        gifWindow.geometry('+%d+%d' % (x, y))
+        
         gif = Gif(gifWindow, gif="Gifs/Gif_aStar.gif")
         gif.pack()
         gif.run(interval=delayGif, n_repeats=-1)
@@ -589,6 +605,14 @@ def btnBestFirst_click() :
         gifWindow.resizable(0,0)
         gifWindow.title("Animação - Busca Heurística: Melhor-Primeiro")
         
+        w = 633
+        h = 545
+        ws = gifWindow.winfo_screenwidth()
+        hs = gifWindow.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        gifWindow.geometry('+%d+%d' % (x, y))
+        
         gif = Gif(gifWindow, gif="Gifs/Gif_BestFirst.gif")
         gif.pack()
         gif.run(interval=delayGif, n_repeats=-1)
@@ -597,7 +621,23 @@ def btnBestFirst_click() :
     
 def btnAmplitude_click() :
     if existeVazio() is not True:
-        pass
+#        breadthFirstSearch(gato[0], saida[0], bloqueados)
+        gifWindow = tk.Toplevel()
+        gifWindow.resizable(0,0)
+        gifWindow.title("Animação - Busca Cega: Amplitude")
+        
+        w = 633
+        h = 545
+        ws = gifWindow.winfo_screenwidth()
+        hs = gifWindow.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        gifWindow.geometry('+%d+%d' % (x, y))
+        
+#        gif = Gif(gifWindow, gif="Gifs/Gif_BreadthFirstSearch.gif")
+#        gif.pack()
+#        gif.run(interval=delayGif, n_repeats=-1)
+#        gifWindow.mainloop()
     
 def btnProfundidade_click() :
     if existeVazio() is not True:
@@ -605,6 +645,14 @@ def btnProfundidade_click() :
         gifWindow = tk.Toplevel()
         gifWindow.resizable(0,0)
         gifWindow.title("Animação - Busca Cega: Profundidade")
+        
+        w = 633
+        h = 545
+        ws = gifWindow.winfo_screenwidth()
+        hs = gifWindow.winfo_screenheight()
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+        gifWindow.geometry('+%d+%d' % (x, y))
         
         gif = Gif(gifWindow, gif="Gifs/Gif_DepthFirst.gif")
         gif.pack()
