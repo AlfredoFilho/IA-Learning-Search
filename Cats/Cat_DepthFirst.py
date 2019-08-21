@@ -84,7 +84,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados):
 #    os.system("pause") 
     return adjacentes
 
-def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):
+def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
     count = len(visitados) - 1
     
     while(count != 0):
@@ -125,7 +125,7 @@ def depthFirst(estadoInicial, estadoFinal, bloqueados):
         listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images)
         
         if len(listaExpansao) == 0:
-            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados)
+            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images)
             if listaExpansao == None:
                 return 0
             

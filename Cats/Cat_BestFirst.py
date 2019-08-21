@@ -101,12 +101,12 @@ def ordenarNoPorHeuristica(adjacentes):
                 ordenado = False
     return adjacentes
 
-def backtrack(estadoInicial, estadoFinal, bloqueados, visitados):   
+def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):   
     count = len(visitados) - 1
     
     while(count != 0):
         count -= 1
-        listaExpansao = expandir(estadoInicial, visitados[count], bloqueados, estadoFinal, visitados)
+        listaExpansao = expandir(estadoInicial, visitados[count], bloqueados, estadoFinal, visitados, images)
         images.append(GifMaker.fill(visitados[count], "purple", images))
         if len(listaExpansao) != 0:
             return listaExpansao
@@ -136,7 +136,7 @@ def bestFirst(estadoInicial, estadoFinal, bloqueados):
         listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images)
         
         if len(listaExpansao) == 0:
-            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados)
+            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images)
             if listaExpansao == None:
                 return 0
             
