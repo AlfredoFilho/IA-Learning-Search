@@ -14,8 +14,8 @@ from tkinter import messagebox
 from Cats.Cat_aStar import aStar
 from Cats.Cat_BestFirst import bestFirst
 from Cats.Cat_DepthFirst import depthFirst
+from Cats.Cat_BreadthFirstSearch import breadthFirstSearch
 from GifMaker.GifShow import Gif
-from tqdm import tqdm
 
 gato = []
 saida = []
@@ -621,7 +621,7 @@ def btnBestFirst_click() :
     
 def btnAmplitude_click() :
     if existeVazio() is not True:
-#        breadthFirstSearch(gato[0], saida[0], bloqueados)
+        breadthFirstSearch(gato[0], saida[0], bloqueados)
         gifWindow = tk.Toplevel()
         gifWindow.resizable(0,0)
         gifWindow.title("Animação - Busca Cega: Amplitude")
@@ -634,10 +634,10 @@ def btnAmplitude_click() :
         y = (hs/2) - (h/2)
         gifWindow.geometry('+%d+%d' % (x, y))
         
-#        gif = Gif(gifWindow, gif="Gifs/Gif_BreadthFirstSearch.gif")
-#        gif.pack()
-#        gif.run(interval=delayGif, n_repeats=-1)
-#        gifWindow.mainloop()
+        gif = Gif(gifWindow, gif="Gifs/Gif_BreadthFirstSearch.gif")
+        gif.pack()
+        gif.run(interval=delayGif, n_repeats=-1)
+        gifWindow.mainloop()
     
 def btnProfundidade_click() :
     if existeVazio() is not True:
@@ -705,7 +705,7 @@ def btnRapido_Click():
     paintBtnDelay("Rapido")
 
 def btnMtRapido_Click():
-    setDelayGif(50)
+    setDelayGif(30)
     paintBtnDelay("Muito Rapido")
     
     

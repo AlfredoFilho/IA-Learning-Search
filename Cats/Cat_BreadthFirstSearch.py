@@ -1,9 +1,13 @@
+# -*- coding: utf-8 -*-
 '''
 *******************Developed by********************************
     
-Alfredo Albelis Batista Filho - https://github.com/AlfredoFilho
-Brenda Alexsandra Januario - https://github.com/brendajanuario
-Cleofas Peres Santos - https://github.com/CleoPeres
+Alfredo Albélis Batista Filho - https://github.com/AlfredoFilho
+Brenda Alexsandra Januário - https://github.com/brendajanuario
+Cléofas Peres Santos -  https://github.com/CleoPeres
+Leonardo Ferrari - https://github.com/LeonardoFerrari
+Pedro Bernini - https://github.com/PedroBernini
+Vinicius Abrantes - https://github.com/viniciusAbrantes
 
 **************************************************************** 
 '''
@@ -13,128 +17,189 @@ import Cats.Calcular as Calcular
 import GifMaker.GifMaker as GifMaker
 import os
 
-cat    =  (5, 5)
-
-exits = [(10, 10)]
-
-blocks = (9, 7), (9, 8), (9, 9), (9, 10)
-
-#blocks  = [(3, 4), (3, 6), (3 ,8), (2, 7), (2, 8), (4, 5),
-#           (4, 6), (4, 8), (1, 3), (4, 10), (5, 7), (5, 9),
-#           (6, 7), (6, 8), (6, 9), (2, 4), (8, 5), (1, 2),
-#           (2, 2), (3, 2), (4, 3), (5, 4), (6, 4), (7, 4)]
-
-delayGif = None
-dir = 'Gifs/Gif_BreadthFirstSearch.gif'
-
-images = []
-
-positionCat = cat
-chosen_exit = exits
-positionCatInTuple = tuple(cat)
-positionsVisited = []
-expandedStates = []
+tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
+             (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
+             (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
+             (3, 0), (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10),
+             (4, 0), (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6), (4, 7), (4, 8), (4, 9), (4, 10),
+             (5, 0), (5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10),
+             (6, 0), (6, 1), (6, 2), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7), (6, 8), (6, 9), (6, 10),
+             (7, 0), (7, 1), (7, 2), (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (7, 9), (7, 10),
+             (8, 0), (8, 1), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7), (8, 8), (8, 9), (8, 10),
+             (9, 0), (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8), (9, 9), (9, 10),
+             (10,0), (10,1), (10,2), (10,3), (10,4), (10,5), (10,6), (10,7), (10,8), (10,9), (10,10)]
 
 dark_green = "#4a8e52"
 light_green = "#61b76b"
 
-def next_move(direction, cat) :
-    candidatos = {
-        "NW": [(cat[0]-1, cat[1]-1), (cat[0]-1, cat[1])],
-        "NE": [(cat[0] - 1, cat[1]), (cat[0]-1, cat[1] + 1)],
-        "W" : [(cat[0], cat[1] - 1), (cat[0], cat[1] - 1)],
-        "E" : [(cat[0], cat[1] + 1), (cat[0], cat[1] + 1)],
-        "SW": [(cat[0] + 1, cat[1] - 1),(cat[0] + 1, cat[1])],
-        "SE": [(cat[0] + 1, cat[1]),(cat[0] + 1, cat[1]+1)]
-    }
-    return candidatos[direction][cat[0]%2]
+dir = 'Gifs/Gif_BreadthFirstSearch.gif'
 
-def breadthFirstSearch (cat, chosen_exit, blocks):
+@dataclass
+class no:
+    def __init__(self, coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
+        self.coordenada = coordenada
+        self.total_F = total_F
+        self.distanciaComeco_G = distanciaComeco_G
+        self.distanciaAteFinal_H = distanciaAteFinal_H
+        self.pai = pai
+
+def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
+    # lista com as nos inicias em volta do pai
+    listaExpansaoSuja = []
     
-    images.append(GifMaker.compute_initial_image(cat, blocks, chosen_exit[0], images))
+    #Lista expansao limpa (sem bloqueados e dentro do tabuleiro)
+    listaExpansao = []
     
-    solutionFound = False
-    positionsVisited.append(cat) #add cat position in list of positions visited
+    if estadoEscolhido[0] % 2 != 0: #Se a linha do gato for par
+        listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
+                             (estadoEscolhido[0] + 1, estadoEscolhido[1] + 1),  #Sudeste
+                             (estadoEscolhido[0] + 1, estadoEscolhido[1]),      #Sudoeste
+                             (estadoEscolhido[0], estadoEscolhido[1] - 1),      #Oeste
+                             (estadoEscolhido[0] - 1, estadoEscolhido[1]),      #Noroeste
+                             (estadoEscolhido[0] - 1, estadoEscolhido[1] + 1)]  #Nordeste
+    else:
+        listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
+                             (estadoEscolhido[0] + 1, estadoEscolhido[1]),      #Sudeste
+                             (estadoEscolhido[0] + 1, estadoEscolhido[1] - 1),  #Sudoeste
+                             (estadoEscolhido[0], estadoEscolhido[1] - 1),      #Oeste
+                             (estadoEscolhido[0] - 1, estadoEscolhido[1] - 1),  #Noroeste
+                             (estadoEscolhido[0] - 1, estadoEscolhido[1])]      #Nordeste
     
-    while len(positionsVisited) != 0:
-        atual = positionsVisited.pop(0) #remove first of list
+    
+    #Retirar da lista suja bloqueados e fora do tabuleiro
+    for coordenada in listaExpansaoSuja:
+        valido = True
+        if coordenada not in bloqueados and coordenada in tabuleiro:
+            for no in listaFechada:
+                if coordenada == no.coordenada:
+                    valido = False
+            if valido == True:
+                for no in listaAberta:
+                    if coordenada == no.coordenada:
+                        valido = False
+            if valido == True:
+                if(coordenada != estadoFinal):
+                    images.append(GifMaker.fill_dot(coordenada, "gray", images))
+                listaExpansao.append(coordenada)
+    
+    return listaExpansao
+
+
+def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada):
+    
+    print("\nEstado escolhido:", estadoEscolhido)
+    print("Nós expandidos:")
+    
+    for coordenada in listaExpansao:
+        distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
+        distanciaAteFinal_H = 0
+        total_F = distanciaComeco_G + distanciaAteFinal_H
         
-        if atual != cat:
-            images.append(GifMaker.fill_dot(atual, "black", images))
+        print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
+        
+        listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
+    
+    print("\nLista aberta:")
+    
+    for classe in listaAberta:
+        print("    ", classe.coordenada)
+    print("\nLista fechada:")
+    
+    for classe in listaFechada:
+        print("    ", classe.coordenada)
+    print("----------------------")
+#    os.system("pause")
+    return listaAberta
+
+def breadthFirstSearch(estadoInicial, estadoFinal, bloqueados):
+    estadoEscolhido = estadoInicial
+    images = []
+    
+    #Fazer imagem inicial do gif - cat, bloqueios e estadoFinal
+    images.append(GifMaker.compute_initial_image(estadoInicial, bloqueados, estadoFinal, images))
+    
+    listaFechada = [] #lista visitados
+    listaAberta = []  #lista não visitados
+
+    #estrutura para a coordenada inicial
+    distanciaComeco_G = 0
+    distanciaAteFinal_H = 0
+    total_F = distanciaComeco_G + distanciaAteFinal_H
+    listaAberta.append(no(estadoEscolhido, total_F, distanciaComeco_G, distanciaAteFinal_H, None))
+
+#-----------------------------------------------------------------------
+    while estadoEscolhido != estadoFinal:
+
+        listaExpansao = expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
+        listaAberta = preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada)
+        
+        listaFechada.append(listaAberta[0])
+        listaAberta.pop(0)
+              
+        #Escolher próximo nó
+        if len(listaAberta) == 0:
             
-            print("\n-----------------")
-            print("Escolhido:", atual)
+            print("Sem saida")
+            images[0].save(dir,
+                   save_all=True,
+                   append_images=images[1:],
+                   duration=200,
+                   loop=0)
+            os.remove("GifMaker/ImagemTemp.png")
+            os.remove("GifMaker/ImagemTemp2.png")
+            return 0
+        else:
+            estadoEscolhido = listaAberta[0].coordenada
         
-        if(atual not in blocks and atual in chosen_exit):
-            solutionFound = True
+        images.append(GifMaker.fill_dot(estadoEscolhido, "black" , images))
+#-----------------------------------------------------------------------
+    
+    #Adicionar estadoFinal na lista fechada
+    cont = 0
+    for struct in listaAberta:
+        if struct.coordenada == estadoFinal:
+            listaFechada.append(struct)
+            listaAberta.pop(cont)
             break
-        successorStates = findSuccessorPositions(atual, expandedStates, positionsVisited) #call function to walk with the cat and find the next positions
-        
-        print("Expandidos:")
-        
-        for el in successorStates:
-            print("    Coordenda:",el)
-            images.append(GifMaker.fill_dot(el, "gray", images))
-        expandedStates.append(atual)
-
-#        os.system("pause")
-
-        for i in range (0, len(successorStates)): #check the new positions to see if they have already been included
-            successor = successorStates[i]
-            if successor not in expandedStates and successor not in positionsVisited:        
-                positionsVisited.append(successorStates[i])
-                
-    if solutionFound == True:
-        movimento = Solution(atual)    
-        expandedStates.clear()
-        positionsVisited.clear()
-        successorStates.clear()
-#        print(movimento[-1])
-        images[0].save(dir,
-           save_all=True,
-           append_images=images[1:],
-           duration=200,
-           loop=0)
-        os.remove("GifMaker/ImagemTemp.png")
-        os.remove("GifMaker/ImagemTemp2.png")
-    return 0
+        cont = cont + 1
     
-predecessorCoordinates={}
-predecessorPosition={}
-
-def findSuccessorPositions(cat, expandedStates, positionsVisited):
-    coordinates = ["NE","E","SW","SE","W","NW"]
-    successorPositions=[]
-    for el in coordinates:
-        successor = next_move(el, cat)
-        if (successor[0]<0 or successor[1]<0 or successor[0]>10 or successor[1]>10):
-            continue
-        elif(successor in blocks):
-            continue
-        elif(successor not in expandedStates and successor not in positionsVisited and successor not in blocks):
-            successorPositions.append(successor)
-            predecessorCoordinates[successor]=el
-            predecessorPosition[successor]=cat
-            
-    return successorPositions
+    listaComMelhorCaminho = []
+    listaComMelhorCaminho.append(estadoFinal)
     
-def Solution(cat):
-    listPositions=[]
-    listCoordinates=[]
-    aux=cat
-    listPositions.append(cat)
-    while (aux != tuple(positionCat)):
-        listPositions.append(predecessorPosition[aux])
-        listCoordinates.append(predecessorCoordinates[aux])
-        aux = predecessorPosition[aux]
-    for el in listPositions:
-        images.append(GifMaker.fill_dot(el, dark_green, images))
-    listPositions.reverse()
-    for el in listPositions:
-        images.append(GifMaker.fill_dot(el, light_green, images))
-    print("\nCaminho", listPositions)
-    return listCoordinates
+    #Fazer caminho inverso pela lista fechada até a coordenada inicial(cat)
+    aux = True
+    while aux:
+        for struct in listaFechada:
+            if struct.coordenada == estadoEscolhido:
+                estadoEscolhido = struct.pai
+                listaComMelhorCaminho.append(estadoEscolhido)
+                if estadoEscolhido == estadoInicial:
+                    aux = False
+                break
+    
+    #Fazer parte do gif que volta da estadoFinal até o inicio
+    for coordenada in listaComMelhorCaminho:
+        images.append(GifMaker.fill_dot(coordenada, dark_green, images))
+    
+    #inverter a lista
+    listaComMelhorCaminho.reverse()
 
-print("\n-----------------")
-print("Escolhido:",cat)
-breadthFirstSearch(positionCatInTuple, chosen_exit, blocks, delayGif)
+    #Fazer parte do gif que anda até o fim
+    for coordenada in listaComMelhorCaminho:
+        images.append(GifMaker.fill_dot(coordenada, light_green, images))
+    
+    #salvar gif
+    images[0].save(dir,
+                       save_all=True,
+                       append_images=images[1:],
+                       duration=200,
+                       loop=0)
+    
+    print("\nGif Gerado")
+    print("\nInicio", estadoInicial)
+    print("\nBloqueios", bloqueados)
+    print("\nQuantidade de nós visitados:", len(listaFechada)-1)
+    print("\nCaminho encontrado: ", listaComMelhorCaminho)
+    
+    os.remove("GifMaker/ImagemTemp.png")
+    os.remove("GifMaker/ImagemTemp2.png")
