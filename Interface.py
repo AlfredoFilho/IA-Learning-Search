@@ -7,7 +7,7 @@ Pedro Henrique Bernini Silva - https://github.com/PedroBernini
 
 **************************************************************** 
 '''
-
+import sys
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
@@ -32,6 +32,7 @@ unselectedColor = '#a1a1a3'
 catSelectColor = 'orange'
 blockSelectColor = 'red'
 exitSelectColor = '#456fb2'
+btnLimparColor = '#ff4646'
 btnAlgorithmColor = '#43b581'
 txtBtnColor = 'white'
 catPositionColor = '#61b76b'
@@ -168,8 +169,136 @@ def btnSelectSaida_click() :
 
 def btnSelectBloqueios_click() :
     select("BLOQUEIOS")
-        
     
+def btnLimpar() :
+    global gato
+    global saida
+    global bloqueados
+    gato = []
+    saida = []
+    bloqueados = []
+    btn00.paint("white")
+    btn01.paint("white")
+    btn02.paint("white")
+    btn03.paint("white")
+    btn04.paint("white")
+    btn05.paint("white")
+    btn06.paint("white")
+    btn07.paint("white")
+    btn08.paint("white")
+    btn09.paint("white")
+    btn010.paint("white")
+    btn10.paint("white")
+    btn11.paint("white")
+    btn12.paint("white")
+    btn13.paint("white")
+    btn14.paint("white")
+    btn15.paint("white")
+    btn16.paint("white")
+    btn17.paint("white")
+    btn18.paint("white")
+    btn19.paint("white")
+    btn110.paint("white")
+    btn20.paint("white")
+    btn21.paint("white")
+    btn22.paint("white")
+    btn23.paint("white")
+    btn24.paint("white")
+    btn25.paint("white")
+    btn26.paint("white")
+    btn27.paint("white")
+    btn28.paint("white")
+    btn29.paint("white")
+    btn210.paint("white")
+    btn30.paint("white")
+    btn31.paint("white")
+    btn32.paint("white")
+    btn33.paint("white")
+    btn34.paint("white")
+    btn35.paint("white")
+    btn36.paint("white")
+    btn37.paint("white")
+    btn38.paint("white")
+    btn39.paint("white")
+    btn310.paint("white")
+    btn40.paint("white")
+    btn41.paint("white")
+    btn42.paint("white")
+    btn43.paint("white")
+    btn44.paint("white")
+    btn45.paint("white")
+    btn46.paint("white")
+    btn47.paint("white")
+    btn48.paint("white")
+    btn49.paint("white")
+    btn410.paint("white")
+    btn50.paint("white")
+    btn51.paint("white")
+    btn52.paint("white")
+    btn53.paint("white")
+    btn54.paint("white")
+    btn55.paint("white")
+    btn56.paint("white")
+    btn57.paint("white")
+    btn58.paint("white")
+    btn59.paint("white")
+    btn510.paint("white")
+    btn60.paint("white")
+    btn61.paint("white")
+    btn62.paint("white")
+    btn63.paint("white")
+    btn64.paint("white")
+    btn65.paint("white")
+    btn66.paint("white")
+    btn67.paint("white")
+    btn68.paint("white")
+    btn69.paint("white")
+    btn610.paint("white")
+    btn70.paint("white")
+    btn71.paint("white")
+    btn72.paint("white")
+    btn73.paint("white")
+    btn74.paint("white")
+    btn75.paint("white")
+    btn76.paint("white")
+    btn77.paint("white")
+    btn78.paint("white")
+    btn79.paint("white")
+    btn710.paint("white")
+    btn80.paint("white")
+    btn81.paint("white")
+    btn82.paint("white")
+    btn83.paint("white")
+    btn84.paint("white")
+    btn85.paint("white")
+    btn86.paint("white")
+    btn87.paint("white")
+    btn88.paint("white")
+    btn89.paint("white")
+    btn810.paint("white")
+    btn90.paint("white")
+    btn91.paint("white")
+    btn92.paint("white")
+    btn93.paint("white")
+    btn94.paint("white")
+    btn95.paint("white")
+    btn96.paint("white")
+    btn97.paint("white")
+    btn98.paint("white")
+    btn99.paint("white")
+    btn910.paint("white")
+    btn100.paint("white")
+    btn101.paint("white")
+    btn102.paint("white")
+    btn103.paint("white")
+    btn104.paint("white")
+    btn105.paint("white")
+    btn106.paint("white")
+    btn107.paint("white")
+    btn108.paint("white")
+    btn109.paint("white")
+    btn1010.paint("white")
+
 # FUNCOES BOTÕES TABULEIRO
 def selectCasa(casa, botao) :
     global SELECTED
@@ -570,13 +699,13 @@ def existeVazio() :
         return False
         
 def gatoVazio() :
-    messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para o gato.")
+    messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para o início.")
 
 def saidaVazio() :
     messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para a saída.")
     
 def ambosVazio() :
-    messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para o gato e para saída.")
+    messagebox.showinfo("Parâmetros de busca", "Para realizar a busca, escolha uma posição para o início e para saída.")
 
 def btnAstar_click() :
     if existeVazio() is not True:
@@ -711,25 +840,29 @@ def btnMtRapido_Click():
     
     
 # FRAME DE SELEÇÃO
-frameSelection = tk.LabelFrame(root, text="Seleção de Parâmetros", borderwidth=2, foreground=foregroundColor,relief=tk.RAISED, bg=backgroundColor, width=500, height=75, padx=20, pady=15)
-frameSelection.place(x=40, y=20)
+frameSelection = tk.LabelFrame(root, text="Seleção de Parâmetros", borderwidth=2, foreground=foregroundColor,relief=tk.RAISED, bg=backgroundColor, width=540, height=75, padx=20, pady=15)
+frameSelection.place(x=20, y=20)
 
 #BOTÕES DE SELEÇÃO
-btnSelectGato = tk.Button(frameSelection, width=16, text="Selecionar Gato", foreground=txtBtnColor, command=btnSelectGato_click)
+btnSelectGato = tk.Button(frameSelection, width=16, text="Selecionar Início", foreground=txtBtnColor, command=btnSelectGato_click)
 btnSelectGato["cursor"] = "hand2"
 btnSelectGato["bg"] = selectedColor
 btnSelectGato.place(x=0,y=0)
 
-btnSelectSaida = tk.Button(frameSelection, width=16,text="Selecionar Saída", foreground=txtBtnColor, command=btnSelectSaida_click)
-btnSelectSaida["cursor"] = "hand2"
-btnSelectSaida["bg"] = unselectedColor
-btnSelectSaida.place(x=170,y=0)
-
 btnSelectBloqueios = tk.Button(frameSelection, width=16,text="Selecionar Bloqueios", foreground=txtBtnColor, command=btnSelectBloqueios_click)
 btnSelectBloqueios["cursor"] = "hand2"
 btnSelectBloqueios["bg"] = unselectedColor
-btnSelectBloqueios.place(x=340,y=0)
+btnSelectBloqueios.place(x=143,y=0)
 
+btnSelectSaida = tk.Button(frameSelection, width=16,text="Selecionar Saída", foreground=txtBtnColor, command=btnSelectSaida_click)
+btnSelectSaida["cursor"] = "hand2"
+btnSelectSaida["bg"] = unselectedColor
+btnSelectSaida.place(x=286,y=0)
+
+btnLimpar = tk.Button(frameSelection, width=8,text="Limpar", foreground=txtBtnColor, command=btnLimpar)
+btnLimpar["cursor"] = "hand2"
+btnLimpar["bg"] = btnLimparColor
+btnLimpar.place(x=429,y=0)
 
 # FRAME DE TABULEIRO
 frameTabuleiro = tk.LabelFrame(root, text="Tabuleiro", borderwidth=2, foreground=foregroundColor, relief=tk.RAISED, bg=backgroundColor, width=540, height=512)
@@ -1422,7 +1555,7 @@ frameInicio = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
 frameInicio.place(x=0, y=0)
 corInicio = tk.Frame(frameInicio, width=25, height=25, bg=catSelectColor)
 corInicio.place(x=5,y=5)
-legendaInicio = tk.Label(frameInicio, foreground="white", bg=backgroundColor, text="Posição inicial do Gato")
+legendaInicio = tk.Label(frameInicio, foreground="white", bg=backgroundColor, text="Posição inicial")
 legendaInicio.place(x=34, y=7)
 
 frameNoAberto = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
@@ -1443,7 +1576,7 @@ framePosicaoGato = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundCol
 framePosicaoGato.place(x=0, y=120)
 corPosicaoGato = tk.Frame(framePosicaoGato, width=25, height=25, bg=catPositionColor)
 corPosicaoGato.place(x=5,y=5)
-legendaPosicaoGato = tk.Label(framePosicaoGato, foreground="white", bg=backgroundColor, text="Caminho percorrido pelo Gato")
+legendaPosicaoGato = tk.Label(framePosicaoGato, foreground="white", bg=backgroundColor, text="Caminho percorrido")
 legendaPosicaoGato.place(x=34, y=7)
 
 frameBacktracking = tk.Frame(frameLegenda, width=350, height=35, bg=backgroundColor)
