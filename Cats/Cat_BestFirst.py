@@ -9,7 +9,7 @@ Leonardo Ferrari - https://github.com/LeonardoFerrari
 Pedro Bernini - https://github.com/PedroBernini
 Vinicius Abrantes - https://github.com/viniciusAbrantes
 
-**************************************************************** 
+***************************************************************
 '''
 
 from dataclasses import dataclass

@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+'''
+*******************Developed by********************************
+    
+Alfredo Albélis Batista Filho - https://github.com/AlfredoFilho
+Pedro Henrique Bernini Silva - https://github.com/PedroBernini
+
+***************************************************************
+'''
+
 def H(gato, saida) :
     diference = saida[1] - gato [1] # Diferenca de colunas
     if(gato[0] == saida[0]) :
