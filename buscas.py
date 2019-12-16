@@ -8,9 +8,7 @@ Pedro Henrique Bernini Silva - https://github.com/PedroBernini
 ***************************************************************
 '''
 
-import sys
 import tkinter as tk
-from tkinter import *
 from tkinter import messagebox
 from Cats.Cat_aStar import aStar
 from Cats.Cat_BestFirst import bestFirst
@@ -51,7 +49,7 @@ root = tk.Tk()
 root.geometry("1335x640+0+0")
 root.resizable(0,0)
 root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='Images/favicon.png'))
-root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini.")
+root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini. (2019)")
 root.configure(background=backgroundColor)
 w = 1335
 h = 640
@@ -69,6 +67,7 @@ class Animation(Thread):
     def run(self):
         gifWindow = tk.Toplevel()
         gifWindow.resizable(0,0)
+        gifWindow.title("Aguarde")
         w = 633
         h = 545
         ws = gifWindow.winfo_screenwidth()
