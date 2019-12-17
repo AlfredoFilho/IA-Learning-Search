@@ -48,7 +48,7 @@ nodeClosedColor = 'black'
 root = tk.Tk()
 root.geometry("1335x640+0+0")
 root.resizable(0,0)
-root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='Images/favicon.png'))
+root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='favicon.png'))
 root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini. (2019)")
 root.configure(background=backgroundColor)
 w = 1335

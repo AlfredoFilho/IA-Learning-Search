@@ -12,7 +12,6 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 ***************************************************************
 '''
 
-from dataclasses import dataclass
 import Cats.Calcular as Calcular
 import GifMaker.GifMaker as GifMaker
 import os
@@ -34,7 +33,6 @@ light_green = "#61b76b"
 
 dir = 'Gifs/Gif_aStar.gif'
 
-@dataclass
 class no:
     def __init__(self, coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
         self.coordenada = coordenada
