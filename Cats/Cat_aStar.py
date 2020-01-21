@@ -90,7 +90,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, list
     ArquivoLog.write("Estado escolhido: " + str(estadoEscolhido))
 
     #print("Nós expandidos:")
-    ArquivoLog.write("\n\nNós expandidos:")
+    ArquivoLog.write("\n\n    Nós expandidos:")
 
     for coordenada in listaExpansao:
         distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
@@ -98,8 +98,8 @@ def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, list
         total_F = distanciaComeco_G + distanciaAteFinal_H
         
         #print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
-        ArquivoLog.write("\n    Coordenada: " + str(coordenada) + "\n        F = " + str(total_F) + 
-        "\n        G = " + str(distanciaComeco_G) + "\n        H = " + str(distanciaAteFinal_H) + '\n')
+        ArquivoLog.write("\n        Coordenada: " + str(coordenada) + "\n            F = " + str(total_F) + 
+        "\n            G = " + str(distanciaComeco_G) + "\n            H = " + str(distanciaAteFinal_H) + '\n')
         
         listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
     

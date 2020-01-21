@@ -15,6 +15,7 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 import Cats.Calcular as Calcular
 import GifMaker.GifMaker as GifMaker
 import os
+import codecs
 
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
              (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
@@ -70,20 +71,25 @@ def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados,
     
     return listaExpansao
 
-def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estadoFinal):
+def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estadoFinal, ArquivoLog):
     
-    print("\n---------")
-    print("\nEstado escolhido:",estadoEscolhido)
-    print("Expandidos:")
-    
+    #print("\n---------")
+    #print("\nEstado escolhido:",estadoEscolhido)
+    #print("Expandidos:")
+    ArquivoLog.write('\n----------------------')
+    ArquivoLog.write("\n\nEstado escolhido: " + str(estadoEscolhido))
+    ArquivoLog.write("\n\n    Nós expandidos:\n")
+
     adjacentes = []
     for coordenada in listaExpansao :
         distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
         adjacentes.append(no(coordenada, distanciaAteFinal_H, estadoEscolhido))
         
-        print("    Coordenada:", coordenada, "H =",distanciaAteFinal_H)
-    
-    print("\nLista visitados:", visitados)
+        #print("    Coordenada:", coordenada, "H =",distanciaAteFinal_H)
+        ArquivoLog.write("        Coordenada " + str(coordenada) + "\n            H = " + str(distanciaAteFinal_H) + "\n\n")
+
+    #print("\nLista visitados:", visitados)
+    ArquivoLog.write("Lista visitados: " + str(visitados) + "\n")
 #    os.system("pause")    
     return adjacentes
 
@@ -109,7 +115,8 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
         if len(listaExpansao) != 0:
             return listaExpansao
         
-    print("Sem saída")
+    #print("Sem saída")
+    ArquivoLog.write("\nSem saida")
     images[0].save(dir,
                save_all=True,
                append_images=images[1:],
@@ -121,8 +128,11 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
 
 def bestFirst(estadoInicial, estadoFinal, bloqueados):
     
+    fullNameFile = 'Gifs/Log_BestFirst.txt'
+    ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
+    ArquivoLog.write("------------- Log de execuções BestFirst -------------\n")
+
     images = []
-    
     estadoEscolhido = estadoInicial
     
     images.append(GifMaker.compute_initial_image(estadoInicial, bloqueados, estadoFinal, images))
@@ -138,7 +148,7 @@ def bestFirst(estadoInicial, estadoFinal, bloqueados):
             if listaExpansao == None:
                 return 0
             
-        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estadoFinal)
+        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estadoFinal, ArquivoLog)
         adjacentes = ordenarNoPorHeuristica(adjacentes)
         
         estadoEscolhido = adjacentes[0].coordenada
@@ -150,13 +160,19 @@ def bestFirst(estadoInicial, estadoFinal, bloqueados):
         
 #        print("Atual: ", estadoEscolhido)
     
-    print("--------------------------------------")
-    print("\nGif Gerado")
-    print("\nInicio", estadoInicial)
-    print("\nBloqueios", bloqueados)
-    print("\nQuantidade de nós visitados:", len(visitados)-1)
-    print("\nVisitados:", visitados)
-    
+    #print("--------------------------------------")
+    #print("\nGif Gerado")
+    #print("\nInicio", estadoInicial)
+    #print("\nBloqueios", bloqueados)
+    #print("\nQuantidade de nós visitados:", len(visitados)-1)
+    #print("\nVisitados:", visitados)
+    ArquivoLog.write("\n----------------------\n\nInicio: " + str(estadoInicial))
+    ArquivoLog.write("\nFim: " + str(estadoFinal))
+    ArquivoLog.write("\nBloqueios: " + str(bloqueados))
+    ArquivoLog.write("\nQuantidade de nós visitados: " + str(len(visitados)-1))
+    ArquivoLog.write("\nVisitados:" + str(visitados))
+    ArquivoLog.close()
+
     images[0].save(dir,
                        save_all=True,
                        append_images=images[1:],
