@@ -1,4 +1,4 @@
-# Astar
+# IA Learning Search
 
 **A***
 <p align="center">
