@@ -15,6 +15,7 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 import Cats.Calcular as Calcular
 import GifMaker.GifMaker as GifMaker
 import os
+import codecs
 
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
              (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
@@ -31,7 +32,7 @@ tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0,
 dark_green = "#4a8e52"
 light_green = "#61b76b"
 
-dir = 'Gifs/Gif_BreadthFirstSearch.gif'
+dir = 'Gifs/Gif_Amplitude.gif'
 
 class no:
     def __init__(self, coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, pai):
@@ -83,33 +84,54 @@ def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, est
     return listaExpansao
 
 
-def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada):
+def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada, ArquivoLog):
     
-    print("\nEstado escolhido:", estadoEscolhido)
-    print("Nós expandidos:")
+    #print("\nEstado escolhido:", estadoEscolhido)
+    ArquivoLog.write("Estado escolhido: " + str(estadoEscolhido))
+
+    #print("Nós expandidos:")
+    ArquivoLog.write("\n\n    Nós expandidos:")
+
+    if(len(listaExpansao) == 0):
+        ArquivoLog.write('\n\n        SEM EXPANSÔES POSSÍVEIS ou ENCONTROU O FINAL\n')
     
-    for coordenada in listaExpansao:
-        distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
-        distanciaAteFinal_H = 0
-        total_F = distanciaComeco_G + distanciaAteFinal_H
-        
-        print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
-        
-        listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
+    else:
+        for coordenada in listaExpansao:
+            distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
+            distanciaAteFinal_H = 0
+            total_F = distanciaComeco_G + distanciaAteFinal_H
+            
+            #print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
+            ArquivoLog.write("\n        Coordenada: " + str(coordenada) + "\n            F = " + str(total_F) + 
+            "\n            G = " + str(distanciaComeco_G) + "\n            H = " + str(distanciaAteFinal_H) + '\n')
+            
+            listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
     
-    print("\nLista aberta:")
+    #print("\nLista aberta:")
+    ArquivoLog.write("\nLista aberta:")
     
     for classe in listaAberta:
-        print("    ", classe.coordenada)
-    print("\nLista fechada:")
+        #print("    ", classe.coordenada)
+        ArquivoLog.write("  " + str(classe.coordenada))
     
+    #print("\nLista fechada:")
+    ArquivoLog.write("\nLista fechada:")
+
     for classe in listaFechada:
-        print("    ", classe.coordenada)
-    print("----------------------")
+        #print("    ", classe.coordenada)
+        ArquivoLog.write("  " + str(classe.coordenada))
+
+    #print("----------------------")
+    ArquivoLog.write("\n\n----------------------\n\n")
 #    os.system("pause")
     return listaAberta
 
 def breadthFirstSearch(estadoInicial, estadoFinal, bloqueados):
+
+    fullNameFile = 'Gifs/Log_Amplitude.txt'
+    ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
+    ArquivoLog.write("------------- Log de execuções Amplitude -------------\n\n")
+
     estadoEscolhido = estadoInicial
     images = []
     
@@ -129,7 +151,7 @@ def breadthFirstSearch(estadoInicial, estadoFinal, bloqueados):
     while estadoEscolhido != estadoFinal:
 
         listaExpansao = expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
-        listaAberta = preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada)
+        listaAberta = preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada, ArquivoLog)
         
         listaFechada.append(listaAberta[0])
         listaAberta.pop(0)
@@ -137,7 +159,8 @@ def breadthFirstSearch(estadoInicial, estadoFinal, bloqueados):
         #Escolher próximo nó
         if len(listaAberta) == 0:
             
-            print("Sem saida")
+            #print("Sem saida")
+            ArquivoLog.write("\nSem saida")
             images[0].save(dir,
                    save_all=True,
                    append_images=images[1:],
@@ -193,11 +216,18 @@ def breadthFirstSearch(estadoInicial, estadoFinal, bloqueados):
                        duration=200,
                        loop=0)
     
-    print("\nGif Gerado")
-    print("\nInicio", estadoInicial)
-    print("\nBloqueios", bloqueados)
-    print("\nQuantidade de nós visitados:", len(listaFechada)-1)
-    print("\nCaminho encontrado: ", listaComMelhorCaminho)
+    #print("\nGif Gerado")
+    #print("\nInicio", estadoInicial)
+    #print("\nBloqueios", bloqueados)
+    #print("\nQuantidade de nós visitados:", len(listaFechada)-1)
+    #print("\nCaminho encontrado: ", listaComMelhorCaminho)
     
+    ArquivoLog.write("\n----------------------\n\nInicio: " + str(estadoInicial))
+    ArquivoLog.write("\nFim: " + str(estadoFinal))
+    ArquivoLog.write("\nBloqueios: " + str(bloqueados))
+    ArquivoLog.write("\nQuantidade de nós visitados: " + str(len(listaFechada)-1))
+    ArquivoLog.write("\nCaminho encontrado: " + str(listaComMelhorCaminho))
+    ArquivoLog.close()
+
     os.remove("GifMaker/ImagemTemp.png")
     os.remove("GifMaker/ImagemTemp2.png")

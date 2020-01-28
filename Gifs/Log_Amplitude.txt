@@ -1,0 +1,298 @@
+------------- Log de execuções Amplitude -------------
+
+Estado escolhido: (0, 0)
+
+    Nós expandidos:
+        Coordenada: (0, 1)
+            F = 1
+            G = 1
+            H = 0
+
+        Coordenada: (1, 0)
+            F = 1
+            G = 1
+            H = 0
+
+Lista aberta:  (0, 0)  (0, 1)  (1, 0)
+Lista fechada:
+
+----------------------
+
+Estado escolhido: (0, 1)
+
+    Nós expandidos:
+        Coordenada: (0, 2)
+            F = 2
+            G = 2
+            H = 0
+
+        Coordenada: (1, 1)
+            F = 2
+            G = 2
+            H = 0
+
+Lista aberta:  (0, 1)  (1, 0)  (0, 2)  (1, 1)
+Lista fechada:  (0, 0)
+
+----------------------
+
+Estado escolhido: (1, 0)
+
+    Nós expandidos:
+        Coordenada: (2, 1)
+            F = 2
+            G = 2
+            H = 0
+
+        Coordenada: (2, 0)
+            F = 2
+            G = 2
+            H = 0
+
+Lista aberta:  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)
+Lista fechada:  (0, 0)  (0, 1)
+
+----------------------
+
+Estado escolhido: (0, 2)
+
+    Nós expandidos:
+        Coordenada: (0, 3)
+            F = 2
+            G = 2
+            H = 0
+
+        Coordenada: (1, 2)
+            F = 2
+            G = 2
+            H = 0
+
+Lista aberta:  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)
+
+----------------------
+
+Estado escolhido: (1, 1)
+
+    Nós expandidos:
+        Coordenada: (2, 2)
+            F = 2
+            G = 2
+            H = 0
+
+Lista aberta:  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)
+
+----------------------
+
+Estado escolhido: (2, 1)
+
+    Nós expandidos:
+        Coordenada: (3, 1)
+            F = 2
+            G = 2
+            H = 0
+
+        Coordenada: (3, 0)
+            F = 2
+            G = 2
+            H = 0
+
+Lista aberta:  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)
+
+----------------------
+
+Estado escolhido: (2, 0)
+
+    Nós expandidos:
+
+        SEM EXPANSÔES POSSÍVEIS ou ENCONTROU O FINAL
+
+Lista aberta:  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)
+
+----------------------
+
+Estado escolhido: (0, 3)
+
+    Nós expandidos:
+        Coordenada: (0, 4)
+            F = 3
+            G = 3
+            H = 0
+
+        Coordenada: (1, 3)
+            F = 3
+            G = 3
+            H = 0
+
+Lista aberta:  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)
+
+----------------------
+
+Estado escolhido: (1, 2)
+
+    Nós expandidos:
+        Coordenada: (2, 3)
+            F = 3
+            G = 3
+            H = 0
+
+Lista aberta:  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)  (2, 3)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)
+
+----------------------
+
+Estado escolhido: (2, 2)
+
+    Nós expandidos:
+        Coordenada: (3, 2)
+            F = 3
+            G = 3
+            H = 0
+
+Lista aberta:  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)  (2, 3)  (3, 2)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)
+
+----------------------
+
+Estado escolhido: (3, 1)
+
+    Nós expandidos:
+        Coordenada: (4, 2)
+            F = 3
+            G = 3
+            H = 0
+
+        Coordenada: (4, 1)
+            F = 3
+            G = 3
+            H = 0
+
+Lista aberta:  (3, 1)  (3, 0)  (0, 4)  (1, 3)  (2, 3)  (3, 2)  (4, 2)  (4, 1)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)
+
+----------------------
+
+Estado escolhido: (3, 0)
+
+    Nós expandidos:
+        Coordenada: (4, 0)
+            F = 3
+            G = 3
+            H = 0
+
+Lista aberta:  (3, 0)  (0, 4)  (1, 3)  (2, 3)  (3, 2)  (4, 2)  (4, 1)  (4, 0)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)
+
+----------------------
+
+Estado escolhido: (0, 4)
+
+    Nós expandidos:
+        Coordenada: (0, 5)
+            F = 4
+            G = 4
+            H = 0
+
+        Coordenada: (1, 4)
+            F = 4
+            G = 4
+            H = 0
+
+Lista aberta:  (0, 4)  (1, 3)  (2, 3)  (3, 2)  (4, 2)  (4, 1)  (4, 0)  (0, 5)  (1, 4)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)
+
+----------------------
+
+Estado escolhido: (1, 3)
+
+    Nós expandidos:
+        Coordenada: (2, 4)
+            F = 4
+            G = 4
+            H = 0
+
+Lista aberta:  (1, 3)  (2, 3)  (3, 2)  (4, 2)  (4, 1)  (4, 0)  (0, 5)  (1, 4)  (2, 4)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)
+
+----------------------
+
+Estado escolhido: (2, 3)
+
+    Nós expandidos:
+        Coordenada: (3, 3)
+            F = 4
+            G = 4
+            H = 0
+
+Lista aberta:  (2, 3)  (3, 2)  (4, 2)  (4, 1)  (4, 0)  (0, 5)  (1, 4)  (2, 4)  (3, 3)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)
+
+----------------------
+
+Estado escolhido: (3, 2)
+
+    Nós expandidos:
+        Coordenada: (4, 3)
+            F = 4
+            G = 4
+            H = 0
+
+Lista aberta:  (3, 2)  (4, 2)  (4, 1)  (4, 0)  (0, 5)  (1, 4)  (2, 4)  (3, 3)  (4, 3)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)  (2, 3)
+
+----------------------
+
+Estado escolhido: (4, 2)
+
+    Nós expandidos:
+        Coordenada: (5, 2)
+            F = 4
+            G = 4
+            H = 0
+
+        Coordenada: (5, 1)
+            F = 4
+            G = 4
+            H = 0
+
+Lista aberta:  (4, 2)  (4, 1)  (4, 0)  (0, 5)  (1, 4)  (2, 4)  (3, 3)  (4, 3)  (5, 2)  (5, 1)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)  (2, 3)  (3, 2)
+
+----------------------
+
+Estado escolhido: (4, 1)
+
+    Nós expandidos:
+        Coordenada: (5, 0)
+            F = 4
+            G = 4
+            H = 0
+
+Lista aberta:  (4, 1)  (4, 0)  (0, 5)  (1, 4)  (2, 4)  (3, 3)  (4, 3)  (5, 2)  (5, 1)  (5, 0)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)  (2, 3)  (3, 2)  (4, 2)
+
+----------------------
+
+Estado escolhido: (4, 0)
+
+    Nós expandidos:
+
+        SEM EXPANSÔES POSSÍVEIS ou ENCONTROU O FINAL
+
+Lista aberta:  (4, 0)  (0, 5)  (1, 4)  (2, 4)  (3, 3)  (4, 3)  (5, 2)  (5, 1)  (5, 0)
+Lista fechada:  (0, 0)  (0, 1)  (1, 0)  (0, 2)  (1, 1)  (2, 1)  (2, 0)  (0, 3)  (1, 2)  (2, 2)  (3, 1)  (3, 0)  (0, 4)  (1, 3)  (2, 3)  (3, 2)  (4, 2)  (4, 1)
+
+----------------------
+
+
+----------------------
+
+Inicio: (0, 0)
+Fim: (0, 5)
+Bloqueios: []
+Quantidade de nós visitados: 19
+Caminho encontrado: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5)]

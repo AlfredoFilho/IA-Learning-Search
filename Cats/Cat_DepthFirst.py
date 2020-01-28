@@ -15,6 +15,7 @@ Vinicius Abrantes - https://github.com/viniciusAbrantes
 import Cats.Calcular as Calcular
 import GifMaker.GifMaker as GifMaker
 import os
+import codecs
 
 tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10),
              (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
@@ -30,14 +31,14 @@ tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0,
 
 light_green = "#61b76b"
 
-dir = 'Gifs/Gif_DepthFirst.gif'
+dir = 'Gifs/Gif_Profundidade.gif'
 
 class no:
     def __init__(self, coordenada, pai):
         self.coordenada = coordenada
         self.pai = pai
 
-def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images):
+def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images, ArquivoLog):
 
     if estadoEscolhido[0] % 2 != 0: #Se a linha do gato for par
         listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
@@ -66,23 +67,33 @@ def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados,
     
     return listaExpansao
 
-def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados):
+def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, ArquivoLog):
 
-    print("\n---------")
-    print("Estado escolhido:",estadoEscolhido)
-    print("Expandidos:")
+    #print("\n---------")
+    #print("Estado escolhido:",estadoEscolhido)
+    #print("Expandidos:")
+    ArquivoLog.write('\n----------------------')
+    ArquivoLog.write("\n\nEstado escolhido: " + str(estadoEscolhido))
+    ArquivoLog.write("\n\n    Nós expandidos:\n")
     
     adjacentes = []
-    for coordenada in listaExpansao :
-        adjacentes.append(no(coordenada, estadoEscolhido))
-       
-        print("    Coordenada:", coordenada)
+
+    if(len(listaExpansao) == 0):
+        ArquivoLog.write('\n\n        SEM EXPANSÔES POSSÍVEIS ou ENCONTROU O FINAL\n')
     
-    print("\nLista visitados:", visitados)
+    else:
+        for coordenada in listaExpansao :
+            adjacentes.append(no(coordenada, estadoEscolhido))
+        
+            #print("    Coordenada:", coordenada)
+            ArquivoLog.write("        Coordenada " + str(coordenada) + "\n\n")
+    
+    #print("\nLista visitados:", visitados)
+    ArquivoLog.write("Lista visitados: " + str(visitados) + "\n")
 #    os.system("pause") 
     return adjacentes
 
-def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
+def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images, ArquivoLog):
     count = len(visitados) - 1
     
     while(count != 0):
@@ -92,7 +103,8 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
         if len(listaExpansao) != 0:
             return listaExpansao
         
-    print("Sem saída")
+    #print("Sem saída")
+    ArquivoLog.write("\nSem saida")
     images[0].save(dir,
                save_all=True,
                append_images=images[1:],
@@ -104,6 +116,10 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
 
 def depthFirst(estadoInicial, estadoFinal, bloqueados):
     
+    fullNameFile = 'Gifs/Log_Profundidade.txt'
+    ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
+    ArquivoLog.write("------------- Log de execuções Profundidade -------------\n")
+
     images = []
     
     estadoInicial = estadoInicial
@@ -120,14 +136,14 @@ def depthFirst(estadoInicial, estadoFinal, bloqueados):
     
     while estadoEscolhido != estadoFinal :  
         
-        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images)
+        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images, ArquivoLog)
         
         if len(listaExpansao) == 0:
-            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images)
+            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images, ArquivoLog)
             if listaExpansao == None:
                 return 0
             
-        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados)
+        adjacentes = preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, ArquivoLog)
         estadoEscolhido = adjacentes[0].coordenada
 
         visitados.append(estadoEscolhido)
@@ -137,13 +153,21 @@ def depthFirst(estadoInicial, estadoFinal, bloqueados):
         
 #        print("Atual: ", estadoEscolhido)
     
-    print("--------------------------------------")
-    print("\nGif Gerado")
-    print("\nInicio", estadoInicial)
-    print("\nBloqueios", bloqueados)
-    print("\nQuantidade de nós visitados:", len(visitados)-1)
-    print("\nVisitados:", visitados)
-    
+    #print("--------------------------------------")
+    #print("\nGif Gerado")
+    #print("\nInicio", estadoInicial)
+    #print("\nBloqueios", bloqueados)
+    #print("\nQuantidade de nós visitados:", len(visitados)-1)
+    #print("\nVisitados:", visitados)
+    ArquivoLog.write("\n----------------------\n\nInicio: " + str(estadoInicial))
+    ArquivoLog.write("\nFim: " + str(estadoFinal))
+    ArquivoLog.write("\nBloqueios: " + str(bloqueados))
+    ArquivoLog.write("\nQuantidade de nós visitados: " + str(len(visitados)-1))
+    ArquivoLog.write("\nVisitados:" + str(visitados))
+    ArquivoLog.close()
+
+
+
     images[0].save(dir,
                        save_all=True,
                        append_images=images[1:],

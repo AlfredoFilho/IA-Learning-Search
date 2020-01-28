@@ -31,7 +31,7 @@ tabuleiro = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0,
 
 light_green = "#61b76b"
 
-dir = 'Gifs/Gif_BestFirst.gif'
+dir = 'Gifs/Gif_Melhor-Primeiro.gif'
 
 class no:
     def __init__(self, coordenada, distanciaAteFinal_H, pai):
@@ -81,12 +81,17 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estado
     ArquivoLog.write("\n\n    Nós expandidos:\n")
 
     adjacentes = []
-    for coordenada in listaExpansao :
-        distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
-        adjacentes.append(no(coordenada, distanciaAteFinal_H, estadoEscolhido))
-        
-        #print("    Coordenada:", coordenada, "H =",distanciaAteFinal_H)
-        ArquivoLog.write("        Coordenada " + str(coordenada) + "\n            H = " + str(distanciaAteFinal_H) + "\n\n")
+
+    if(len(listaExpansao) == 0):
+        ArquivoLog.write('\n\n        SEM EXPANSÔES POSSÍVEIS ou ENCONTROU O FINAL\n')
+    
+    else:
+        for coordenada in listaExpansao :
+            distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
+            adjacentes.append(no(coordenada, distanciaAteFinal_H, estadoEscolhido))
+            
+            #print("    Coordenada:", coordenada, "H =",distanciaAteFinal_H)
+            ArquivoLog.write("        Coordenada " + str(coordenada) + "\n            H = " + str(distanciaAteFinal_H) + "\n\n")
 
     #print("\nLista visitados:", visitados)
     ArquivoLog.write("Lista visitados: " + str(visitados) + "\n")
@@ -128,9 +133,9 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
 
 def bestFirst(estadoInicial, estadoFinal, bloqueados):
     
-    fullNameFile = 'Gifs/Log_BestFirst.txt'
+    fullNameFile = 'Gifs/Log_Melhor-Primeiro.txt'
     ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
-    ArquivoLog.write("------------- Log de execuções BestFirst -------------\n")
+    ArquivoLog.write("------------- Log de execuções Melhor-Primeiro -------------\n")
 
     images = []
     estadoEscolhido = estadoInicial

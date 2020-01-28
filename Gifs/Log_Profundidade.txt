@@ -1,4 +1,4 @@
-------------- Log de execuções BestFirst -------------
+------------- Log de execuções Profundidade -------------
 
 ----------------------
 
@@ -6,10 +6,8 @@ Estado escolhido: (0, 0)
 
     Nós expandidos:
         Coordenada (0, 1)
-            H = 4
 
         Coordenada (1, 0)
-            H = 4
 
 Lista visitados: [(0, 0)]
 
@@ -19,13 +17,10 @@ Estado escolhido: (0, 1)
 
     Nós expandidos:
         Coordenada (0, 2)
-            H = 3
 
         Coordenada (1, 1)
-            H = 3
 
         Coordenada (1, 0)
-            H = 4
 
 Lista visitados: [(0, 0), (0, 1)]
 
@@ -35,13 +30,10 @@ Estado escolhido: (0, 2)
 
     Nós expandidos:
         Coordenada (0, 3)
-            H = 2
 
         Coordenada (1, 2)
-            H = 2
 
         Coordenada (1, 1)
-            H = 3
 
 Lista visitados: [(0, 0), (0, 1), (0, 2)]
 
@@ -51,42 +43,30 @@ Estado escolhido: (0, 3)
 
     Nós expandidos:
         Coordenada (0, 4)
-            H = 2
 
         Coordenada (1, 3)
-            H = 1
 
         Coordenada (1, 2)
-            H = 2
 
 Lista visitados: [(0, 0), (0, 1), (0, 2), (0, 3)]
 
 ----------------------
 
-Estado escolhido: (1, 3)
+Estado escolhido: (0, 4)
 
     Nós expandidos:
+        Coordenada (0, 5)
+
         Coordenada (1, 4)
-            H = 1
 
-        Coordenada (2, 4)
-            H = 0
+        Coordenada (1, 3)
 
-        Coordenada (2, 3)
-            H = 1
-
-        Coordenada (1, 2)
-            H = 2
-
-        Coordenada (0, 4)
-            H = 2
-
-Lista visitados: [(0, 0), (0, 1), (0, 2), (0, 3), (1, 3)]
+Lista visitados: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4)]
 
 ----------------------
 
 Inicio: (0, 0)
-Fim: (2, 4)
+Fim: (0, 5)
 Bloqueios: []
 Quantidade de nós visitados: 5
-Visitados:[(0, 0), (0, 1), (0, 2), (0, 3), (1, 3), (2, 4)]
+Visitados:[(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5)]

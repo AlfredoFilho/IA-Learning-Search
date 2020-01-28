@@ -81,17 +81,17 @@ class Animation(Thread):
         if self.algoritmo == 'breadthFirstSearch':
             breadthFirstSearch(gato[0], saida[0], bloqueados)
             gifWindow.title("Animação - Busca Cega: Amplitude")
-            gif = Gif(gifWindow, gif="Gifs/Gif_BreadthFirstSearch.gif")
+            gif = Gif(gifWindow, gif="Gifs/Gif_Amplitude.gif")
             
         elif self.algoritmo == 'depthFirst':
             depthFirst(gato[0], saida[0], bloqueados)
             gifWindow.title("Animação - Busca Cega: Profundidade")
-            gif = Gif(gifWindow, gif="Gifs/Gif_DepthFirst.gif")
+            gif = Gif(gifWindow, gif="Gifs/Gif_Profundidade.gif")
             
         elif self.algoritmo == 'bestFirst':
             bestFirst(gato[0], saida[0], bloqueados)
             gifWindow.title("Animação - Busca Heurística: Melhor-Primeiro")
-            gif = Gif(gifWindow, gif="Gifs/Gif_BestFirst.gif")
+            gif = Gif(gifWindow, gif="Gifs/Gif_Melhor-Primeiro.gif")
             
         elif self.algoritmo == 'aStar':
             aStar(gato[0], saida[0], bloqueados)
