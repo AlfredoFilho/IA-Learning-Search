@@ -48,8 +48,12 @@ nodeClosedColor = 'black'
 root = tk.Tk()
 root.geometry("1335x640+0+0")
 root.resizable(0,0)
-root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='favicon.png'))
-root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini. (2019)")
+try:
+    root.tk.call('wm', 'iconphoto', root._w, tk.Image('photo', file='favicon.png'))
+except:
+    print('Ícone não encontrado!')
+    
+root.title("Visualização de Buscas Cegas e Heurísticas - By Alfredo Albélis; Pedro Bernini. (2020)")
 root.configure(background=backgroundColor)
 w = 1335
 h = 640
@@ -795,11 +799,11 @@ def setDelayGif(delay):
     delayGif = delay
     
 def btnMtLento_Click():
-    setDelayGif(700)
+    setDelayGif(1000)
     paintBtnDelay("Muito Lento")
     
 def btnLento_Click():
-    setDelayGif(400)
+    setDelayGif(500)
     paintBtnDelay("Lento")
 
 def btnNormal_Click():

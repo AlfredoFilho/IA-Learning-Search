@@ -2,85 +2,214 @@
 
 ----------------------
 
-Estado escolhido: (0, 0)
+Estado escolhido: (3, 5)
 
     Nós expandidos:
-        Coordenada (0, 1)
-            H = 4
-
-        Coordenada (1, 0)
+        Coordenada (3, 6)
             H = 5
 
-Lista visitados: [(0, 0)]
+        Coordenada (4, 6)
+            H = 5
+
+        Coordenada (4, 5)
+            H = 6
+
+        Coordenada (3, 4)
+            H = 7
+
+        Coordenada (2, 5)
+            H = 7
+
+        Coordenada (2, 6)
+            H = 6
+
+Lista visitados: [(3, 5)]
 
 ----------------------
 
-Estado escolhido: (0, 1)
+Estado escolhido: (3, 6)
 
     Nós expandidos:
-        Coordenada (0, 2)
+        Coordenada (3, 7)
+            H = 4
+
+        Coordenada (4, 7)
+            H = 4
+
+        Coordenada (4, 6)
+            H = 5
+
+        Coordenada (2, 6)
+            H = 6
+
+        Coordenada (2, 7)
+            H = 5
+
+Lista visitados: [(3, 5), (3, 6)]
+
+----------------------
+
+Estado escolhido: (3, 7)
+
+    Nós expandidos:
+        Coordenada (4, 8)
             H = 3
 
-        Coordenada (1, 1)
+        Coordenada (4, 7)
             H = 4
 
-        Coordenada (1, 0)
+        Coordenada (2, 7)
             H = 5
 
-Lista visitados: [(0, 0), (0, 1)]
+        Coordenada (2, 8)
+            H = 4
+
+Lista visitados: [(3, 5), (3, 6), (3, 7)]
 
 ----------------------
 
-Estado escolhido: (0, 2)
+Estado escolhido: (4, 8)
 
     Nós expandidos:
-        Coordenada (0, 3)
+        Coordenada (4, 9)
             H = 2
 
-        Coordenada (1, 2)
+        Coordenada (5, 7)
             H = 3
 
-        Coordenada (1, 1)
+        Coordenada (4, 7)
             H = 4
 
-Lista visitados: [(0, 0), (0, 1), (0, 2)]
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8)]
 
 ----------------------
 
-Estado escolhido: (0, 3)
+Estado escolhido: (4, 9)
 
     Nós expandidos:
-        Coordenada (0, 4)
+        Coordenada (5, 7)
+            H = 3
+
+        Coordenada (4, 7)
+            H = 4
+
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8), (4, 9)]
+
+----------------------
+
+Estado escolhido: (5, 7)
+
+    Nós expandidos:
+        Coordenada (6, 7)
+            H = 4
+
+        Coordenada (5, 6)
+            H = 4
+
+        Coordenada (4, 7)
+            H = 4
+
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8), (4, 9), (5, 7)]
+
+----------------------
+
+Estado escolhido: (6, 7)
+
+    Nós expandidos:
+        Coordenada (7, 7)
+            H = 4
+
+        Coordenada (7, 6)
+            H = 5
+
+        Coordenada (6, 6)
+            H = 5
+
+        Coordenada (5, 6)
+            H = 4
+
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8), (4, 9), (5, 7), (6, 7)]
+
+----------------------
+
+Estado escolhido: (7, 7)
+
+    Nós expandidos:
+        Coordenada (7, 8)
+            H = 3
+
+        Coordenada (8, 8)
+            H = 4
+
+        Coordenada (8, 7)
+            H = 5
+
+        Coordenada (7, 6)
+            H = 5
+
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8), (4, 9), (5, 7), (6, 7), (7, 7)]
+
+----------------------
+
+Estado escolhido: (7, 8)
+
+    Nós expandidos:
+        Coordenada (7, 9)
+            H = 2
+
+        Coordenada (8, 9)
+            H = 3
+
+        Coordenada (8, 8)
+            H = 4
+
+        Coordenada (6, 9)
+            H = 2
+
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8), (4, 9), (5, 7), (6, 7), (7, 7), (7, 8)]
+
+----------------------
+
+Estado escolhido: (7, 9)
+
+    Nós expandidos:
+        Coordenada (7, 10)
+            H = 2
+
+        Coordenada (8, 10)
+            H = 3
+
+        Coordenada (8, 9)
+            H = 3
+
+        Coordenada (6, 9)
+            H = 2
+
+        Coordenada (6, 10)
             H = 1
 
-        Coordenada (1, 3)
-            H = 2
-
-        Coordenada (1, 2)
-            H = 3
-
-Lista visitados: [(0, 0), (0, 1), (0, 2), (0, 3)]
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8), (4, 9), (5, 7), (6, 7), (7, 7), (7, 8), (7, 9)]
 
 ----------------------
 
-Estado escolhido: (0, 4)
+Estado escolhido: (6, 10)
 
     Nós expandidos:
-        Coordenada (0, 5)
+        Coordenada (7, 10)
+            H = 2
+
+        Coordenada (6, 9)
+            H = 2
+
+        Coordenada (5, 10)
             H = 0
 
-        Coordenada (1, 4)
-            H = 1
-
-        Coordenada (1, 3)
-            H = 2
-
-Lista visitados: [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4)]
+Lista visitados: [(3, 5), (3, 6), (3, 7), (4, 8), (4, 9), (5, 7), (6, 7), (7, 7), (7, 8), (7, 9), (6, 10)]
 
 ----------------------
 
-Inicio: (0, 0)
-Fim: (0, 5)
-Bloqueios: []
-Quantidade de nós visitados: 5
-Visitados:[(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5)]
+Inicio: (3, 5)
+Fim: (5, 10)
+Bloqueios: [(5, 8), (6, 8), (3, 8), (3, 9), (3, 10), (4, 10), (5, 9)]
+Quantidade de nós visitados: 11
+Visitados:[(3, 5), (3, 6), (3, 7), (4, 8), (4, 9), (5, 7), (6, 7), (7, 7), (7, 8), (7, 9), (6, 10), (5, 10)]

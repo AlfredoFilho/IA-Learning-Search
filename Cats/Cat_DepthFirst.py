@@ -3,13 +3,9 @@
 *******************Developed by********************************
     
 Alfredo Albélis Batista Filho - https://github.com/AlfredoFilho
-Brenda Alexsandra Januário - https://github.com/brendajanuario
-Cléofas Peres Santos -  https://github.com/CleoPeres
-Leonardo Ferrari - https://github.com/LeonardoFerrari
-Pedro Bernini - https://github.com/PedroBernini
-Vinicius Abrantes - https://github.com/viniciusAbrantes
+Pedro Henrique Bernini Silva - https://github.com/PedroBernini
 
-*************************************************************** 
+***************************************************************
 '''
 
 import Cats.Calcular as Calcular

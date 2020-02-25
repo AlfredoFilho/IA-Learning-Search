@@ -6,7 +6,7 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
 executables = [
-        Executable("buscas.py", base=base)
+        Executable("buscas.py", base=base, icon="icon.ico")
 ]
 
 buildOptions = dict(
