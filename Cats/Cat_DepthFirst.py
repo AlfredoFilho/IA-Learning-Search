@@ -112,7 +112,7 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images, Arquivo
 
 def depthFirst(estadoInicial, estadoFinal, bloqueados):
     
-    fullNameFile = 'Gifs/Log_Profundidade.txt'
+    fullNameFile = 'Logs/Log_Profundidade.txt'
     ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
     ArquivoLog.write("------------- Log de execuções Profundidade -------------\n")
 

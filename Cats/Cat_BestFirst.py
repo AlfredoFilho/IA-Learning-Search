@@ -129,7 +129,7 @@ def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):
 
 def bestFirst(estadoInicial, estadoFinal, bloqueados):
     
-    fullNameFile = 'Gifs/Log_Melhor-Primeiro.txt'
+    fullNameFile = 'Logs/Log_Melhor-Primeiro.txt'
     ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
     ArquivoLog.write("------------- Log de execuções Melhor-Primeiro -------------\n")
 

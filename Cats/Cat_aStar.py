@@ -133,7 +133,7 @@ def ordenarNoPorHeuristica(listaAberta):
 
 def aStar(estadoInicial, estadoFinal, bloqueados):
 
-    fullNameFile = 'Gifs/Log_aStar.txt'
+    fullNameFile = 'Logs/Log_aStar.txt'
     ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
     ArquivoLog.write("------------- Log de execuções aStar -------------\n\n")
 

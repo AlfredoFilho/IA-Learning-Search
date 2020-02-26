@@ -124,7 +124,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, list
 
 def breadthFirstSearch(estadoInicial, estadoFinal, bloqueados):
 
-    fullNameFile = 'Gifs/Log_Amplitude.txt'
+    fullNameFile = 'Logs/Log_Amplitude.txt'
     ArquivoLog = codecs.open(fullNameFile, "w", encoding="utf8")
     ArquivoLog.write("------------- Log de execuções Amplitude -------------\n\n")
 
