@@ -88,16 +88,20 @@ def preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, list
     #print("Nós expandidos:")
     ArquivoLog.write("\n\n    Nós expandidos:")
 
-    for coordenada in listaExpansao:
-        distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
-        distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
-        total_F = distanciaComeco_G + distanciaAteFinal_H
-        
-        #print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
-        ArquivoLog.write("\n        Coordenada: " + str(coordenada) + "\n            F = " + str(total_F) + 
-        "\n            G = " + str(distanciaComeco_G) + "\n            H = " + str(distanciaAteFinal_H) + '\n')
-        
-        listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
+    if(len(listaExpansao) == 0):
+        ArquivoLog.write('\n\n        SEM EXPANSÕES POSSÍVEIS ou ENCONTROU O FINAL\n')
+    
+    else:
+        for coordenada in listaExpansao:
+            distanciaComeco_G = Calcular.G(estadoInicial, estadoEscolhido, listaFechada, listaAberta) + 1
+            distanciaAteFinal_H = Calcular.H(coordenada, estadoFinal)
+            total_F = distanciaComeco_G + distanciaAteFinal_H
+            
+            #print("    Coordenada:", coordenada, "F = ", total_F, "G = ",distanciaComeco_G, "H = ", distanciaAteFinal_H)
+            ArquivoLog.write("\n        Coordenada: " + str(coordenada) + "\n            F = " + str(total_F) + 
+            "\n            G = " + str(distanciaComeco_G) + "\n            H = " + str(distanciaAteFinal_H) + '\n')
+            
+            listaAberta.append(no(coordenada, total_F, distanciaComeco_G, distanciaAteFinal_H, estadoEscolhido))
     
     #print("\nLista aberta:")
     ArquivoLog.write("\nLista aberta:")

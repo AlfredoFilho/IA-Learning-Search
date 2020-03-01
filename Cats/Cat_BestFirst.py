@@ -79,7 +79,7 @@ def preencherNo(listaExpansao, estadoInicial, estadoEscolhido, visitados, estado
     adjacentes = []
 
     if(len(listaExpansao) == 0):
-        ArquivoLog.write('\n\n        SEM EXPANSÔES POSSÍVEIS ou ENCONTROU O FINAL\n')
+        ArquivoLog.write('\n\n        SEM EXPANSÕES POSSÍVEIS ou ENCONTROU O FINAL\n')
     
     else:
         for coordenada in listaExpansao :
