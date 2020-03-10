@@ -10,7 +10,7 @@ executables = [
 ]
 
 buildOptions = dict(
-        packages = ['PIL'],
+        packages = ['PIL', 'pyglet'],
         includes = [],
         include_files = ['favicon.png', 'GifMaker/font.ttf', 'GifMaker/ImagemTabuleiro.png'],
         excludes = []

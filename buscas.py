@@ -84,27 +84,28 @@ class Animation(Thread):
         
         if self.algoritmo == 'breadthFirstSearch':
             breadthFirstSearch(gato[0], saida[0], bloqueados)
-            gifWindow.title("Animação - Busca Cega: Amplitude")
-            gif = Gif(gifWindow, gif="Gifs/Gif_Amplitude.gif")
+            gifWindow.destroy()
+            gif = Gif("Gifs/Gif_Amplitude.gif", "Animação - Busca Cega: Amplitude")
+            gif.run()
             
         elif self.algoritmo == 'depthFirst':
             depthFirst(gato[0], saida[0], bloqueados)
-            gifWindow.title("Animação - Busca Cega: Profundidade")
-            gif = Gif(gifWindow, gif="Gifs/Gif_Profundidade.gif")
+            gifWindow.destroy()
+            gif = Gif("Gifs/Gif_Profundidade.gif", "Animação - Busca Cega: Profundidade")
+            gif.run()
             
         elif self.algoritmo == 'bestFirst':
             bestFirst(gato[0], saida[0], bloqueados)
-            gifWindow.title("Animação - Busca Heurística: Melhor-Primeiro")
-            gif = Gif(gifWindow, gif="Gifs/Gif_Melhor-Primeiro.gif")
+            gifWindow.destroy()
+            gif = Gif("Gifs/Gif_Melhor-Primeiro.gif", "Animação - Busca Heurística: Melhor-Primeiro")
+            gif.run()
             
         elif self.algoritmo == 'aStar':
             aStar(gato[0], saida[0], bloqueados)
-            gifWindow.title("Animação - Busca Heurística: A*")
-            gif = Gif(gifWindow, gif="Gifs/Gif_aStar.gif")
-            
-        texto.destroy()
-        gif.pack()
-        gif.run(interval = delayGif, n_repeats=-1)
+            gifWindow.destroy()
+            gif = Gif("Gifs/Gif_aStar.gif", "Animação - Busca Heurística: A*")
+            gif.run()
+        
 
 # CLASSE BOTÃO
 class CustomButton(tk.Canvas) :

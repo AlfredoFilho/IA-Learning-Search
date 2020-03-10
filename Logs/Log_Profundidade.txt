@@ -21,76 +21,8 @@ Lista visitados: [(5, 5)]
 
 ----------------------
 
-Estado escolhido: (5, 6)
-
-    Nós expandidos:
-        Coordenada (5, 7)
-
-        Coordenada (6, 7)
-
-        Coordenada (6, 6)
-
-        Coordenada (4, 6)
-
-        Coordenada (4, 7)
-
-Lista visitados: [(5, 5), (5, 6)]
-
-----------------------
-
-Estado escolhido: (5, 7)
-
-    Nós expandidos:
-        Coordenada (5, 8)
-
-        Coordenada (6, 8)
-
-        Coordenada (6, 7)
-
-        Coordenada (4, 7)
-
-        Coordenada (4, 8)
-
-Lista visitados: [(5, 5), (5, 6), (5, 7)]
-
-----------------------
-
-Estado escolhido: (5, 8)
-
-    Nós expandidos:
-        Coordenada (5, 9)
-
-        Coordenada (6, 9)
-
-        Coordenada (6, 8)
-
-        Coordenada (4, 8)
-
-        Coordenada (4, 9)
-
-Lista visitados: [(5, 5), (5, 6), (5, 7), (5, 8)]
-
-----------------------
-
-Estado escolhido: (5, 9)
-
-    Nós expandidos:
-        Coordenada (5, 10)
-
-        Coordenada (6, 10)
-
-        Coordenada (6, 9)
-
-        Coordenada (4, 9)
-
-        Coordenada (4, 10)
-
-Lista visitados: [(5, 5), (5, 6), (5, 7), (5, 8), (5, 9)]
-
-----------------------
-
 Inicio: (5, 5)
-Fim: (5, 10)
+Fim: (5, 6)
 Bloqueios: []
-Quantidade de nós visitados: 5
-Visitados:[(5, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10)]
+Quantidade de nós visitados: 1
+Visitados:[(5, 5), (5, 6)]
