@@ -1483,6 +1483,11 @@ frameDesenvolvedores.place(x=1000, y=70)
 tk.Label(frameDesenvolvedores, foreground="orange", font=("Helvetica", 14), bg=backgroundColor, text="Alfredo Albélis Batista Filho").place(x=0, y=0)
 tk.Label(frameDesenvolvedores, foreground="orange", font=("Helvetica", 14), bg=backgroundColor, text="Pedro Henrique Bernini Silva").place(x=0, y=30)
 
+# FRAME DE LOGS
+frameLog = tk.LabelFrame(root, font=("Helvetica", 10), text="Log dos algoritmos", borderwidth=2, foreground='white', relief=tk.SUNKEN, bg=backgroundColor, width=270, height=60, padx=10, pady=5)
+frameLog.place(x=1000, y=230)
+tk.Label(frameLog, foreground="white", font=("Helvetica", 10), bg=backgroundColor, text='Caminho: "/Logs/Log_<Algoritmo>.txt"').place(x=0, y=0)
+
 root.mainloop()
 
 
