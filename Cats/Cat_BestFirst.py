@@ -106,7 +106,7 @@ def ordenarNoPorHeuristica(adjacentes):
                 ordenado = False
     return adjacentes
 
-def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images):   
+def backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images, ArquivoLog):   
     count = len(visitados) - 1
     
     while(count != 0):
@@ -145,7 +145,7 @@ def bestFirst(estadoInicial, estadoFinal, bloqueados):
         listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images)
         
         if len(listaExpansao) == 0:
-            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images)
+            listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images, ArquivoLog)
             if listaExpansao == None:
                 return 0
             

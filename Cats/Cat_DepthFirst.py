@@ -34,7 +34,7 @@ class no:
         self.coordenada = coordenada
         self.pai = pai
 
-def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images, ArquivoLog):
+def expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images):
 
     if estadoEscolhido[0] % 2 != 0: #Se a linha do gato for par
         listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
@@ -132,7 +132,7 @@ def depthFirst(estadoInicial, estadoFinal, bloqueados):
     
     while estadoEscolhido != estadoFinal :  
         
-        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images, ArquivoLog)
+        listaExpansao = expandir(estadoInicial, estadoEscolhido, bloqueados, estadoFinal, visitados, images)
         
         if len(listaExpansao) == 0:
             listaExpansao = backtrack(estadoInicial, estadoFinal, bloqueados, visitados, images, ArquivoLog)

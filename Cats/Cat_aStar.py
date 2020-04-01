@@ -38,7 +38,7 @@ class no:
         self.distanciaAteFinal_H = distanciaAteFinal_H
         self.pai = pai
 
-def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal, ArquivoLog):
+def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal):
     # lista com as nos inicias em volta do pai
     listaExpansaoSuja = []
     
@@ -159,7 +159,7 @@ def aStar(estadoInicial, estadoFinal, bloqueados):
 #-----------------------------------------------------------------------
     while estadoEscolhido != estadoFinal:
 
-        listaExpansao = expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal, ArquivoLog)
+        listaExpansao = expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, estadoFinal)
         listaAberta = preencherNo(listaExpansao, estadoInicial, estadoFinal, estadoEscolhido, listaAberta, listaFechada, ArquivoLog)
         
         listaFechada.append(listaAberta[0])
