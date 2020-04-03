@@ -2,121 +2,166 @@
 
 ----------------------
 
-Estado escolhido: (5, 5)
+Estado escolhido: (5, 4)
 
     Nós expandidos:
-        Coordenada (5, 6)
-            H = 4
-
-        Coordenada (6, 6)
-            H = 5
-
         Coordenada (6, 5)
             H = 6
 
-        Coordenada (5, 4)
-            H = 6
+        Coordenada (5, 5)
+            H = 5
 
         Coordenada (4, 5)
             H = 6
 
+        Coordenada (4, 4)
+            H = 7
+
+        Coordenada (5, 3)
+            H = 7
+
+        Coordenada (6, 4)
+            H = 7
+
+Lista visitados: [(5, 4)]
+
+----------------------
+
+Estado escolhido: (5, 5)
+
+    Nós expandidos:
+        Coordenada (6, 6)
+            H = 5
+
+        Coordenada (5, 6)
+            H = 4
+
         Coordenada (4, 6)
             H = 5
 
-Lista visitados: [(5, 5)]
+        Coordenada (4, 5)
+            H = 6
+
+        Coordenada (6, 5)
+            H = 6
+
+Lista visitados: [(5, 4), (5, 5)]
 
 ----------------------
 
 Estado escolhido: (5, 6)
 
     Nós expandidos:
-        Coordenada (5, 7)
-            H = 3
-
         Coordenada (6, 7)
             H = 4
 
-        Coordenada (6, 6)
-            H = 5
-
-        Coordenada (4, 6)
-            H = 5
+        Coordenada (5, 7)
+            H = 3
 
         Coordenada (4, 7)
             H = 4
 
-Lista visitados: [(5, 5), (5, 6)]
+        Coordenada (4, 6)
+            H = 5
+
+        Coordenada (6, 6)
+            H = 5
+
+Lista visitados: [(5, 4), (5, 5), (5, 6)]
 
 ----------------------
 
 Estado escolhido: (5, 7)
 
     Nós expandidos:
-        Coordenada (5, 8)
-            H = 2
-
         Coordenada (6, 8)
+            H = 3
+
+        Coordenada (4, 8)
+            H = 3
+
+        Coordenada (4, 7)
+            H = 4
+
+        Coordenada (6, 7)
+            H = 4
+
+Lista visitados: [(5, 4), (5, 5), (5, 6), (5, 7)]
+
+----------------------
+
+Estado escolhido: (6, 8)
+
+    Nós expandidos:
+        Coordenada (7, 8)
             H = 3
 
         Coordenada (6, 7)
             H = 4
 
-        Coordenada (4, 7)
+        Coordenada (7, 7)
             H = 4
 
-        Coordenada (4, 8)
-            H = 3
-
-Lista visitados: [(5, 5), (5, 6), (5, 7)]
+Lista visitados: [(5, 4), (5, 5), (5, 6), (5, 7), (6, 8)]
 
 ----------------------
 
-Estado escolhido: (5, 8)
+Estado escolhido: (7, 8)
 
     Nós expandidos:
-        Coordenada (5, 9)
-            H = 1
-
-        Coordenada (6, 9)
-            H = 2
-
-        Coordenada (6, 8)
+        Coordenada (8, 9)
             H = 3
 
-        Coordenada (4, 8)
-            H = 3
-
-        Coordenada (4, 9)
+        Coordenada (7, 9)
             H = 2
 
-Lista visitados: [(5, 5), (5, 6), (5, 7), (5, 8)]
+        Coordenada (7, 7)
+            H = 4
+
+        Coordenada (8, 8)
+            H = 4
+
+Lista visitados: [(5, 4), (5, 5), (5, 6), (5, 7), (6, 8), (7, 8)]
 
 ----------------------
 
-Estado escolhido: (5, 9)
+Estado escolhido: (7, 9)
 
     Nós expandidos:
-        Coordenada (5, 10)
-            H = 0
+        Coordenada (8, 10)
+            H = 3
+
+        Coordenada (7, 10)
+            H = 2
 
         Coordenada (6, 10)
             H = 1
 
-        Coordenada (6, 9)
-            H = 2
+        Coordenada (8, 9)
+            H = 3
 
-        Coordenada (4, 9)
-            H = 2
-
-        Coordenada (4, 10)
-            H = 1
-
-Lista visitados: [(5, 5), (5, 6), (5, 7), (5, 8), (5, 9)]
+Lista visitados: [(5, 4), (5, 5), (5, 6), (5, 7), (6, 8), (7, 8), (7, 9)]
 
 ----------------------
 
-Inicio: (5, 5)
+Estado escolhido: (6, 10)
+
+    Nós expandidos:
+        Coordenada (7, 10)
+            H = 2
+
+        Coordenada (5, 10)
+            H = 0
+
+        Coordenada (5, 9)
+            H = 1
+
+Lista visitados: [(5, 4), (5, 5), (5, 6), (5, 7), (6, 8), (7, 8), (7, 9), (6, 10)]
+
+----------------------
+
+Inicio: (5, 4)
 Fim: (5, 10)
-Bloqueios: []
-Quantidade de nós visitados: 5
-Visitados:[(5, 5), (5, 6), (5, 7), (5, 8), (5, 9), (5, 10)]
+Bloqueios: [(4, 9), (5, 8), (6, 9)]
+Quantidade de nós visitados: 8
+Visitados:[(5, 4), (5, 5), (5, 6), (5, 7), (6, 8), (7, 8), (7, 9), (6, 10), (5, 10)]

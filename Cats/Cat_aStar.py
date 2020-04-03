@@ -46,19 +46,19 @@ def expandir(estadoEscolhido, listaAberta, listaFechada, images, bloqueados, est
     listaExpansao = []
     
     if estadoEscolhido[0] % 2 != 0: #Se a linha do gato for par
-        listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
-                             (estadoEscolhido[0] + 1, estadoEscolhido[1] + 1),  #Sudeste
-                             (estadoEscolhido[0] + 1, estadoEscolhido[1]),      #Sudoeste
-                             (estadoEscolhido[0], estadoEscolhido[1] - 1),      #Oeste
+        listaExpansaoSuja = [(estadoEscolhido[0] + 1, estadoEscolhido[1] + 1),  #Sudeste
+                             (estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
+                             (estadoEscolhido[0] - 1, estadoEscolhido[1] + 1),  #Nordeste
                              (estadoEscolhido[0] - 1, estadoEscolhido[1]),      #Noroeste
-                             (estadoEscolhido[0] - 1, estadoEscolhido[1] + 1)]  #Nordeste
-    else:
-        listaExpansaoSuja = [(estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
-                             (estadoEscolhido[0] + 1, estadoEscolhido[1]),      #Sudeste
-                             (estadoEscolhido[0] + 1, estadoEscolhido[1] - 1),  #Sudoeste
                              (estadoEscolhido[0], estadoEscolhido[1] - 1),      #Oeste
+                             (estadoEscolhido[0] + 1, estadoEscolhido[1])]      #Sudoeste      
+    else:
+        listaExpansaoSuja = [(estadoEscolhido[0] + 1, estadoEscolhido[1]),      #Sudeste
+                             (estadoEscolhido[0], estadoEscolhido[1] + 1),      #Leste
+                             (estadoEscolhido[0] - 1, estadoEscolhido[1]),      #Nordeste
                              (estadoEscolhido[0] - 1, estadoEscolhido[1] - 1),  #Noroeste
-                             (estadoEscolhido[0] - 1, estadoEscolhido[1])]      #Nordeste
+                             (estadoEscolhido[0], estadoEscolhido[1] - 1),      #Oeste
+                             (estadoEscolhido[0] + 1, estadoEscolhido[1] - 1)]  #Sudoeste
     
     
     #Retirar da lista suja bloqueados e fora do tabuleiro
