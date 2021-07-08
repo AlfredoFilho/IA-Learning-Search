@@ -1,8 +1,9 @@
 ## IA Learning Search - Ferramenta para visualizar buscas em um tabuleiro
 A*, Profundidade, Melhor-Primeiro e Amplitude
 
-Última versão [aqui](https://github.com/AlfredoFilho/IA-Learning-Search/releases/download/v0.1.0/Buscas.zip) - Windows
-<br><br>
+**Para mais informações,** [**acesse a aba de releases**](https://github.com/AlfredoFilho/IA-Learning-Search/releases/)
+<hr>
+
 ### Tela
 
 <kbd>
