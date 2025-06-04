@@ -7,7 +7,7 @@ A*, Profundidade, Melhor-Primeiro e Amplitude
 ### Tela
 
 <kbd>
-  <img src="/Tela.jpg" />
+  <img src="/Tela.png" />
 </kbd>
 
 ### Exemplos
