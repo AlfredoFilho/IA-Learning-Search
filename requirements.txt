@@ -1,0 +1,9 @@
+cx-Freeze==6.13.2
+cx-Logging==3.0
+importlib-metadata==4.8.3
+lief==0.12.3
+packaging==21.3
+Pillow==8.4.0
+pyparsing==3.1.4
+typing-extensions==4.1.1
+zipp==3.6.0

@@ -6,14 +6,20 @@ if sys.platform == "win32":
     base = "Win32GUI"
 
 executables = [
-        Executable("buscas.py", base=base, icon="icon.ico")
+        Executable("buscas.py", base = base, icon = "icon.ico")
 ]
 
 buildOptions = dict(
-        packages = ['PIL'],
-        includes = [],
-        include_files = ['favicon.png', 'GifMaker/font.ttf', 'GifMaker/ImagemTabuleiro.png'],
-        excludes = []
+    packages = ['PIL'],
+    includes = [],
+    include_files = [
+        'favicon.png',
+        ('Cats', 'Cats'),
+        ('GifMaker', 'GifMaker'),
+        ('Gifs', 'Gifs'),
+        ('Logs', 'Logs')
+    ],
+    excludes = []
 )
 
 setup(
@@ -22,4 +28,4 @@ setup(
     description = "Buscas cegas e heurísticas. By Alfredo Albélis, Pedro Bernini",
     options = dict(build_exe = buildOptions),
     executables = executables
- )
+)
